@@ -16,14 +16,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+let date = new Date().toDateString()
+
 app.post("/new-booking", async (req, res) => {
   const newBooking = new BookingModel({
-    date: req.body.date || Date.now(), //Date.now() tillfällig tills react calendar skickar via bodyn
+    date: req.body.date || date, //Date.now() tillfällig tills react calendar skickar via bodyn
     seating: req.body.seating,
     tableamount: req.body.tableamount || 1, //default 1 bord för G
   });
   await newBooking.save();
-
+  
   res.sendStatus(201);
 });
 
