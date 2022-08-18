@@ -7,9 +7,7 @@ bookingRouter.get("/bookings", async (req,res)=>{
     
     try{
         let bookings = await BookingModel.find({date : req.body.date})
-        console.log("bookings", bookings);
         let bookingSeating = bookings.filter((booking)=> booking.seating = req.body.seating)
-        console.log("Bookingseating: ",bookingSeating);
         if(bookingSeating.length > 14){
             res.send("already booked")
         }else {
