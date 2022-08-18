@@ -1,0 +1,39 @@
+.mainContainer {
+  height: 100vh;
+  width: 100%;
+  background-color: rgb(175, 175, 241);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .innerMenuContainer {
+    height: 90%;
+    width: 80%;
+    border: 5px solid black;
+  }
+}
+
+.aboutContainer {
+  height: 100vh;
+  width: 100%;
+  background-image: url(../../images/max-griss-9QEkTAzDRdk-unsplash.jpg);
+  background-size: cover;
+  background-position: 45%;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .innerAboutContainer {
+    height: 90%;
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+  }
+}
