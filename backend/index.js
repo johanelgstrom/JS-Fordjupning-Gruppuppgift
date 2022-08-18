@@ -26,12 +26,33 @@ app.get("/all-bookings", async (req, res) => {
 
 // SKAPA NY BOKNING
 app.post("/new-booking", async (req, res) => {
-  const newBooking = new BookingModel({
-    date: req.body.date || date, //Date.now() tillfällig tills react calendar skickar via bodyn
-    seating: req.body.seating,
-    tableamount: req.body.tableamount || 1, //default 1 bord för G
-  });
-  await newBooking.save();
+  const customer = await CustomerModel.findOne({email : req.body.email})
+  
+  if(customer){
+    const newBooking = new BookingModel({
+      date: req.body.date || date, //Date.now() tillfällig tills react calendar skickar via bodyn
+      seating: req.body.seating,
+      tableamount: req.body.tableamount || 1, //default 1 bord för G
+      customer: customer._id
+    });
+    await newBooking.save();
+  }else{
+    const newCustomer = await CustomerModel({
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+    })
+
+    let customerNew = await newCustomer.save();
+    
+    const newBooking = new BookingModel({
+      date: req.body.date || date, //Date.now() tillfällig tills react calendar skickar via bodyn
+      seating: req.body.seating,
+      tableamount: req.body.tableamount || 1, //default 1 bord för G
+      customer: customerNew._id
+    });
+    await newBooking.save();
+  }
   
   res.sendStatus(201);
 });
