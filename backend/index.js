@@ -10,6 +10,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// [ADMIN] HÄMTA ALLA BOKNINGAR
+app.get("/all-bookings", async (req, res) => {
+  const bookings = await BookingModel.find().lean();
+  res.send(bookings);
+});
+
+// SKAPA NY BOKNING
 app.post("/new-booking", async (req, res) => {
   const newBooking = new BookingModel({
     date: req.body.date || Date.now(), //Date.now() tillfällig tills react calendar skickar via bodyn
