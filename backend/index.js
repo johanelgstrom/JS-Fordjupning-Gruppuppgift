@@ -1,5 +1,9 @@
 require("dotenv").config();
+require("./mongoose.js");
 const express = require("express");
+
+const BookingModel = require("./models/BookingModel.js");
+const CustomerModel = require("./models/CustomerModel.js");
 
 const app = express();
 
