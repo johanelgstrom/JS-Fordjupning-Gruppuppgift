@@ -1,12 +1,15 @@
 require("dotenv").config();
 require("./mongoose.js");
+
+//REQUIREMENTS
 const express = require("express");
+const cors = require("cors");
 
 const BookingModel = require("./models/BookingModel.js");
 const CustomerModel = require("./models/CustomerModel.js");
 
 const app = express();
-//comment
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
