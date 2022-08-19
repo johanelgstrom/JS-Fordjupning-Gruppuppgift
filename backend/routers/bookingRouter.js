@@ -6,18 +6,22 @@ const CustomerModel = require("../models/CustomerModel.js");
 
 let date = new Date().toDateString()
 
-bookingRouter.get("/bookings", async (req,res)=>{
+bookingRouter.get("/bookings/:date/:seating", async (req,res)=>{
+
+  console.log("date: ",req.params.date);
+  console.log("seating: ",req.params.seating);
+
     
     try{
-        let bookings = await BookingModel.find({date : req.body.date})
-        let bookingSeating = bookings.filter((booking)=> booking.seating = req.body.seating)
+        let bookings = await BookingModel.find({date : req.params.date})
+        let bookingSeating = bookings.filter((booking)=> booking.seating = req.params.seating)
         if(bookingSeating.length > 14){
             res.send("already booked")
         }else {
-            res.send("booking is possible")
+            res.sendStatus(202)
         }
     }catch(error) {
-        res.send(404)
+        res.sendStatus(404)
     }
     
 })
