@@ -16,6 +16,7 @@ bookingRouter.get("/bookings", async (req,res)=>{
     }catch(error) {
         res.send(404)
     }
+    
 })
 
 module.exports = bookingRouter;
