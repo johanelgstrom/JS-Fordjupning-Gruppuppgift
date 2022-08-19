@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import styles from "./scss/Layout.module.scss";
+import styles from "./../scss/Layout.module.scss";
 
 export const Layout = () => {
   return (
@@ -10,9 +10,15 @@ export const Layout = () => {
         </div>
         <div className={styles.navContainer}>
           <ul className={styles.navList}>
-            <li className={styles.navItem}>Meny</li>
-            <li className={styles.navItem}>Boka</li>
-            <li className={styles.navItem}>Kontakt</li>
+            <li className={styles.navItem}>
+              <a href="/#menu">Meny</a>
+            </li>
+            <li className={styles.navItem}>
+              <a href="/book">Boka</a>
+            </li>
+            <li className={styles.navItem}>
+              <a href="/contact">Kontakt</a>
+            </li>
           </ul>
         </div>
       </div>
