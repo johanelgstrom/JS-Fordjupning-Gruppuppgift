@@ -12,7 +12,9 @@
     justify-content: center;
     align-items: center;
     h1 {
+      letter-spacing: 2pt;
       font-size: 30pt;
+      text-shadow: 1px 1px white;
     }
   }
   .navContainer {
@@ -29,6 +31,11 @@
       list-style-type: none;
       .navItem {
         font-size: 16pt;
+        letter-spacing: 1pt;
+        text-shadow: 0.5px 0.5px white;
+        a {
+          color: black;
+        }
       }
     }
   }
