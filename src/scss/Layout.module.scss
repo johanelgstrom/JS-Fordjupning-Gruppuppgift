@@ -30,9 +30,18 @@
       justify-content: space-around;
       list-style-type: none;
       .navItem {
+        width: 25%;
         font-size: 16pt;
         letter-spacing: 1pt;
+        text-align: center;
         text-shadow: 0.5px 0.5px white;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          background-color: rgb(255, 214, 101);
+          font-size: 18pt;
+          text-shadow: 0 0 transparent;
+        }
         a {
           color: black;
         }
