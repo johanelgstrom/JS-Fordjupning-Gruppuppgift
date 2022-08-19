@@ -1,6 +1,6 @@
 import Calendar from "react-calendar";
 
-export const Booking = () => {
+export const Book = () => {
   return (
     <>
       <main>
