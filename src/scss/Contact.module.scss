@@ -18,6 +18,7 @@
     }
     .contactContainer {
       width: 80%;
+      max-width: 1300px;
       min-height: 50vh;
       border: 2px solid black;
       background-color: rgba(255, 255, 255, 0.5);
@@ -80,6 +81,35 @@
             &:hover {
               background-color: rgb(92, 245, 118);
             }
+          }
+        }
+      }
+      .confirmContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        .confirmTitle {
+          p {
+            font-size: 30pt;
+            text-align: center;
+            padding: 5px;
+          }
+        }
+        .confirmText {
+          p {
+            text-align: center;
+            padding: 5px;
+          }
+        }
+        .confirmVid {
+          width: 50%;
+          max-width: 400px;
+
+          video {
+            width: 100%;
+            padding: 10px;
           }
         }
       }
