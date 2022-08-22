@@ -2,7 +2,7 @@
   background-color: transparent;
   height: 15vh;
   width: 100%;
-  position: absolute; //gör header till egen komponent för enklare styling
+  position: relative; //gör header till egen komponent för enklare styling
   z-index: 100;
 
   .logoContainer {

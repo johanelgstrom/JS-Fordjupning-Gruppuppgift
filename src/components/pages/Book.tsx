@@ -3,6 +3,7 @@ import { BookingSearch } from "../../models/BookingSearch";
 import { TableBooking } from "../../models/TableBooking";
 import { searchTableBooking, bookATable } from "../../services/bookingService";
 import { BookTableForm } from "../BookTableForm";
+import { Header } from "../Header";
 import { SearchTableForm } from "../SearchTableForm";
 export const Book = () => {
   const [newSearch, setSingleSearch] = useState<BookingSearch>({
@@ -78,6 +79,7 @@ export const Book = () => {
 
   return (
     <>
+      <Header />
       {isBookable ? (
         <BookTableForm newSearch={newSearch} createBooking={createBooking} />
       ) : (

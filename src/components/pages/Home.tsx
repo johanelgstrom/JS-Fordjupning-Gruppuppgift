@@ -1,8 +1,11 @@
 import styles from "../../scss/Home.module.scss";
+import { Header } from "../Header";
 export const Home = () => {
   return (
     <>
-      <main className={styles.mainContainer}></main>
+      <main className={styles.mainContainer}>
+        <Header />
+      </main>
       <main id="menu" className={styles.menuContainer}>
         <div className={styles.innerMenuContainer}></div>
       </main>
