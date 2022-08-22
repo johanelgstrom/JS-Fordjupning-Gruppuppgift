@@ -8,13 +8,13 @@ export const Book = () => {
   const [newSearch, setSingleSearch] = useState<BookingSearch>({
     personAmount: "",
     seating: "",
-    dateString: "",
+    date: "",
   });
 
   const [newBooking, setNewBooking] = useState<TableBooking>({
     personAmount: "",
     seating: "",
-    dateString: "",
+    date: "",
     name: "",
     email: "",
     phone: "",
@@ -23,8 +23,8 @@ export const Book = () => {
   const [isBookable, setIsBookable] = useState(false);
 
   useEffect(() => {
-    if (newSearch.dateString.length > 0 && newSearch.seating.length > 0) {
-      searchTableBooking(newSearch.dateString, newSearch.seating)
+    if (newSearch.seating.length > 0) {
+      searchTableBooking(newSearch.date, newSearch.seating)
         .then((data) => {
           if ((data = 202)) {
             setIsBookable(true);
@@ -57,7 +57,7 @@ export const Book = () => {
       new TableBooking(
         newSearch.personAmount,
         newSearch.seating,
-        newSearch.dateString,
+        newSearch.date,
         customerInformation.name,
         customerInformation.email,
         customerInformation.phone
@@ -68,13 +68,10 @@ export const Book = () => {
   const createSearchTable = (
     personAmount: string,
     seating: string,
-    date: Date
+    date: string
   ) => {
-    let dateString = date.toDateString();
-    setSingleSearch(new BookingSearch(personAmount, seating, dateString));
+    setSingleSearch(new BookingSearch(personAmount, seating, date));
   };
-
-  console.log(newSearch);
 
   return (
     <>

@@ -9,6 +9,7 @@ let date = new Date().toDateString()
 // [ADMIN] HÄMTA ALLA BOKNINGAR
 adminRouter.get("/all-bookings", async (req, res) => {
     const bookings = await BookingModel.find().lean();
+    console.log("bookings", bookings);
     res.send(bookings);
   });
 

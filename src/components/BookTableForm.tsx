@@ -4,7 +4,7 @@ interface BookTableFormProps {
   newSearch: {
     personAmount: string;
     seating: string;
-    dateString: string;
+    date: string;
   };
   createBooking(customerInformation: {
     name: string;
@@ -27,8 +27,6 @@ export const BookTableForm = (props: BookTableFormProps) => {
     });
   };
 
-  console.log(customerInformation);
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     props.createBooking(customerInformation);
@@ -44,7 +42,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
   return (
     <>
       <div>
-        <p>Du vill boka bord {props.newSearch.dateString}</p>
+        <p>Du vill boka bord {props.newSearch.date}</p>
         <p>
           för {props.newSearch.personAmount} personer, {time}
         </p>
