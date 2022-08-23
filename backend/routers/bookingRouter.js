@@ -31,11 +31,11 @@ bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
           tableSumSeatingTwo += parseInt(bookingSeatingTwo[i].tableAmount)
         }
 
-        if(tableSumSeatingOne > 4 && tableSumSeatingTwo > 4){
+        if(tableSumSeatingOne > 14 && tableSumSeatingTwo > 14){
           res.status(200).json({'message' : "Everything is booked", 'tableAmount': tableAmount});
-        }else if(tableSumSeatingOne > 4 && tableSumSeatingTwo < 5){
+        }else if(tableSumSeatingOne > 14 && tableSumSeatingTwo < 15){
           res.status(200).json({'message' : "seating two possible", 'tableAmount': tableAmount});
-        }else if (tableSumSeatingOne < 5 && tableSumSeatingTwo > 4){
+        }else if (tableSumSeatingOne < 15 && tableSumSeatingTwo > 14){
           res.status(200).json({'message' : "seating one possible", 'tableAmount': tableAmount});
         }else{
           res.status(200).json({'message' : "booking is possible", 'tableAmount': tableAmount});
@@ -63,11 +63,11 @@ bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
         tableSumSeatingTwo += parseInt(bookingSeatingTwo[i].tableAmount)
       }
     
-      if(tableSumSeatingOne > 3 && tableSumSeatingTwo > 3){
+      if(tableSumSeatingOne > 13 && tableSumSeatingTwo > 13){
         res.status(200).json({'message' : "Everything is booked", 'tableAmount': tableAmount});
-      }else if(tableSumSeatingOne > 3 && tableSumSeatingTwo < 3){
+      }else if(tableSumSeatingOne > 13 && tableSumSeatingTwo < 13){
         res.status(200).json({'message' : "seating two possible", 'tableAmount': tableAmount});
-      }else if (tableSumSeatingOne < 3 && tableSumSeatingTwo > 3){
+      }else if (tableSumSeatingOne < 13 && tableSumSeatingTwo > 13){
         res.status(200).json({'message' : "seating one possible", 'tableAmount': tableAmount});
       }else{
         res.status(200).json({'message' : "booking is possible", 'tableAmount': tableAmount});
