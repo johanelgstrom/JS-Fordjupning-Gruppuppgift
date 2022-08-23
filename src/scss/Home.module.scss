@@ -41,7 +41,7 @@ html {
     display: flex;
   }
   .menuContainer {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -50,6 +50,58 @@ html {
       height: 90%;
       width: 80%;
       border: 5px solid black;
+      margin: 20px 0 20px 0;
+      .menuTitleContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        h3 {
+          font-size: 24pt;
+        }
+      }
+
+      .menuSubText {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .menuSubLine {
+          width: 30%;
+          height: 1px;
+          background-color: black;
+        }
+        p {
+          font-weight: 100;
+        }
+      }
+      .menuItemContainer {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+        .menuItemLeft {
+          width: 40%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+
+          .itemMainText {
+            font-weight: 600;
+            font-size: 14pt;
+          }
+        }
+        .menuItemRight {
+          width: 50%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+
+          p {
+            font-weight: 600;
+          }
+        }
+      }
     }
   }
 
