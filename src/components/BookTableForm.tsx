@@ -3,14 +3,18 @@ import { ChangeEvent, useState } from "react";
 interface BookTableFormProps {
   newSearch: {
     personAmount: string;
-    seating: string;
+    /* seating: string; */
     date: string;
   };
-  createBooking(customerInformation: {
-    name: string;
-    email: string;
-    phone: string;
-  }): void;
+  createBooking(
+    customerInformation: {
+      name: string;
+      email: string;
+      phone: string;
+    },
+    seating: string
+  ): void;
+  seating: string[];
 }
 
 export const BookTableForm = (props: BookTableFormProps) => {
@@ -19,6 +23,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
     email: "",
     phone: "",
   });
+  const [seating, setSeating] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCustomerInformation({
@@ -27,27 +32,42 @@ export const BookTableForm = (props: BookTableFormProps) => {
     });
   };
 
+  const handleSeatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSeating(event.target.value);
+  };
+
+  console.log(seating);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.createBooking(customerInformation);
+    props.createBooking(customerInformation, seating);
     setCustomerInformation({ name: "", email: "", phone: "" });
   };
 
-  let time = props.newSearch.seating;
-  if (time === "1") {
-    time = "18.00";
-  } else {
-    time = "21.00";
-  }
   return (
     <>
       <div>
         <p>Du vill boka bord {props.newSearch.date}</p>
         <p>
-          för {props.newSearch.personAmount} personer, {time}
+          för {props.newSearch.personAmount} personer, {/* time */}
         </p>
       </div>
       <form onSubmit={handleSubmit}>
+        <select
+          name="seating"
+          id="seating"
+          onChange={handleSeatingChange}
+          defaultValue={"default"}
+        >
+          <option value={"default"}>Välj tid</option>
+          {props.seating.map((seating, index) => {
+            return (
+              <option key={index} value={seating}>
+                {seating}
+              </option>
+            );
+          })}
+        </select>
         <label htmlFor="name">Namn</label>
         <input
           type="text"
