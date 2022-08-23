@@ -82,9 +82,10 @@
           }
         }
         .confirmContainer {
+          height: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: space-around;
           align-items: center;
           width: 100%;
           .confirmTitle {
@@ -101,12 +102,14 @@
             }
           }
           .confirmVid {
-            width: 50%;
-            max-width: 400px;
+            width: 70%;
+            max-width: 500px;
+            border-radius: 20px;
+            overflow: hidden;
 
             video {
               width: 100%;
-              padding: 10px;
+              // padding: 10px;
             }
           }
         }

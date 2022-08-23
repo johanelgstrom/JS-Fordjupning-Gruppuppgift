@@ -1,3 +1,4 @@
+@use "mixins";
 * {
   scroll-behavior: smooth;
   text-decoration: none;
@@ -5,59 +6,109 @@
 
 .mainContainer {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   background-image: url(./../images/home-bg.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
-}
+  @include mixins.desktop {
+    background-image: url(./../images/home-desktop-bg.jpg);
+  }
 
-.menuContainer {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .innerMenuContainer {
-    height: 90%;
-    width: 80%;
-    border: 5px solid black;
+  .heroTextContainer {
+    height: 85vh;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    // animation: roll 5s linear infinite;
+
+    p {
+      font-weight: 600;
+      color: rgba(255, 214, 101, 1);
+      font-size: 12pt;
+    }
   }
 }
 
-.aboutContainer {
-  height: 100vh;
-  width: 100%;
-  background-image: url(./../images/about-bg.jpg);
-  background-size: cover;
-  background-position: 45%;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .innerAboutContainer {
-    height: 90%;
-    width: 80%;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-
-    .aboutTitleContainer {
-      height: 15%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      h3 {
-        font-size: 30pt;
-        letter-spacing: 1pt;
-        margin: 0;
-      }
+.menuAboutContainer {
+  @include mixins.desktop {
+    display: flex;
+  }
+  .menuContainer {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .innerMenuContainer {
+      height: 90%;
+      width: 80%;
+      border: 5px solid black;
     }
-    .aboutTextContainer {
-      p {
-        font-size: 11pt;
-        margin: 0 10% 0 10%;
-        text-align: center;
+  }
+
+  .aboutContainer {
+    height: 100vh;
+    width: 100%;
+    background-image: url(./../images/about-bg.jpg);
+    background-size: cover;
+    background-position: 45%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .innerAboutContainer {
+      height: 90%;
+      width: 80%;
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(5px);
+      @include mixins.tablet {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+      }
+      // @include mixins.desktop {
+      //   display: block;
+      // }
+
+      .aboutTitleContainer {
+        height: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
+          font-size: 30pt;
+          letter-spacing: 1pt;
+          margin: 0;
+        }
+      }
+      .aboutTextContainer {
+        p {
+          font-size: 11pt;
+          margin: 0 10% 0 10%;
+          text-align: center;
+        }
+      }
+      .vid {
+        display: none;
+        @include mixins.tablet {
+          display: flex;
+          justify-content: center;
+          width: 80%;
+          max-width: 400px;
+          border-radius: 20px;
+          overflow: hidden;
+        }
+        video {
+          width: 100%;
+          // padding: 10px;
+        }
       }
     }
   }

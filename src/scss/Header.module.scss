@@ -20,9 +20,14 @@
   .navContainer {
     height: 25%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .navList {
       height: 100%;
+      width: 75%;
+      max-width: 1300px;
       padding: 0;
       margin: 0;
       display: flex;
