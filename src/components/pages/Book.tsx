@@ -5,6 +5,8 @@ import { searchTableBooking, bookATable } from "../../services/bookingService";
 import { BookTableForm } from "../BookTableForm";
 import { Header } from "../Header";
 import { SearchTableForm } from "../SearchTableForm";
+import styles from "../../scss/Book.module.scss";
+
 export const Book = () => {
   const [newSearch, setSingleSearch] = useState<BookingSearch>({
     personAmount: "",
@@ -59,9 +61,7 @@ export const Book = () => {
   useEffect(() => {
     if (newBooking.name.length > 0) {
       bookATable(newBooking)
-        .then((data) => {
-          console.log("Book a table data", data);
-        })
+        .then((data) => {})
         .catch((error) => {
           console.log(error);
         });
@@ -95,16 +95,22 @@ export const Book = () => {
 
   return (
     <>
-      <Header />
-      {isBookable ? (
-        <BookTableForm
-          newSearch={newSearch}
-          createBooking={createBooking}
-          seating={seating}
-        />
-      ) : (
-        <SearchTableForm searchTable={createSearchTable} />
-      )}
+      <main className={styles.mainContainer}>
+        <div className={styles.heroContainer}>
+          <Header />
+          <div className={styles.mainContentContainer}>
+            {isBookable ? (
+              <BookTableForm
+                newSearch={newSearch}
+                createBooking={createBooking}
+                seating={seating}
+              />
+            ) : (
+              <SearchTableForm searchTable={createSearchTable} />
+            )}
+          </div>
+        </div>
+      </main>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import styles from "../scss/SearchTableForm.module.scss";
 
 interface SearchTableFormProps {
   searchTable(personAmount: string, value: string): void;
@@ -24,12 +25,20 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
     }
   };
 
+  /*   const tileDisabled = (date: Date) => {
+    return date < new Date();
+  }; */
+
   return (
     <>
-      <main>
-        <form onSubmit={handleSubmit}>
-          <Calendar onChange={setValue} value={value} locale="sv-SV" />
-
+      <main className={styles.mainContainer}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <Calendar
+            onChange={setValue}
+            value={value}
+            locale="sv-SV"
+            /* tileDisabled={tileDisabled} */
+          />
           <select
             name="personAmount"
             onChange={handlePersonAmountChange}
@@ -52,7 +61,9 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             <option value="11">11</option>
             <option value="12">12</option>
           </select>
-          <button type="submit">Sök lediga bord</button>
+          <button type="submit" className={styles.submitButton}>
+            Sök lediga bord
+          </button>
         </form>
       </main>
     </>
