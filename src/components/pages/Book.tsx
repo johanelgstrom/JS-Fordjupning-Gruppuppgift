@@ -3,31 +3,56 @@ import { BookingSearch } from "../../models/BookingSearch";
 import { TableBooking } from "../../models/TableBooking";
 import { searchTableBooking, bookATable } from "../../services/bookingService";
 import { BookTableForm } from "../BookTableForm";
+import { Header } from "../Header";
 import { SearchTableForm } from "../SearchTableForm";
+import styles from "../../scss/Book.module.scss";
+import { Contact } from "./Contact";
+import { Confirmation } from "../Confirmation";
+
 export const Book = () => {
   const [newSearch, setSingleSearch] = useState<BookingSearch>({
     personAmount: "",
-    seating: "",
-    dateString: "",
+    /* seating: "", */
+    date: "",
   });
 
   const [newBooking, setNewBooking] = useState<TableBooking>({
     personAmount: "",
+    tableAmount: "",
     seating: "",
-    dateString: "",
+    date: "",
     name: "",
     email: "",
     phone: "",
   });
 
   const [isBookable, setIsBookable] = useState(false);
+  const [seating, setSeating] = useState<string[]>([]);
+  const [tableAmount, setTableAmount] = useState("");
+  const [confirmation, setConfirmation] = useState(false);
+
+  console.log("newBooking", newBooking);
 
   useEffect(() => {
-    if (newSearch.dateString.length > 0 && newSearch.seating.length > 0) {
-      searchTableBooking(newSearch.dateString, newSearch.seating)
+    if (newSearch) {
+      searchTableBooking(newSearch.date, newSearch.personAmount)
         .then((data) => {
-          if ((data = 202)) {
+          console.log("data message", data.message);
+          console.log("data tableamount", data.tableAmount);
+          if (data.message === "booking is possible") {
             setIsBookable(true);
+            setSeating(["18.00", "21.00"]);
+            setTableAmount(data.tableAmount);
+          } else if (data.message === "seating two possible") {
+            setIsBookable(true);
+            setSeating(["21.00"]);
+            setTableAmount(data.tableAmount);
+          } else if (data.message === "seating one possible") {
+            setIsBookable(true);
+            setSeating(["18.00"]);
+            setTableAmount(data.tableAmount);
+          } else {
+            console.log(data);
           }
         })
         .catch((error) => {
@@ -39,50 +64,60 @@ export const Book = () => {
   useEffect(() => {
     if (newBooking.name.length > 0) {
       bookATable(newBooking)
-        .then((data) => {
-          console.log(data);
-        })
+        .then((data) => {})
         .catch((error) => {
           console.log(error);
         });
     }
   }, [newBooking]);
 
-  const createBooking = (customerInformation: {
-    name: string;
-    email: string;
-    phone: string;
-  }) => {
+  const createBooking = (
+    customerInformation: {
+      name: string;
+      email: string;
+      phone: string;
+    },
+    seating: string
+  ) => {
     setNewBooking(
       new TableBooking(
         newSearch.personAmount,
-        newSearch.seating,
-        newSearch.dateString,
+        tableAmount,
+        seating,
+        newSearch.date,
         customerInformation.name,
         customerInformation.email,
         customerInformation.phone
       )
     );
+    setConfirmation(true);
+    setIsBookable(false);
   };
 
-  const createSearchTable = (
-    personAmount: string,
-    seating: string,
-    date: Date
-  ) => {
-    let dateString = date.toDateString();
-    setSingleSearch(new BookingSearch(personAmount, seating, dateString));
+  const createSearchTable = (personAmount: string, date: string) => {
+    setSingleSearch(new BookingSearch(personAmount, date));
   };
-
-  console.log(newSearch);
 
   return (
     <>
-      {isBookable ? (
-        <BookTableForm newSearch={newSearch} createBooking={createBooking} />
-      ) : (
-        <SearchTableForm searchTable={createSearchTable} />
-      )}
+      <main className={styles.mainContainer}>
+        <div className={styles.heroContainer}>
+          <Header />
+          <div className={styles.mainContentContainer}>
+            {isBookable ? (
+              <BookTableForm
+                newSearch={newSearch}
+                createBooking={createBooking}
+                seating={seating}
+              />
+            ) : confirmation ? (
+              <Confirmation />
+            ) : (
+              <SearchTableForm searchTable={createSearchTable} />
+            )}
+          </div>
+        </div>
+      </main>
     </>
   );
 };
