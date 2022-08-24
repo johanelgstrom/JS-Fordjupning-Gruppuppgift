@@ -5,3 +5,14 @@ export interface AdminSearch {
   tableamount: string;
   customer: string;
 }
+
+export interface customerSearch {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export interface customerSearchResponse {
+  data: customerSearch[];
+}

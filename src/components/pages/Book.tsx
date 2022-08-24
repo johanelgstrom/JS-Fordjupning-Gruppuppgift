@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BookingSearch } from "../../models/BookingSearch";
 import { TableBooking } from "../../models/TableBooking";
 import { searchTableBooking, bookATable } from "../../services/bookingService";
 import { BookTableForm } from "../BookTableForm";
@@ -8,6 +7,7 @@ import { SearchTableForm } from "../SearchTableForm";
 import styles from "../../scss/Book.module.scss";
 import { Contact } from "./Contact";
 import { Confirmation } from "../Confirmation";
+import { BookingSearch } from "../../models/BookingSearch";
 
 export const Book = () => {
   const [newSearch, setSingleSearch] = useState<BookingSearch>({
