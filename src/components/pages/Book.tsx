@@ -6,6 +6,8 @@ import { BookTableForm } from "../BookTableForm";
 import { Header } from "../Header";
 import { SearchTableForm } from "../SearchTableForm";
 import styles from "../../scss/Book.module.scss";
+import { Contact } from "./Contact";
+import { Confirmation } from "../Confirmation";
 
 export const Book = () => {
   const [newSearch, setSingleSearch] = useState<BookingSearch>({
@@ -27,6 +29,7 @@ export const Book = () => {
   const [isBookable, setIsBookable] = useState(false);
   const [seating, setSeating] = useState<string[]>([]);
   const [tableAmount, setTableAmount] = useState("");
+  const [confirmation, setConfirmation] = useState(false);
 
   console.log("newBooking", newBooking);
 
@@ -87,6 +90,8 @@ export const Book = () => {
         customerInformation.phone
       )
     );
+    setConfirmation(true);
+    setIsBookable(false);
   };
 
   const createSearchTable = (personAmount: string, date: string) => {
@@ -105,6 +110,8 @@ export const Book = () => {
                 createBooking={createBooking}
                 seating={seating}
               />
+            ) : confirmation ? (
+              <Confirmation />
             ) : (
               <SearchTableForm searchTable={createSearchTable} />
             )}
