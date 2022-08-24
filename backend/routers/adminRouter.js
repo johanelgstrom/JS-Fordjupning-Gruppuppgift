@@ -12,15 +12,4 @@ adminRouter.get("/all-bookings", async (req, res) => {
   res.send(bookings);
 });
 
-// adminRouter.post("/admin", async (req, res) => {
-//   const bookings = {
-//     _id: req.body._id,
-//     date: req.body.date,
-//     seating: req.body.seating,
-//     tableamount: req.body.tableamount,
-//     customer: req.body.customer,
-//   };
-//   res.send(bookings);
-// });
-
 module.exports = adminRouter;

@@ -1,3 +1,4 @@
+import Calendar from "react-calendar";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { AdminSearch } from "../../models/AdminSearch";
@@ -5,6 +6,7 @@ import { AdminSearch } from "../../models/AdminSearch";
 const axios = require("axios");
 
 export const Admin = () => {
+  const [value, onChange] = useState(new Date());
   const [adminData, setadminData] = useState<AdminSearch[]>([
     {
       _id: "",
@@ -32,6 +34,9 @@ export const Admin = () => {
 
   return (
     <>
+      <div>
+        <Calendar onChange={onChange} value={value} />
+      </div>
       {adminData.map((admin) => {
         return (
           <div key={admin._id}>
