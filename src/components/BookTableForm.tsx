@@ -1,4 +1,6 @@
+import { send } from "emailjs-com";
 import { ChangeEvent, useState } from "react";
+import { ToSend } from "../models/ToSend";
 import styles from "../scss/BookTableForm.module.scss";
 
 interface BookTableFormProps {
@@ -31,19 +33,49 @@ export const BookTableForm = (props: BookTableFormProps) => {
       ...customerInformation,
       [event.target.name]: event.target.value,
     });
+    setToSend({ ...toSend, [event.target.name]: event.target.value });
   };
 
   const handleSeatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSeating(event.target.value);
+    let newToSend = { ...toSend };
+    newToSend.seating = event.target.value;
+    setToSend(newToSend);
   };
 
   console.log(seating);
+  // EMAILJS
+  const [serviceId, setServiceId] = useState<string>(
+    process.env.REACT_APP_EMAILJS_SERVICE_ID!
+  );
+  const [templateId, setTemplateId] = useState<string>(
+    process.env.REACT_APP_EMAILJS_TEMPLATE_ID!
+  );
+  const [userId, setUserId] = useState<string>(
+    process.env.REACT_APP_EMAILJS_USER_ID!
+  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     props.createBooking(customerInformation, seating);
     setCustomerInformation({ name: "", email: "", phone: "" });
+    send(serviceId, templateId, toSend, userId)
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+      })
+      .catch((err) => {
+        console.log("FAILED...", err);
+      });
   };
+
+  const [toSend, setToSend] = useState<ToSend>({
+    name: "",
+    email: "",
+    phone: "",
+    date: props.newSearch.date,
+    seating: "",
+    number: props.newSearch.personAmount,
+  });
 
   return (
     <>

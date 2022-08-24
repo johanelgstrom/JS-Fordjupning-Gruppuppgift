@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { send } from "emailjs-com";
 import styles from "../../scss/Contact.module.scss";
 import vid from "../../images/videos/contact-confirm-vid.mp4";
 import { Header } from "../Header";
@@ -55,7 +56,7 @@ export const Contact = () => {
                     <h3>Fyll i vårt kontaktformulär!</h3>
                   </div>
                   <div className={styles.contactFormContainer}>
-                    <form onSubmit={handleSubmit}>
+                    <form target="_blank" onSubmit={handleSubmit}>
                       <div className={styles.labelInputContainer}>
                         <div className={styles.labelContainer}>
                           <p>Namn</p>
