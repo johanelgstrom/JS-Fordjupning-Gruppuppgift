@@ -6,7 +6,7 @@ import { AdminSearch } from "../../models/AdminSearch";
 const axios = require("axios");
 
 export const Admin = () => {
-  const [value, onChange] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [adminData, setadminData] = useState<AdminSearch[]>([
     {
       _id: "",
@@ -32,10 +32,16 @@ export const Admin = () => {
     console.log(adminData);
   };
 
+  const onChange = (date: any) => {
+    setDate(date);
+  };
+  console.log(date);
   return (
     <>
       <div>
-        <Calendar onChange={onChange} value={value} />
+        <Calendar onChange={onChange} value={date} />
+
+        <div>{date.toString()}</div>
       </div>
       {adminData.map((admin) => {
         return (
