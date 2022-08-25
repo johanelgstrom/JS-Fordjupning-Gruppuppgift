@@ -6,10 +6,12 @@ import {
   customerSearch,
   customerSearchResponse,
 } from "../../models/AdminSearch";
+import { Header } from "../Header";
 
 const axios = require("axios");
 
 export const Admin = () => {
+  const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
   const [customer, setCustomer] = useState<customerSearch[]>([]);
   const [adminData, setadminData] = useState<AdminSearch[]>([
@@ -21,9 +23,6 @@ export const Admin = () => {
     //   customer: "",
     // },
   ]);
-
-  console.log("ADMIN DATA", adminData);
-  console.log("customer", customer);
 
   // useEffect(() => {
   //   axios
@@ -50,7 +49,6 @@ export const Admin = () => {
   //   console.log(adminData);
   // };
   const getCustomer = async (customerId: string) => {
-    console.log(customerId);
     await axios
       .get("http://localhost:8000/admin/customers/" + customerId)
       .then((Response: customerSearchResponse) => {
@@ -62,18 +60,28 @@ export const Admin = () => {
   const onChange = (date: Date) => {
     setDate(date);
   };
-  console.log(date);
+
   const deleteBooking = async (bookingId: string) => {
-    await axios
-      .post("http://localhost:8000/admin/customers/delete/" + bookingId)
-      .then((response: AxiosResponse) => {
-        console.log(response);
-        setDate(new Date());
-      });
+    const response = await axios.delete(
+      "http://localhost:8000/admin/customers/delete/" + bookingId
+    );
+    if (response.data.message) {
+      setMessage(response.data.message);
+      setDate(new Date());
+      setCustomer([]);
+    }
+
+    // await axios
+    //   .post("http://localhost:8000/admin/customers/delete/" + bookingId)
+    //   .then((response: AxiosResponse) => {
+    //     console.log(response);
+    //     setDate(new Date());
+    //   });
   };
 
   return (
     <>
+      <Header />
       <div>
         <Calendar onChange={onChange} value={date} />
       </div>
@@ -89,7 +97,7 @@ export const Admin = () => {
           </div>
         );
       })}
-
+      <p>{message}</p>
       {customer.map((customer) => {
         return (
           <div key={customer._id}>
