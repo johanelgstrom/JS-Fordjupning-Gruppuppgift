@@ -8,7 +8,7 @@ import { Book } from "./components/pages/Book";
 import { Contact } from "./components/pages/Contact";
 
 function App() {
-  const [showGdpr, setShowGdpr] = useState<boolean>(true);
+  const [showGdpr, setShowGdpr] = useState<boolean>(false);
 
   const removeGdprPopUp = () => {
     localStorage.setItem("GdprStatus", "accepted");
@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
     let getGdprStatus: string = localStorage.getItem("GdprStatus") || "";
     if (getGdprStatus === "") {
+      setShowGdpr(true);
     } else {
       setShowGdpr(false);
     }

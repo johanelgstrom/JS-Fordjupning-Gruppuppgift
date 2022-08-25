@@ -1,3 +1,4 @@
+import { HashLink as Link } from "react-router-hash-link";
 import styles from "./../scss/Header.module.scss";
 export const Header = () => {
   return (
@@ -9,21 +10,21 @@ export const Header = () => {
         <div className={styles.navContainer}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <a href="/#menu">
+              <Link to="/#menu" className={styles.linkTag}>
                 <p>Meny</p>
-              </a>
+              </Link>
             </li>
 
             <li className={styles.navItem}>
-              <a href="/book">
+              <Link to="/book" className={styles.linkTag}>
                 <p>Boka</p>
-              </a>
+              </Link>
             </li>
 
             <li className={styles.navItem}>
-              <a href="/contact">
+              <Link to="/contact" className={styles.linkTag}>
                 <p>Kontakt</p>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
