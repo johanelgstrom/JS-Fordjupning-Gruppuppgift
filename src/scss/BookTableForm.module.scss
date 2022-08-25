@@ -2,4 +2,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    .informationContainer{
+        width: 80%;
+        background-color: white;
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        .informationTextContainer{
+            width: 80%;
+            padding: 30px;
+        }
+    }
+    form{
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        gap: 10px; 
+        
+        .labelInputContainer{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            label{
+                color: black;
+                text-shadow: 1px 1px white;
+            }
+            select{
+                width: 100%;
+                padding: 10px;
+            }
+            input{
+                padding: 10px;
+            }
+        }
+        .submitButton{
+            width: 60%;
+            padding: 10px;
+            background-color: white;
+        }
+    }
 }

@@ -80,53 +80,66 @@ export const BookTableForm = (props: BookTableFormProps) => {
   return (
     <>
       <div className={styles.mainContainer}>
-        <div>
-          <p>Du vill boka bord {props.newSearch.date}</p>
-          <p>
-            för {props.newSearch.personAmount} personer, {/* time */}
-          </p>
+        <div className={styles.informationContainer}>
+          <div className={styles.informationTextContainer}>
+            <p>Du vill boka bord {props.newSearch.date}</p>
+            <p>
+              för {props.newSearch.personAmount} personer, {/* time */}
+            </p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
-          <select
-            name="seating"
-            id="seating"
-            onChange={handleSeatingChange}
-            defaultValue={"default"}
-          >
-            <option value={"default"}>Välj tid</option>
-            {props.seating.map((seating, index) => {
-              return (
-                <option key={index} value={seating}>
-                  {seating}
-                </option>
-              );
-            })}
-          </select>
-          <label htmlFor="name">Namn</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={customerInformation.name}
-            onChange={handleChange}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={customerInformation.email}
-            onChange={handleChange}
-          />
-          <label htmlFor="phone">Telefonnummer</label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            value={customerInformation.phone}
-            onChange={handleChange}
-          />
-          <button type="submit">Boka</button>
+          <div className={styles.labelInputContainer}>
+            <label htmlFor="seating">Välj tid</label>
+            <select
+              name="seating"
+              id="seating"
+              onChange={handleSeatingChange}
+              defaultValue={"default"}
+            >
+              <option value={"default"}>Välj tid</option>
+              {props.seating.map((seating, index) => {
+                return (
+                  <option key={index} value={seating}>
+                    {seating}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className={styles.labelInputContainer}>
+            <label htmlFor="name">Namn</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={customerInformation.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.labelInputContainer}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={customerInformation.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.labelInputContainer}>
+            <label htmlFor="phone">Telefonnummer</label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              value={customerInformation.phone}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" className={styles.submitButton}>
+            Boka
+          </button>
         </form>
       </div>
     </>
