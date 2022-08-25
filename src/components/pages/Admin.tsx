@@ -3,34 +3,22 @@ import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import {
   AdminSearch,
+  customer,
   customerSearch,
   customerSearchResponse,
 } from "../../models/AdminSearch";
 import { Header } from "../Header";
+import { EditCustomer } from "../EditCustomer";
 
 const axios = require("axios");
 
 export const Admin = () => {
+  const [isEditable, setIsEditable] = useState(false);
   const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
   const [customer, setCustomer] = useState<customerSearch[]>([]);
-  const [adminData, setadminData] = useState<AdminSearch[]>([
-    // {
-    //   _id: "",
-    //   date: "",
-    //   seating: "",
-    //   tableamount: "",
-    //   customer: "",
-    // },
-  ]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8000/admin/all-bookings")
-  //     .then((response: AxiosResponse) => {
-  //       setadminData(response.data);
-  //     });
-  // }, []);
+  const [adminData, setadminData] = useState<AdminSearch[]>([]);
 
   useEffect(() => {
     axios
@@ -44,10 +32,19 @@ export const Admin = () => {
       });
   }, [date]);
 
-  // const handleClick = () => {
-  //   setadminData([...adminData]);
-  //   console.log(adminData);
-  // };
+  const updateCustomerData = async (updatedCustomer: customer) => {
+    await axios
+      .put(
+        "http://localhost:8000/admin/customers/" + customer[0]._id,
+        updatedCustomer
+      )
+      .then((response: customerSearch) => {
+        console.log("PUT LOGGEN", response);
+        // customer.splice(0, 1, response);
+        setIsEditable(false);
+      });
+  };
+
   const getCustomer = async (customerId: string) => {
     await axios
       .get("http://localhost:8000/admin/customers/" + customerId)
@@ -79,6 +76,16 @@ export const Admin = () => {
     //   });
   };
 
+  // await axios
+  //   .put("http://localhost:8000/admin/customers/" + updateCustomer)
+  //   .then((response: customerSearchResponse) => {
+  //     console.log("PUT LOGGEN", response);
+  //   });
+
+  const editCustomer = () => {
+    setIsEditable(true);
+  };
+
   return (
     <>
       <Header />
@@ -90,6 +97,8 @@ export const Admin = () => {
           <div key={admin._id}>
             <p>{admin.customer}</p>
             <p>{admin.date}</p>
+            <p>{admin.seating}</p>
+            <p>{admin.tableamount}</p>
             <button onClick={() => getCustomer(admin.customer)}>
               Hämta kund
             </button>
@@ -102,9 +111,20 @@ export const Admin = () => {
         return (
           <div key={customer._id}>
             <p>{customer.email}</p>
+            <p>{customer.name}</p>
+            <p>{customer.phone}</p>
+            <button onClick={editCustomer}>Ändra</button>
           </div>
         );
       })}
+      {isEditable ? (
+        <EditCustomer
+          customer={customer}
+          updateCustomerData={updateCustomerData}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

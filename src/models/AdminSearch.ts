@@ -16,3 +16,9 @@ export interface customerSearch {
 export interface customerSearchResponse {
   data: customerSearch[];
 }
+
+export interface customer {
+  name: string;
+  email: string;
+  phone: string;
+}
