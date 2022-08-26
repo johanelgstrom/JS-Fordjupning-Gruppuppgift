@@ -7,6 +7,7 @@ interface EditCustomerProps {
 }
 
 export const EditCustomer = (props: EditCustomerProps) => {
+  const [cler, setCler] = useState("");
   const [updatedCustomer, setUpdatedCustomer] = useState({
     name: props.customer[0].name,
     email: props.customer[0].email,
