@@ -10,12 +10,26 @@
         select{
             width: 60%;
             padding: 10px; 
-            background-color: white;
+            background-color: rgb(255, 214, 101);
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            &:hover{
+                background-color: rgb(255, 194, 27);
+            }
         }
         .submitButton{
             width: 60%;
             padding: 10px;
-            background-color: white;
+            background-color: rgb(255, 214, 101);
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            border: 1px solid black;
+            &:hover{
+                background-color: rgb(255, 194, 27);
+            }
+            &:active{
+                background-color: rgb(56, 42, 4);
+            }
         }
     }
 }

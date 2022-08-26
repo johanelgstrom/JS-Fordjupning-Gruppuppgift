@@ -6,7 +6,6 @@ import { BookTableForm } from "../BookTableForm";
 import { Header } from "../Header";
 import { SearchTableForm } from "../SearchTableForm";
 import styles from "../../scss/Book.module.scss";
-import { Contact } from "./Contact";
 import { Confirmation } from "../Confirmation";
 
 export const Book = () => {
@@ -111,7 +110,7 @@ export const Book = () => {
                 seating={seating}
               />
             ) : confirmation ? (
-              <Confirmation />
+              <Confirmation confirmationInformation={newBooking} />
             ) : (
               <SearchTableForm searchTable={createSearchTable} />
             )}

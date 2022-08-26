@@ -1,0 +1,15 @@
+.confirmationContainer{
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.68);
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    .textContainer{
+        width: 80%;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        
+    }
+}
