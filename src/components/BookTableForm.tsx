@@ -83,9 +83,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
         <div className={styles.informationContainer}>
           <div className={styles.informationTextContainer}>
             <p>Du vill boka bord {props.newSearch.date}</p>
-            <p>
-              för {props.newSearch.personAmount} personer, {/* time */}
-            </p>
+            <p>för {props.newSearch.personAmount} personer</p>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
