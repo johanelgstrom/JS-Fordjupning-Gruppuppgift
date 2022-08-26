@@ -55,12 +55,17 @@ function App() {
               </p>
             </div>
             <div className={styles.gdprButtonContainer}>
-              <div className={styles.readButton}>
+              <div className={styles.readButton} id="gdprReadMore">
                 <a href="https://gdpr.eu/" target="_blank">
                   <p>Read more</p>
                 </a>
               </div>
-              <div className={styles.acceptButton} onClick={removeGdprPopUp}>
+
+              <div
+                className={styles.acceptButton}
+                onClick={removeGdprPopUp}
+                id="gdprAccept"
+              >
                 <p>Accept</p>
               </div>
             </div>

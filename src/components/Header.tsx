@@ -10,19 +10,19 @@ export const Header = () => {
         <div className={styles.navContainer}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <Link to="/#menu" className={styles.linkTag}>
+              <Link to="/#menu" className={styles.linkTag} id="menuButton">
                 <p>Meny</p>
               </Link>
             </li>
 
             <li className={styles.navItem}>
-              <Link to="/book" className={styles.linkTag}>
+              <Link to="/book" className={styles.linkTag} id="bookButton">
                 <p>Boka</p>
               </Link>
             </li>
 
             <li className={styles.navItem}>
-              <Link to="/contact" className={styles.linkTag}>
+              <Link to="/contact" className={styles.linkTag} id="contactButton">
                 <p>Kontakt</p>
               </Link>
             </li>

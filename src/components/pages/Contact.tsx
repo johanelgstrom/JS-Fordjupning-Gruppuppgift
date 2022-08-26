@@ -38,10 +38,12 @@ export const Contact = () => {
                   {" "}
                   <div className={styles.confirmContainer}>
                     <div className={styles.confirmTitle}>
-                      <p>Tack {name}</p>
+                      <p id="confirmTitle">Tack {name}</p>
                     </div>
                     <div className={styles.confirmText}>
-                      <p>Vi kontaktar dig så snart som möjligt på {email}</p>
+                      <p id="confirmText">
+                        Vi kontaktar dig så snart som möjligt på {email}
+                      </p>
                     </div>
                     <div className={styles.confirmVid}>
                       <video autoPlay loop muted>
@@ -66,6 +68,7 @@ export const Contact = () => {
                           name="name"
                           placeholder={name}
                           onChange={handleName}
+                          id="name"
                           required
                         />
                       </div>
@@ -76,7 +79,7 @@ export const Contact = () => {
                         <input
                           type="email"
                           name="email"
-                          id=""
+                          id="email"
                           placeholder={email}
                           onChange={handleEmail}
                           required
@@ -85,13 +88,16 @@ export const Contact = () => {
                       <div className={styles.labelInputContainer}>
                         <textarea
                           name="text"
+                          id="text"
                           placeholder={text}
                           onChange={handleText}
                           required
                         ></textarea>
                       </div>
 
-                      <button type="submit">Skicka</button>
+                      <button type="submit" id="submitContact">
+                        Skicka
+                      </button>
                     </form>
                   </div>
                 </>
