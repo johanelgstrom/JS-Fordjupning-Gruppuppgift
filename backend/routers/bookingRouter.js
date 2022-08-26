@@ -10,7 +10,7 @@ const CustomerModel = require("../models/CustomerModel.js");
 
 //SEARCH EXISTING BOOKINGS
 bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
-
+  
   if(req.params.personAmount < 7){
     console.log("mindre än sex personer");
     const tableAmount = "1"
@@ -31,6 +31,7 @@ bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
           tableSumSeatingTwo += parseInt(bookingSeatingTwo[i].tableAmount)
         }
 
+        //SEND RESPONSE AND TABLEAMOUNT BACK TO CLIENT
         if(tableSumSeatingOne > 14 && tableSumSeatingTwo > 14){
           res.status(200).json({'message' : "Everything is booked", 'tableAmount': tableAmount});
         }else if(tableSumSeatingOne > 14 && tableSumSeatingTwo < 15){
@@ -62,7 +63,8 @@ bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
       for (let i = 0; i < bookingSeatingTwo.length; i++) {
         tableSumSeatingTwo += parseInt(bookingSeatingTwo[i].tableAmount)
       }
-    
+      
+      //SEND RESPONSE AND TABLEAMOUNT BACK TO CLIENT
       if(tableSumSeatingOne > 13 && tableSumSeatingTwo > 13){
         res.status(200).json({'message' : "Everything is booked", 'tableAmount': tableAmount});
       }else if(tableSumSeatingOne > 13 && tableSumSeatingTwo < 13){
