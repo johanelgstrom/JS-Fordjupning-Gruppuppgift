@@ -37,7 +37,7 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             onChange={setValue}
             value={value}
             locale="sv-SV"
-            /* tileDisabled={tileDisabled} */
+            minDate={new Date()}
           />
           <select
             name="personAmount"
