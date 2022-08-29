@@ -1,14 +1,17 @@
 import Calendar from "react-calendar";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import {
-  AdminSearch,
-  customer,
-  customerSearch,
-  customerSearchResponse,
-} from "../../models/AdminSearch";
+
 import { Header } from "../Header";
-import { EditCustomer } from "../EditCustomer";
+// import { EditCustomer } from "../EditCustomer";
+import {
+  Customer,
+  CustomerSearch,
+  CustomerSearchResponse,
+  TableInfo,
+  TableSearch,
+} from "../../models/AdminSearch";
+import { EditTableInfo } from "../EditTableInfo";
 
 const axios = require("axios");
 
@@ -16,9 +19,9 @@ export const Admin = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
-  const [customer, setCustomer] = useState<customerSearch[]>([]);
+  const [customer, setCustomer] = useState<CustomerSearch[]>([]);
 
-  const [adminData, setadminData] = useState<AdminSearch[]>([]);
+  const [tableData, setTableData] = useState<TableSearch[]>([]);
 
   useEffect(() => {
     axios
@@ -28,19 +31,31 @@ export const Admin = () => {
           date.toLocaleDateString()
       )
       .then((response: AxiosResponse) => {
-        setadminData(response.data);
+        setTableData(response.data);
       });
   }, [date]);
 
-  const updateCustomerData = async (updatedCustomer: customer) => {
+  const updateCustomerData = async (updatedCustomer: Customer) => {
     await axios
       .put(
         "http://localhost:8000/admin/customers/" + customer[0]._id,
         updatedCustomer
       )
-      .then((response: customerSearch) => {
-        console.log("PUT LOGGEN", response);
+      .then((response: CustomerSearch) => {
+        console.log("För Customer", response);
         // customer.splice(0, 1, response);
+        setIsEditable(false);
+      });
+  };
+
+  const updatedTableInfo = async (updatedTableInfo: TableInfo) => {
+    await axios
+      .put(
+        "http://localhost:8000/admin/bookings/" + tableData[0]._id,
+        updatedTableInfo
+      )
+      .then((response: TableSearch) => {
+        console.log("för Table Info", response);
         setIsEditable(false);
       });
   };
@@ -48,7 +63,7 @@ export const Admin = () => {
   const getCustomer = async (customerId: string) => {
     await axios
       .get("http://localhost:8000/admin/customers/" + customerId)
-      .then((Response: customerSearchResponse) => {
+      .then((Response: CustomerSearchResponse) => {
         console.log("response", Response.data);
         setCustomer(Response.data);
       });
@@ -67,24 +82,14 @@ export const Admin = () => {
       setDate(new Date());
       setCustomer([]);
     }
-
-    // await axios
-    //   .post("http://localhost:8000/admin/customers/delete/" + bookingId)
-    //   .then((response: AxiosResponse) => {
-    //     console.log(response);
-    //     setDate(new Date());
-    //   });
   };
-
-  // await axios
-  //   .put("http://localhost:8000/admin/customers/" + updateCustomer)
-  //   .then((response: customerSearchResponse) => {
-  //     console.log("PUT LOGGEN", response);
-  //   });
 
   const editCustomer = () => {
     setIsEditable(true);
   };
+  // const editTableData = () => {
+  //   setIsEditable(true);
+  // };
 
   return (
     <>
@@ -92,17 +97,17 @@ export const Admin = () => {
       <div>
         <Calendar onChange={onChange} value={date} />
       </div>
-      {adminData.map((admin) => {
+      {tableData.map((table) => {
         return (
-          <div key={admin._id}>
-            <p>{admin.customer}</p>
-            <p>{admin.date}</p>
-            <p>{admin.seating}</p>
-            <p>{admin.tableamount}</p>
-            <button onClick={() => getCustomer(admin.customer)}>
+          <div key={table._id}>
+            <p>{table.customer}</p>
+            <p>{table.date}</p>
+            <p>{table.seating}</p>
+            <p>{table.tableamount}</p>
+            <button onClick={() => getCustomer(table.customer)}>
               Hämta kund
             </button>
-            <button onClick={() => deleteBooking(admin._id)}>Radera</button>
+            <button onClick={() => deleteBooking(table._id)}>Radera</button>
           </div>
         );
       })}
@@ -113,13 +118,36 @@ export const Admin = () => {
             <p>{customer.email}</p>
             <p>{customer.name}</p>
             <p>{customer.phone}</p>
-            <button onClick={editCustomer}>Ändra</button>
+
+            {tableData.map((tableData) => {
+              return (
+                <div key={tableData._id}>
+                  <p>{tableData.date}</p>
+                  <p>{tableData.customer}</p>
+                  <p>{tableData.personAmount}</p>
+                  <p>{tableData.seating}</p>
+                  <p>{tableData.tableamount}</p>
+                  <button onClick={editCustomer}>Ändra kund info</button>
+                </div>
+              );
+            })}
           </div>
         );
       })}
-      {isEditable ? (
+
+      {/* {isEditable ? (
         <EditCustomer
           customer={customer}
+          updateCustomerData={updateCustomerData}
+        />
+      ) : (
+        <></>
+      )} */}
+      {isEditable ? (
+        <EditTableInfo
+          tableInfo={tableData}
+          customer={customer}
+          updatedTableInfo={updatedTableInfo}
           updateCustomerData={updateCustomerData}
         />
       ) : (

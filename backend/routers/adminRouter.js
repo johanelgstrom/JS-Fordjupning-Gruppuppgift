@@ -26,9 +26,16 @@ adminRouter.delete("/customers/delete/:idDelete", async (req, res) => {
   console.log("Deleted");
   res.status(200).json({ message: "deleted" });
 });
+
 adminRouter.post("/customers", async (req, res) => {
-  CustomerModel.create(req.body).then(function (postCustomer) {
+  await CustomerModel.create(req.body).then(function (postCustomer) {
     res.send(postCustomer);
+  });
+});
+
+adminRouter.post("/bookings", async (req, res) => {
+  await BookingModel.create(req.body).then(function (postBookings) {
+    res.send(postBookings);
   });
 });
 
@@ -38,6 +45,17 @@ adminRouter.put("/customers/:idUpdate", async (req, res) => {
     req.body
   ).then(function () {
     CustomerModel.findOne({ _id: req.params.idUpdate }).then(function (update) {
+      res.send(update);
+    });
+  });
+});
+
+adminRouter.put("/bookings/:idUpdate", async (req, res) => {
+  await BookingModel.findByIdAndUpdate(
+    { _id: req.params.idUpdate },
+    req.body
+  ).then(function () {
+    BookingModel.findOne({ _id: req.params.idUpdate }).then(function (update) {
       res.send(update);
     });
   });

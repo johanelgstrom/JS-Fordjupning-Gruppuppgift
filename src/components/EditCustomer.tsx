@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { customer, customerSearch } from "../models/AdminSearch";
+import { Customer, CustomerSearch } from "../models/AdminSearch";
 
 interface EditCustomerProps {
-  customer: customerSearch[];
-  updateCustomerData(updatedCustomer: customer): void;
+  customer: CustomerSearch[];
+  updateCustomerData(updatedCustomer: Customer): void;
 }
 
 export const EditCustomer = (props: EditCustomerProps) => {
-  const [cler, setCler] = useState("");
   const [updatedCustomer, setUpdatedCustomer] = useState({
     name: props.customer[0].name,
     email: props.customer[0].email,
@@ -47,7 +46,7 @@ export const EditCustomer = (props: EditCustomerProps) => {
           value={updatedCustomer.phone}
         />
 
-        <button type="submit">ändra uppgifter</button>
+        <button type="submit">ändra uppgifter för kund</button>
       </form>
     </>
   );
