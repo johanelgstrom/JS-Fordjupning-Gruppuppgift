@@ -1,0 +1,39 @@
+.snackBarContainer{
+    padding: 10px;
+    background-color: rgb(225, 0, 0);
+    border-radius: 10px;
+    border: 2px solid black;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    .textButtonContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        color: rgb(255, 221, 0);
+        button{
+            background-color: rgb(225, 0, 0);
+            border: none;
+            div{
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgb(255, 221, 0);;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(225, 0, 0);
+            cursor: pointer;
+            color: rgb(255, 221, 0);
+            }
+        }
+    }
+}

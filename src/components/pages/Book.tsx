@@ -33,7 +33,7 @@ export const Book = () => {
 
   //SEARCH DB AND CHECK WHITCH SEATING IS POSSIBLE DEPENDING ON PERSONS
   useEffect(() => {
-    if (newSearch) {
+    if (newSearch.date && newSearch.personAmount.length > 0) {
       setIsLoading(true);
       searchTableBooking(newSearch.date, newSearch.personAmount)
         .then((data) => {

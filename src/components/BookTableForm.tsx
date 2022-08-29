@@ -1,12 +1,18 @@
 import { send } from "emailjs-com";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ToSend } from "../models/ToSend";
 import styles from "../scss/BookTableForm.module.scss";
+import {
+  validateAll,
+  validateBookingEmail,
+  validateBookingName,
+  validateBookingPhone,
+} from "../validation/validateBookingForm";
+import { ValidateSnackBar } from "./ValidateSnackBar";
 
 interface BookTableFormProps {
   newSearch: {
     personAmount: string;
-    /* seating: string; */
     date: string;
   };
   createBooking(
@@ -21,6 +27,7 @@ interface BookTableFormProps {
 }
 
 export const BookTableForm = (props: BookTableFormProps) => {
+  // STATES
   const [customerInformation, setCustomerInformation] = useState({
     name: "",
     email: "",
@@ -28,14 +35,22 @@ export const BookTableForm = (props: BookTableFormProps) => {
   });
   const [seating, setSeating] = useState("");
 
+  const [validateName, setValidateName] = useState(false);
+  const [validateEmail, setValidateEmail] = useState(false);
+  const [validatePhone, setValidatePhone] = useState(false);
+  const [validateForm, setValidateForm] = useState(false);
+
+  //HANDLE INPUT CHANGES
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCustomerInformation({
       ...customerInformation,
       [event.target.name]: event.target.value,
     });
+
     setToSend({ ...toSend, [event.target.name]: event.target.value });
   };
 
+  // HANDLE SELECT CHANGE
   const handleSeatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSeating(event.target.value);
     let newToSend = { ...toSend };
@@ -43,7 +58,6 @@ export const BookTableForm = (props: BookTableFormProps) => {
     setToSend(newToSend);
   };
 
-  console.log(seating);
   // EMAILJS
   const [serviceId, setServiceId] = useState<string>(
     process.env.REACT_APP_EMAILJS_SERVICE_ID!
@@ -55,17 +69,42 @@ export const BookTableForm = (props: BookTableFormProps) => {
     process.env.REACT_APP_EMAILJS_USER_ID!
   );
 
+  // HANDLE FORM SUBMIT AND SEND BACK TO BOOK
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.createBooking(customerInformation, seating);
-    setCustomerInformation({ name: "", email: "", phone: "" });
-    send(serviceId, templateId, toSend, userId)
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
-      })
-      .catch((err) => {
-        console.log("FAILED...", err);
-      });
+    if (
+      validateAll(
+        validateName,
+        validateEmail,
+        validatePhone,
+        customerInformation
+      )
+    ) {
+      props.createBooking(customerInformation, seating);
+      setCustomerInformation({ name: "", email: "", phone: "" });
+      setValidateForm(false);
+      send(serviceId, templateId, toSend, userId)
+        .then((response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        })
+        .catch((err) => {
+          console.log("FAILED...", err);
+        });
+    } else {
+      setValidateForm(true);
+    }
+  };
+
+  // CLIENT VALIDATION MESSAGES
+  useEffect(() => {
+    setValidateName(validateBookingName(customerInformation.name));
+    setValidateEmail(validateBookingEmail(customerInformation.email));
+    setValidatePhone(validateBookingPhone(customerInformation.phone));
+  }, [customerInformation]);
+
+  // OPENS SNACKBAR
+  const closeSnackBar = () => {
+    setValidateForm(false);
   };
 
   const [toSend, setToSend] = useState<ToSend>({
@@ -114,6 +153,13 @@ export const BookTableForm = (props: BookTableFormProps) => {
               value={customerInformation.name}
               onChange={handleChange}
             />
+            {validateName ? (
+              <></>
+            ) : (
+              <p className={styles.validate}>
+                Ditt namn måste vara minst två tecken långt.
+              </p>
+            )}
           </div>
           <div className={styles.labelInputContainer}>
             <label htmlFor="email">Email</label>
@@ -124,6 +170,11 @@ export const BookTableForm = (props: BookTableFormProps) => {
               value={customerInformation.email}
               onChange={handleChange}
             />
+            {validateEmail ? (
+              <></>
+            ) : (
+              <p className={styles.validate}>Skriv in en valid emailadress</p>
+            )}
           </div>
           <div className={styles.labelInputContainer}>
             <label htmlFor="phone">Telefonnummer</label>
@@ -134,11 +185,23 @@ export const BookTableForm = (props: BookTableFormProps) => {
               value={customerInformation.phone}
               onChange={handleChange}
             />
+            {validatePhone ? (
+              <></>
+            ) : (
+              <p className={styles.validate}>
+                Skriv in rätt telefonnummerformat: +467********
+              </p>
+            )}
           </div>
           <button type="submit" className={styles.submitButton}>
             Boka
           </button>
         </form>
+        {validateForm ? (
+          <ValidateSnackBar closeSnackBar={closeSnackBar} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

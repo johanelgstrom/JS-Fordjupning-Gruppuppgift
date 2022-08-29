@@ -12,7 +12,6 @@ const CustomerModel = require("../models/CustomerModel.js");
 bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
   
   if(req.params.personAmount < 7){
-    console.log("mindre än sex personer");
     const tableAmount = "1"
     try{
         let bookings = await BookingModel.find({date : req.params.date})

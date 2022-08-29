@@ -17,6 +17,14 @@
                 background-color: rgb(255, 214, 101);
             }
         }
+        .validate{
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            color: red;
+            padding: 5px; 
+            border-radius: 10px;
+            border: 2px solid grey;
+        }
         .submitButton{
             width: 60%;
             padding: 10px;

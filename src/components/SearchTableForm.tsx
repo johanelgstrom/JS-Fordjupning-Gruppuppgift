@@ -8,26 +8,29 @@ interface SearchTableFormProps {
 }
 
 export const SearchTableForm = (props: SearchTableFormProps) => {
+  //STATES
   const [personAmount, setPersonAmount] = useState("");
   const [value, setValue] = useState(new Date());
+  const [personValidate, setPersonValidate] = useState(false);
 
+  //HANDLE SELECT CHANGE
   const handlePersonAmountChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement></HTMLSelectElement>
   ) => {
     const amount = event.target.value;
+    setPersonValidate(false);
     setPersonAmount(amount);
   };
 
+  //HANDLE SUBMIT AND SEND BACK TO BOOK
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (personAmount.length > 0) {
+    if (personAmount.length < 1) {
+      setPersonValidate(true);
+    } else {
       props.searchTable(personAmount, value.toLocaleDateString());
     }
   };
-
-  /*   const tileDisabled = (date: Date) => {
-    return date < new Date();
-  }; */
 
   return (
     <>
@@ -44,6 +47,7 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             onChange={handlePersonAmountChange}
             id="personAmount"
             defaultValue={"default"}
+            required
           >
             <option value={"default"} disabled>
               Välj antal personer
@@ -61,6 +65,13 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             <option value="11">11</option>
             <option value="12">12</option>
           </select>
+          {personValidate ? (
+            <div className={styles.validate}>
+              <p>Du måste välja antal personer!</p>
+            </div>
+          ) : (
+            <></>
+          )}
           <button type="submit" className={styles.submitButton}>
             Sök lediga bord
           </button>
