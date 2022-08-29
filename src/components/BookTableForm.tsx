@@ -1,6 +1,6 @@
 import { send } from "emailjs-com";
 import { ChangeEvent, useEffect, useState } from "react";
-import { ToSend } from "../models/ToSend";
+import { ToSendBook } from "../models/ToSendBook";
 import styles from "../scss/BookTableForm.module.scss";
 import {
   validateAll,
@@ -107,7 +107,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
     setValidateForm(false);
   };
 
-  const [toSend, setToSend] = useState<ToSend>({
+  const [toSend, setToSend] = useState<ToSendBook>({
     name: "",
     email: "",
     phone: "",

@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import { send } from "emailjs-com";
 import styles from "../../scss/Contact.module.scss";
 import vid from "../../images/videos/contact-confirm-vid.mp4";
 import { Header } from "../Header";
+import axios from "axios";
 export const Contact = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -23,6 +23,23 @@ export const Contact = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setIsSubmitted(true);
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/contact/send",
+      data: {
+        name: name,
+        email: email,
+        message: text,
+      },
+    });
+    // TA BORT DETTA INNAN PRODUKTION, ENDAST FÖR TESTNING
+    // .then((response) => {
+    //   if (response.data.status === "success") {
+    //     alert("Message Sent.");
+    //   } else if (response.data.status === "fail") {
+    //     alert("Message failed to send.");
+    //   }
+    // });
   };
 
   return (
@@ -38,10 +55,12 @@ export const Contact = () => {
                   {" "}
                   <div className={styles.confirmContainer}>
                     <div className={styles.confirmTitle}>
-                      <p>Tack {name}</p>
+                      <p id="confirmTitle">Tack {name}</p>
                     </div>
                     <div className={styles.confirmText}>
-                      <p>Vi kontaktar dig så snart som möjligt på {email}</p>
+                      <p id="confirmText">
+                        Vi kontaktar dig så snart som möjligt på {email}
+                      </p>
                     </div>
                     <div className={styles.confirmVid}>
                       <video autoPlay loop muted>
@@ -66,6 +85,7 @@ export const Contact = () => {
                           name="name"
                           placeholder={name}
                           onChange={handleName}
+                          id="name"
                           required
                         />
                       </div>
@@ -76,7 +96,7 @@ export const Contact = () => {
                         <input
                           type="email"
                           name="email"
-                          id=""
+                          id="email"
                           placeholder={email}
                           onChange={handleEmail}
                           required
@@ -85,13 +105,16 @@ export const Contact = () => {
                       <div className={styles.labelInputContainer}>
                         <textarea
                           name="text"
+                          id="text"
                           placeholder={text}
                           onChange={handleText}
                           required
                         ></textarea>
                       </div>
 
-                      <button type="submit">Skicka</button>
+                      <button type="submit" id="submitContact">
+                        Skicka
+                      </button>
                     </form>
                   </div>
                 </>

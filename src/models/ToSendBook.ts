@@ -1,4 +1,4 @@
-export type ToSend = {
+export type ToSendBook = {
   name: string;
   email: string;
   phone: string;
