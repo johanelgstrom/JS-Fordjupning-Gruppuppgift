@@ -15,7 +15,7 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
 
   //HANDLE SELECT CHANGE
   const handlePersonAmountChange = (
-    event: React.ChangeEvent<HTMLSelectElement></HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const amount = event.target.value;
     setPersonValidate(false);
