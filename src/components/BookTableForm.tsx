@@ -1,6 +1,6 @@
 import { send } from "emailjs-com";
 import { ChangeEvent, useState } from "react";
-import { ToSend } from "../models/ToSend";
+import { ToSendBook } from "../models/ToSendBook";
 import styles from "../scss/BookTableForm.module.scss";
 
 interface BookTableFormProps {
@@ -42,8 +42,6 @@ export const BookTableForm = (props: BookTableFormProps) => {
     newToSend.seating = event.target.value;
     setToSend(newToSend);
   };
-
-  console.log(seating);
   // EMAILJS
   const [serviceId, setServiceId] = useState<string>(
     process.env.REACT_APP_EMAILJS_SERVICE_ID!
@@ -68,7 +66,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
       });
   };
 
-  const [toSend, setToSend] = useState<ToSend>({
+  const [toSend, setToSend] = useState<ToSendBook>({
     name: "",
     email: "",
     phone: "",
