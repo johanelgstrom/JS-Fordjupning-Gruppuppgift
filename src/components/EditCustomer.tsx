@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Customer, CustomerSearch } from "../models/AdminSearch";
+import style from ".././scss/AdminEditCustomer.module.scss";
 
 interface EditCustomerProps {
   customer: CustomerSearch[];
@@ -26,28 +27,37 @@ export const EditCustomer = (props: EditCustomerProps) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          type="text"
-          name="name"
-          value={updatedCustomer.name}
-        />
-        <input
-          onChange={handleChange}
-          type="email"
-          name="email"
-          value={updatedCustomer.email}
-        />
-        <input
-          onChange={handleChange}
-          type="tel"
-          name="phone"
-          value={updatedCustomer.phone}
-        />
+      <main className={style.containerFormCustomer}>
+        <div className={style.formCustomer}>
+          <form onSubmit={handleSubmit}>
+            <div className={style.styleCustomerImputs}>
+              <label>Namn:</label>
+              <input
+                onChange={handleChange}
+                type="text"
+                name="name"
+                value={updatedCustomer.name}
+              />
+              <label>Email:</label>
+              <input
+                onChange={handleChange}
+                type="email"
+                name="email"
+                value={updatedCustomer.email}
+              />
+              <label>Tele:</label>
+              <input
+                onChange={handleChange}
+                type="tel"
+                name="phone"
+                value={updatedCustomer.phone}
+              />
 
-        <button type="submit">ändra uppgifter för kund</button>
-      </form>
+              <button type="submit">ändra uppgifter för kund</button>
+            </div>
+          </form>
+        </div>
+      </main>
     </>
   );
 };

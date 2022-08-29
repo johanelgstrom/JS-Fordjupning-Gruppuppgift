@@ -1,0 +1,39 @@
+.containerFormTable{
+display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+.formTable{
+  
+        margin: 1%;
+        padding: 1%;
+        border: solid 3px rgb(255, 214, 101);
+        border-radius: 5px;
+      
+        }
+                .styleTableImputs {
+                    display: flex;
+                    flex-direction: column;
+        
+                    gap: 10px;
+                    // margin: 20px;
+                    // background-color: rgb(253, 229, 160);
+                    border-radius: 5px;
+                    padding: 2%;
+                    background-color: rgb(253, 229, 160);
+             input ,label {
+        
+                        margin: 5px;
+                    }
+        
+                    button {
+                        margin: 20px;
+                    }
+     
+    
+}
+}

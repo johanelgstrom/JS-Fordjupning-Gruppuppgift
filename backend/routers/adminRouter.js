@@ -20,6 +20,12 @@ adminRouter.get("/customers/:id", async (req, res) => {
   console.log(" BackEnd custumer", customer);
   res.send(customer);
 });
+//LA till test
+// adminRouter.get("/bookings/:id", async (req, res) => {
+//   const bookings = await BookingModel.find({ _id: req.params.id });
+//   console.log(" BackEnd bookings", bookings);
+//   res.send(bookings);
+// });
 
 adminRouter.delete("/customers/delete/:idDelete", async (req, res) => {
   await BookingModel.deleteOne({ _id: req.params.idDelete });

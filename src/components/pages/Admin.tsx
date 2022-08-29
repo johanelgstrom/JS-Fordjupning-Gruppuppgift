@@ -3,15 +3,17 @@ import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
 import { Header } from "../Header";
-// import { EditCustomer } from "../EditCustomer";
+import { EditCustomer } from "../EditCustomer";
 import {
   Customer,
   CustomerSearch,
   CustomerSearchResponse,
   TableInfo,
   TableSearch,
+  TableSearchResponse,
 } from "../../models/AdminSearch";
 import { EditTableInfo } from "../EditTableInfo";
+import styles from "../../scss/Admin.module.scss";
 
 const axios = require("axios");
 
@@ -19,6 +21,9 @@ export const Admin = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
+  const [activeCustomerBooking, setActiveCustomerBooking] = useState<
+    TableSearch[]
+  >([]);
   const [customer, setCustomer] = useState<CustomerSearch[]>([]);
 
   const [tableData, setTableData] = useState<TableSearch[]>([]);
@@ -30,10 +35,22 @@ export const Admin = () => {
           "/" +
           date.toLocaleDateString()
       )
-      .then((response: AxiosResponse) => {
+      .then((response: TableSearchResponse) => {
         setTableData(response.data);
+        setIsEditable(false);
+        const customerBookings = response.data.filter(
+          (booking) => booking.customer === customer[0]._id
+        );
+        setActiveCustomerBooking(customerBookings);
       });
   }, [date]);
+
+  useEffect(() => {
+    const customerBookings = tableData.filter(
+      (booking) => booking.customer === customer[0]._id
+    );
+    setActiveCustomerBooking(customerBookings);
+  }, [customer]);
 
   const updateCustomerData = async (updatedCustomer: Customer) => {
     await axios
@@ -61,13 +78,29 @@ export const Admin = () => {
   };
 
   const getCustomer = async (customerId: string) => {
+    console.log("customer id", customerId);
+
     await axios
       .get("http://localhost:8000/admin/customers/" + customerId)
       .then((Response: CustomerSearchResponse) => {
-        console.log("response", Response.data);
+        console.log("HÄMTAR KUND", Response.data);
+
         setCustomer(Response.data);
+        // const customerBookings = tableData.filter(
+        //   (booking) => booking.customer === customer[0]._id
+        // );
       });
   };
+
+  //test
+  // const getBookings = async (bookingsId: string) => {
+  //   await axios
+  //     .get("http://localhost:8000/admin/bookings/" + bookingsId)
+  //     .then((Response: TableSearchResponse) => {
+  //       console.log("HÄMTAR KUND", Response.data);
+  //       setTableData(Response.data);
+  //     });
+  // };
 
   const onChange = (date: Date) => {
     setDate(date);
@@ -87,72 +120,87 @@ export const Admin = () => {
   const editCustomer = () => {
     setIsEditable(true);
   };
-  // const editTableData = () => {
-  //   setIsEditable(true);
-  // };
+  const editTableData = () => {
+    setIsEditable(true);
+  };
+
+  // const customerBookings = tableData.filter(
+  //   (booking) => booking.customer === customer[0]._id
+  // );
 
   return (
     <>
-      <Header />
-      <div>
-        <Calendar onChange={onChange} value={date} />
-      </div>
-      {tableData.map((table) => {
-        return (
-          <div key={table._id}>
-            <p>{table.customer}</p>
-            <p>{table.date}</p>
-            <p>{table.seating}</p>
-            <p>{table.tableamount}</p>
-            <button onClick={() => getCustomer(table.customer)}>
-              Hämta kund
-            </button>
-            <button onClick={() => deleteBooking(table._id)}>Radera</button>
-          </div>
-        );
-      })}
-      <p>{message}</p>
-      {customer.map((customer) => {
-        return (
-          <div key={customer._id}>
-            <p>{customer.email}</p>
-            <p>{customer.name}</p>
-            <p>{customer.phone}</p>
+      <main className={styles.mainContainer}>
+        <Header />
 
-            {tableData.map((tableData) => {
-              return (
-                <div key={tableData._id}>
-                  <p>{tableData.date}</p>
-                  <p>{tableData.customer}</p>
-                  <p>{tableData.personAmount}</p>
-                  <p>{tableData.seating}</p>
-                  <p>{tableData.tableamount}</p>
-                  <button onClick={editCustomer}>Ändra kund info</button>
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+        <div>
+          <Calendar onChange={onChange} value={date} />
+        </div>
 
-      {/* {isEditable ? (
-        <EditCustomer
-          customer={customer}
-          updateCustomerData={updateCustomerData}
-        />
-      ) : (
-        <></>
-      )} */}
-      {isEditable ? (
-        <EditTableInfo
-          tableInfo={tableData}
-          customer={customer}
-          updatedTableInfo={updatedTableInfo}
-          updateCustomerData={updateCustomerData}
-        />
-      ) : (
-        <></>
-      )}
+        {tableData.map((table) => {
+          return (
+            <div className={styles.customersBookingInfo} key={table._id}>
+              <p>Kund:{table.customer}</p>
+              <p>Datum:{table.date}</p>
+              <p>Vilken sittning:{table.seating}</p>
+              <p>Antal bord:{table.tableamount}</p>
+              <button onClick={() => getCustomer(table.customer)}>
+                Hämta kund
+              </button>
+
+              <button onClick={() => deleteBooking(table._id)}>Radera</button>
+            </div>
+          );
+        })}
+
+        <p>{message}</p>
+
+        {customer.map((customer) => {
+          return (
+            <div className={styles.customersBookingInfo} key={customer._id}>
+              <div className={styles.customersInfo}>
+                <button onClick={editCustomer}>Ändra kund info</button>
+                <p>Email:{customer.email}</p>
+                <p>Namn:{customer.name}</p>
+                <p>Tele:{customer.phone}</p>
+                {activeCustomerBooking.map((table) => {
+                  return (
+                    <div
+                      className={styles.customersBookingInfo}
+                      key={table._id}
+                    >
+                      <p>Kund:{table.customer}</p>
+                      <p>Datum:{table.date}</p>
+                      <p>Vilken sittning:{table.seating}</p>
+                      <p>Antal bord:{table.tableamount}</p>
+                      <button onClick={editTableData}>Hämta bord</button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+
+        {isEditable ? (
+          <EditCustomer
+            customer={customer}
+            updateCustomerData={updateCustomerData}
+          />
+        ) : (
+          <></>
+        )}
+        {isEditable ? (
+          <EditTableInfo
+            tableInfo={tableData}
+            // customer={customer}
+            updatedTableInfo={updatedTableInfo}
+            // updateCustomerData={updateCustomerData}
+          />
+        ) : (
+          <></>
+        )}
+      </main>
     </>
   );
 };

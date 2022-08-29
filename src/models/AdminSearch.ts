@@ -6,7 +6,6 @@ export interface TableSearch {
   tableamount: string;
   customer: string;
 }
-
 export interface TableSearchResponse {
   data: TableSearch[];
 }
