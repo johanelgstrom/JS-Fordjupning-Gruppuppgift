@@ -118,4 +118,17 @@ bookingRouter.post("/new-booking", async (req, res) => {
     res.sendStatus(201);
   });
 
+  //DELETE BOOKING FROM LINK IN EMAIL
+  bookingRouter.delete("/cancel/:id", async (req, res) => {
+    const bookingId = req.params.id
+    if(bookingId){
+      try {
+        await BookingModel.findByIdAndDelete(bookingId)
+      } catch (error) {
+        console.log(error);
+      }
+      res.status(200).json({"message" : "Deleted"})
+    }
+  })
+
 module.exports = bookingRouter;
