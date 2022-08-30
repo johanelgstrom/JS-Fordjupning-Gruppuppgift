@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Customer,
-  CustomerSearch,
-  TableInfo,
-  TableSearch,
-} from "../models/AdminSearch";
+import { TableInfo, TableSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditTable.module.scss";
 
 interface EditTableInfoProps {
@@ -24,8 +19,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.updatedTableInfo(updatedTableInfo);
-    // e.preventDefault();
-    // props.updateCustomerData(updatedCustomer);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +26,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
       ...updatedTableInfo,
       [e.target.name]: e.target.value,
     });
-    // setUpdatedCustomer({ ...updatedCustomer, [e.target.name]: e.target.value });
   };
 
   console.log(updatedTableInfo);

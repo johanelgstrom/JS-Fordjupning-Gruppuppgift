@@ -1,13 +1,27 @@
 .mainContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  
+    .heroContainer {
+        background-image: url(../images/background-img-book.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+
+        .mainContentContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+        }
+    }
+}
+
+
+
+
 
     
     
-    background-color: antiquewhite;
-    height:100vh ;
+  
     .customersBookingInfo{
         margin: 1%;
         padding: 1%;
@@ -41,5 +55,5 @@ width: 40%;
     
         }
         
-}
+
   
