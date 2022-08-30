@@ -14,6 +14,7 @@ import {
 import { EditTableInfo } from "../EditTableInfo";
 import styles from "../../scss/Admin.module.scss";
 import { TableDataMap } from "../TableDataMap";
+import { EditCustomerBookingButton } from "../EditCustomerBookingButton";
 
 const axios = require("axios");
 
@@ -110,12 +111,12 @@ export const Admin = () => {
   //   }
   // };
 
-  const editCustomer = () => {
-    setIsEditableForCustomer(true);
-  };
-  const editTableData = () => {
-    setIsEditableForBooking(true);
-  };
+  // const editCustomer = () => {
+  //   setIsEditableForCustomer(true);
+  // };
+  // const editTableData = () => {
+  //   setIsEditableForBooking(true);
+  // };
 
   return (
     <>
@@ -152,9 +153,14 @@ export const Admin = () => {
                 </div>
               );
             })} */}
-
-            <p>{message}</p>
-            {customer.map((customer) => {
+            {/* <p>{message}</p> */}
+            <EditCustomerBookingButton
+              setIsEditableForCustomer={setIsEditableForCustomer}
+              setIsEditableForBooking={setIsEditableForBooking}
+              customer={customer}
+              activeCustomerBooking={activeCustomerBooking}
+            />
+            {/* {customer.map((customer) => {
               return (
                 <div className={styles.customersBookingInfo} key={customer._id}>
                   <div className={styles.customersInfo}>
@@ -179,7 +185,7 @@ export const Admin = () => {
                   </div>
                 </div>
               );
-            })}
+            })} */}
             {isEditableForBooking ? (
               <EditCustomer
                 customer={customer}
