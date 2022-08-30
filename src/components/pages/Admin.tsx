@@ -38,10 +38,15 @@ export const Admin = () => {
       .then((response: TableSearchResponse) => {
         setTableData(response.data);
         setIsEditable(false);
-        const customerBookings = response.data.filter(
-          (booking) => booking.customer === customer[0]._id
-        );
-        setActiveCustomerBooking(customerBookings);
+        if (response.data[0]) {
+          const customerBookings = response.data.filter(
+            (booking) => booking.customer
+          );
+
+          setActiveCustomerBooking(customerBookings);
+        } else {
+          setCustomer([]);
+        }
       });
   }, [date]);
 
