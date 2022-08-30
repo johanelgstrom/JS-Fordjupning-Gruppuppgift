@@ -9,20 +9,23 @@ export const Contact = () => {
   const [text, setText] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
+  // Hanterar variabeln för namn
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
+  // Hanterar variabeln för email
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-
+  // Hanterar variabeln för text
   const handleText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
-
+  // Hanterar skicka
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitted(true); // Ändrar så att "Tack"-delen poppar upp
+    // Skickar till backend som därefter skickar mail till företaget med information
     axios({
       method: "POST",
       url: "http://localhost:8000/contact/send",
@@ -32,7 +35,7 @@ export const Contact = () => {
         message: text,
       },
     });
-    // TA BORT DETTA INNAN PRODUKTION, ENDAST FÖR TESTNING
+    // TA BORT DETTA INNAN PRODUKTION, ENDAST FÖR TESTNING AV KONTAKTEMAIL
     // .then((response) => {
     //   if (response.data.status === "success") {
     //     alert("Message Sent.");
@@ -50,7 +53,7 @@ export const Contact = () => {
           <div className={styles.mainContentContainer}>
             {" "}
             <div className={styles.contactContainer}>
-              {isSubmitted ? (
+              {isSubmitted ? ( // Om true, visas tack-delen
                 <>
                   {" "}
                   <div className={styles.confirmContainer}>
@@ -70,6 +73,7 @@ export const Contact = () => {
                   </div>
                 </>
               ) : (
+                // Om isSubmitted är false, visas kontaktformuläret
                 <>
                   <div className={styles.contactTitleContainer}>
                     <h3>Fyll i vårt kontaktformulär!</h3>

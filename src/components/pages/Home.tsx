@@ -176,9 +176,11 @@ export const Home = () => {
         <main className={styles.aboutContainer}>
           <div className={styles.innerAboutContainer}>
             <div className={styles.aboutTitleContainer}>
+              {/* ABOUT TITLE */}
               <h3 id="about">OM OSS</h3>
             </div>
             <div className={styles.aboutTextContainer}>
+              {/* ABOUT TEXT */}
               <p>
                 Lorizzle break it down dolor sit ma nizzle, consectetuer
                 adipiscing dope. Nullizzle dizzle velizzle, aliquet volutpizzle,
@@ -201,6 +203,7 @@ export const Home = () => {
                 lobortizzle.{" "}
               </p>
             </div>
+            {/* ABOUT VIDEO TABLET / DESKTOP */}
             <div className={styles.vid}>
               <video autoPlay loop muted>
                 <source src={vid} type="video/mp4" />

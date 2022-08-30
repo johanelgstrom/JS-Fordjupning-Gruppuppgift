@@ -1,5 +1,4 @@
 import cypress from "cypress";
-import "cypress-react-selector";
 
 describe("booking test", () => {
   it("booking on an non-full day should go through", () => {

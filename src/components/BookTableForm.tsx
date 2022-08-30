@@ -39,6 +39,24 @@ export const BookTableForm = (props: BookTableFormProps) => {
   const [validateEmail, setValidateEmail] = useState(false);
   const [validatePhone, setValidatePhone] = useState(false);
   const [validateForm, setValidateForm] = useState(false);
+  // EMAILJS STATES
+  const [toSend, setToSend] = useState<ToSendBook>({
+    name: "",
+    email: "",
+    phone: "",
+    date: props.newSearch.date,
+    seating: "",
+    number: props.newSearch.personAmount,
+  });
+  const [serviceId, setServiceId] = useState<string>(
+    process.env.REACT_APP_EMAILJS_SERVICE_ID!
+  );
+  const [templateId, setTemplateId] = useState<string>(
+    process.env.REACT_APP_EMAILJS_TEMPLATE_ID!
+  );
+  const [userId, setUserId] = useState<string>(
+    process.env.REACT_APP_EMAILJS_USER_ID!
+  );
 
   //HANDLE INPUT CHANGES
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -57,17 +75,6 @@ export const BookTableForm = (props: BookTableFormProps) => {
     newToSend.seating = event.target.value;
     setToSend(newToSend);
   };
-
-  // EMAILJS
-  const [serviceId, setServiceId] = useState<string>(
-    process.env.REACT_APP_EMAILJS_SERVICE_ID!
-  );
-  const [templateId, setTemplateId] = useState<string>(
-    process.env.REACT_APP_EMAILJS_TEMPLATE_ID!
-  );
-  const [userId, setUserId] = useState<string>(
-    process.env.REACT_APP_EMAILJS_USER_ID!
-  );
 
   // HANDLE FORM SUBMIT AND SEND BACK TO BOOK
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -107,15 +114,6 @@ export const BookTableForm = (props: BookTableFormProps) => {
   const closeSnackBar = () => {
     setValidateForm(false);
   };
-
-  const [toSend, setToSend] = useState<ToSendBook>({
-    name: "",
-    email: "",
-    phone: "",
-    date: props.newSearch.date,
-    seating: "",
-    number: props.newSearch.personAmount,
-  });
 
   return (
     <>
