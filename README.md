@@ -18,6 +18,7 @@ Dessa är för EmailJS, vilket är paketet vi använder för att skicka boknings
 
 Anslutning till lokal databas (MongoDB)  
 **CONNECTION_STRING**  
+
 Dessa är för Nodemailer, vilket är paketet vi använder för att skicka information från kontaktsidan till vårt företags e-mail  
 **EMAIL**  
 **PASSWORD**
