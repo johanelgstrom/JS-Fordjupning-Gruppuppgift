@@ -1,17 +1,19 @@
 .mainContainer {
-    .heroContainer {
-        background-image: url(../images/background-img-book.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 100vh;
+position: relative;
+    .heroContainer::before {
+       content: "";
 
-        .mainContentContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 40px;
-        }
+    position: fixed;
+    z-index: -1;
+    display: block;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-image: url(../images/home-desktop-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
     }
 }
 
@@ -22,38 +24,38 @@
     
     
   
-    .customersBookingInfo{
-        margin: 1%;
-        padding: 1%;
+//     .customersBookingInfo{
+//         margin: 1%;
+//         padding: 1%;
         
-    border-radius: 5px;
-background-color:rgb(255, 214, 101); 
-width: 40%;
+//     border-radius: 5px;
+// background-color:rgb(255, 214, 101); 
+// width: 40%;
 
 
-.customersInfo{
+// .customersInfo{
   
-    padding: 2%;
-    background-color: rgb(253, 229, 160);
+//     padding: 2%;
+//     background-color: rgb(253, 229, 160);
 
-}
-.customersInfoTable{
-    margin-top: 2%;
-    padding: 2%;
-        background-color: rgb(253, 229, 160);
+// }
+// .customersInfoTable{
+//     margin-top: 2%;
+//     padding: 2%;
+//         background-color: rgb(253, 229, 160);
 
-}
+// }
 
 
-    }
-        .rowOnChangeInfo {
-        background-color: antiquewhite;
-            display: flex;
+//     }
+//         .rowOnChangeInfo {
+//         background-color: antiquewhite;
+//             display: flex;
     
-            align-items: center;
-            gap: 100px;
+//             align-items: center;
+//             gap: 100px;
     
-        }
+//         }
         
 
   

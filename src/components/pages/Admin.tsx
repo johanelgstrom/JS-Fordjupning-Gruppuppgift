@@ -21,6 +21,7 @@ const axios = require("axios");
 export const Admin = () => {
   const [isEditableForBooking, setIsEditableForBooking] = useState(false);
   const [isEditableForCustomer, setIsEditableForCustomer] = useState(false);
+  const [isBookable, setIsBookable] = useState(true);
   const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
   const [activeCustomerBooking, setActiveCustomerBooking] = useState<
@@ -98,6 +99,7 @@ export const Admin = () => {
 
   const onChange = (date: Date) => {
     setDate(date);
+    setIsBookable(false);
   };
 
   // const deleteBooking = async (bookingId: string) => {
@@ -121,12 +123,17 @@ export const Admin = () => {
   return (
     <>
       <main className={styles.mainContainer}>
+        <div className={styles.bg}></div>
         <div className={styles.heroContainer}>
           <Header />
           <div className={styles.mainContentContainer}>
-            <div>
-              <Calendar onChange={onChange} value={date} />
-            </div>
+            {isBookable ? (
+              <div>
+                <Calendar onChange={onChange} value={date} />
+              </div>
+            ) : (
+              <></>
+            )}
             <TableDataMap
               tableInfo={tableData}
               customer={customer}
