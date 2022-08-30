@@ -81,6 +81,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
       )
     ) {
       props.createBooking(customerInformation, seating);
+      console.log("Bokat!!");
       setCustomerInformation({ name: "", email: "", phone: "" });
       setValidateForm(false);
       send(serviceId, templateId, toSend, userId)
