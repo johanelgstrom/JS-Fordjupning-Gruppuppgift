@@ -1,5 +1,5 @@
 import Calendar from "react-calendar";
-import { AxiosResponse } from "axios";
+
 import { useEffect, useState } from "react";
 
 import { Header } from "../Header";
@@ -60,7 +60,7 @@ export const Admin = () => {
       )
       .then((response: CustomerSearch) => {
         console.log("För Customer", response);
-        // customer.splice(0, 1, response);
+
         setIsEditable(false);
       });
   };
@@ -86,21 +86,8 @@ export const Admin = () => {
         console.log("HÄMTAR KUND", Response.data);
 
         setCustomer(Response.data);
-        // const customerBookings = tableData.filter(
-        //   (booking) => booking.customer === customer[0]._id
-        // );
       });
   };
-
-  //test
-  // const getBookings = async (bookingsId: string) => {
-  //   await axios
-  //     .get("http://localhost:8000/admin/bookings/" + bookingsId)
-  //     .then((Response: TableSearchResponse) => {
-  //       console.log("HÄMTAR KUND", Response.data);
-  //       setTableData(Response.data);
-  //     });
-  // };
 
   const onChange = (date: Date) => {
     setDate(date);
@@ -119,6 +106,10 @@ export const Admin = () => {
 
   const editCustomer = () => {
     setIsEditable(true);
+    if (customer) {
+    } else {
+      <></>;
+    }
   };
   const editTableData = () => {
     setIsEditable(true);
