@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# Medieinstitutet - Javascript Fördjupning - Gruppuppgift
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Resturang "Matad", skapad av [Johan Elgström](https://github.com/johanelgstrom), [Ludvig Thunberg](https://github.com/LudvigThunberg) och [Simon Halvorsen](https://github.com/simonhalvorsen92). FED21S, 2022.
 
-## Available Scripts
+## Information innan vi startar
 
-In the project directory, you can run:
+Det finns sex rader i två .env-filer som behöver ersättas för att e-mail- samt backendfunktionerna ska fungera som tänkt.
+
+### `.env i projektets rot`
+
+Dessa är för EmailJS, vilket är paketet vi använder för att skicka boknings- och avbokningsbekräftelser via e-mail
+**REACT_APP_EMAILJS_SERVICE_ID**
+**REACT_APP_EMAILJS_TEMPLATE_ID**
+**REACT_APP_EMAILJS_USER_ID**
+[Läs mer om EmailJS här](https://www.emailjs.com/)
+
+### `.env i backend-mappen`
+
+Anslutning till lokal databas (MongoDB)
+**CONNECTION_STRING**
+Dessa är för Nodemailer, vilket är paketet vi använder för att skicka information från kontaktsidan till vårt företags e-mail
+**EMAIL**
+**PASSWORD**
+
+**CONNECTION_STRING** är det enda som behövs för att applikationen ska fungera, dock utan e-mailrelaterade funktioner.
+
+## För att starta applikationen
+
+### `npm i`
+
+**NOTERA** att detta måste göras i både roten samt i backend-mappen.
+
+### `nodemon`
+
+I backend-mappen
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I roten
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Ni måste alltså ha två separata terminalen där ena kör front-end och den andra back-end.
 
-### `npm test`
+### `npx cypress open`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+För att köra tester
 
-### `npm run build`
+## Tekniker använda i applikationen
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Front-end**
+EmailJS
+React w/ typescript
+React-calendar
+SCSS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Back-end**
+NodeJS (Express)
+MongoDB
+Mongoose
+Nodemailer
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Testning**
+Cypress
