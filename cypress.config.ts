@@ -2,7 +2,7 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   chromeWebSecurity: false,
-  mulitple: true,
+  // mulitple: true,
 
   e2e: {
     // We've imported your old cypress plugins here.
@@ -10,7 +10,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return require("./cypress/plugins/index.js")(on, config);
     },
-    baseUrl: "http://localhost:3000",
+    // baseUrl: "http://localhost:3000",
   },
 
   component: {
