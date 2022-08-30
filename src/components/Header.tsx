@@ -5,7 +5,9 @@ export const Header = () => {
     <>
       <div className={styles.headerContainer}>
         <div className={styles.logoContainer}>
-          <h1>MATAD</h1>
+          <Link to={"/"} className={styles.linkTag}>
+            <h1>MATAD</h1>
+          </Link>
         </div>
         <div className={styles.navContainer}>
           <ul className={styles.navList}>

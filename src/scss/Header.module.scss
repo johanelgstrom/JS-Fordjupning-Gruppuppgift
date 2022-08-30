@@ -13,9 +13,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    h1 {
-      letter-spacing: 5pt;
-      font-size: 30pt;
+    .linkTag {
+      color: black;
+      h1 {
+        letter-spacing: 5pt;
+        font-size: 26pt;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          color: rgb(255, 214, 101);
+        }
+      }
     }
   }
   .navContainer {
