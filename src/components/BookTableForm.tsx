@@ -1,6 +1,5 @@
-import { send } from "emailjs-com";
+import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import { ToSendBook } from "../models/ToSendBook";
 import styles from "../scss/BookTableForm.module.scss";
 import {
   validateAll,
@@ -40,23 +39,23 @@ export const BookTableForm = (props: BookTableFormProps) => {
   const [validatePhone, setValidatePhone] = useState(false);
   const [validateForm, setValidateForm] = useState(false);
   // EMAILJS STATES
-  const [toSend, setToSend] = useState<ToSendBook>({
-    name: "",
-    email: "",
-    phone: "",
-    date: props.newSearch.date,
-    seating: "",
-    number: props.newSearch.personAmount,
-  });
-  const [serviceId, setServiceId] = useState<string>(
-    process.env.REACT_APP_EMAILJS_SERVICE_ID!
-  );
-  const [templateId, setTemplateId] = useState<string>(
-    process.env.REACT_APP_EMAILJS_TEMPLATE_ID!
-  );
-  const [userId, setUserId] = useState<string>(
-    process.env.REACT_APP_EMAILJS_USER_ID!
-  );
+  // const [toSend, setToSend] = useState<ToSendBook>({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   date: props.newSearch.date,
+  //   seating: "",
+  //   number: props.newSearch.personAmount,
+  // });
+  // const [serviceId, setServiceId] = useState<string>(
+  //   process.env.REACT_APP_EMAILJS_SERVICE_ID!
+  // );
+  // const [templateId, setTemplateId] = useState<string>(
+  //   process.env.REACT_APP_EMAILJS_TEMPLATE_ID!
+  // );
+  // const [userId, setUserId] = useState<string>(
+  //   process.env.REACT_APP_EMAILJS_USER_ID!
+  // );
 
   //HANDLE INPUT CHANGES
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -65,15 +64,15 @@ export const BookTableForm = (props: BookTableFormProps) => {
       [event.target.name]: event.target.value,
     });
 
-    setToSend({ ...toSend, [event.target.name]: event.target.value });
+    // setToSend({ ...toSend, [event.target.name]: event.target.value });
   };
 
   // HANDLE SELECT CHANGE
   const handleSeatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSeating(event.target.value);
-    let newToSend = { ...toSend };
-    newToSend.seating = event.target.value;
-    setToSend(newToSend);
+    // let newToSend = { ...toSend };
+    // newToSend.seating = event.target.value;
+    // setToSend(newToSend);
   };
 
   // HANDLE FORM SUBMIT AND SEND BACK TO BOOK
@@ -91,13 +90,13 @@ export const BookTableForm = (props: BookTableFormProps) => {
       console.log("Bokat!!");
       setCustomerInformation({ name: "", email: "", phone: "" });
       setValidateForm(false);
-      send(serviceId, templateId, toSend, userId)
-        .then((response) => {
-          console.log("SUCCESS!", response.status, response.text);
-        })
-        .catch((err) => {
-          console.log("FAILED...", err);
-        });
+      // send(serviceId, templateId, toSend, userId)
+      //   .then((response) => {
+      //     console.log("SUCCESS!", response.status, response.text);
+      //   })
+      //   .catch((err) => {
+      //     console.log("FAILED...", err);
+      //   });
     } else {
       setValidateForm(true);
     }
