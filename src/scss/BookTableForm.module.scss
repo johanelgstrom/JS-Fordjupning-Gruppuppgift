@@ -40,7 +40,7 @@
                 border-radius: 10px;
                 transition: all 0.5s ease;
             &:hover{
-                background-color: rgb(255, 214, 101);
+                background-color: rgba(255, 214, 101, 0.68);
             }
             }
             input{
@@ -50,7 +50,7 @@
                 border: 1px solid black;
                 transition: all 0.5s ease;
             &:hover{
-                background-color: rgb(255, 214, 101);
+                background-color: rgba(255, 214, 101, 0.68);
             }
             }
             .validate{
@@ -74,7 +74,7 @@
             backdrop-filter: blur(5px);
             transition: all 0.2s ease-in-out;
         &:hover {
-          background-color: rgb(255, 214, 101);
+            background-color: rgba(255, 214, 101, 0.68);
         }
             &:active{
                 background-color: rgb(56, 42, 4);
