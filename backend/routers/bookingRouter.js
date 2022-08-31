@@ -140,5 +140,5 @@ bookingRouter.post("/new-booking", async (req, res) => {
       console.log(error);
     }
   })
-
+ 
 module.exports = bookingRouter;
