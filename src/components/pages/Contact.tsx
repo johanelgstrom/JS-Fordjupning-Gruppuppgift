@@ -29,7 +29,7 @@ export const Contact = () => {
     // Skickar till backend som därefter skickar mail till företaget med information
     axios({
       method: "POST",
-      url: "http://localhost:8000/contact/send",
+      url: "http://localhost:8000/email/sendThanks",
       data: {
         name: name,
         email: email,
