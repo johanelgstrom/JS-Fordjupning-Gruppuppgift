@@ -6,6 +6,7 @@ import { Layout } from "./components/Layout";
 import { Home } from "./components/pages/Home";
 import { Book } from "./components/pages/Book";
 import { Contact } from "./components/pages/Contact";
+import { CancelBooking } from "./components/pages/CancelBooking";
 
 function App() {
   const [showGdpr, setShowGdpr] = useState<boolean>(false);
@@ -78,6 +79,7 @@ function App() {
             <Route index element={<Home />}></Route>
             <Route path="/book" element={<Book />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
+            <Route path="/cancel/:id" element={<CancelBooking />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

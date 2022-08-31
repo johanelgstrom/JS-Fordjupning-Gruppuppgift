@@ -1,0 +1,14 @@
+.mainContainer{
+    .heroContainer{
+    background-image: url(../images/cancel-booking-BG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    
+}
+}
