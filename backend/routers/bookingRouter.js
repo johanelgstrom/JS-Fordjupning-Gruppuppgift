@@ -77,7 +77,6 @@ bookingRouter.get("/bookings/:date/:personAmount", async (req,res)=>{
       res.sendStatus(404)
   }
   }
-    
 })
 
 // CREATE NEW BOOKING
@@ -117,5 +116,29 @@ bookingRouter.post("/new-booking", async (req, res) => {
     
     res.sendStatus(201);
   });
+
+  //DELETE BOOKING FROM LINK IN EMAIL
+  bookingRouter.delete("/cancel/:id", async (req, res) => {
+    const bookingId = req.params.id
+    if(bookingId){
+      try {
+        await BookingModel.findByIdAndDelete(bookingId)
+      } catch (error) {
+        console.log(error);
+      }
+      res.status(200).json({"message" : "Deleted"})
+    }
+  })
+
+  bookingRouter.get("/cancel/:id", async (req, res)=> {
+    const bookingId = req.params.id
+    try {
+      let booking = await BookingModel.findById(bookingId)
+      let customer = await CustomerModel.findById(booking.customer)
+      res.status(200).send({booking, customer})
+    } catch (error) {
+      console.log(error);
+    }
+  })
 
 module.exports = bookingRouter;
