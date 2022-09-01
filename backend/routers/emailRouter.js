@@ -84,7 +84,41 @@ emailRouter.post("/bookConfirm", (req, res) => {
     from: "Resturang Matad",
     subject: "Bokningsbekräftelse hos Matad - " + date + " " + seating,
     to: email,
-    html: `<p>Hej ${name},</p><p>Detta är en bekräftelse hos oss på Matad den ${date} kl. ${seating} för ${personAmount} ${newPersonAmount}.</p><p>För att avboka, klicka på knappen nedan.</p><a href="http://localhost:8000/booking/cancel/${id}"><button>Avboka</button></a> <br> <p>Varmt välkommen,</p><p>Resturang Matad</p>`,
+    html: `<p>Hej ${name},</p><p>Detta är en bekräftelse hos oss på Matad den ${date} kl. ${seating} för ${personAmount} ${newPersonAmount}.</p><p>För att avboka, klicka på knappen nedan.</p><a href="http://localhost:3000/cancel/${id}"><button>Avboka</button></a> <br> <p>Varmt välkommen,</p><p>Resturang Matad</p>`,
+  };
+  // Skickar samt kontrollerar mail
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: "fail",
+      });
+    } else {
+      res.json({
+        status: "success",
+      });
+    }
+  });
+});
+
+emailRouter.post("/bookCancel", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const date = req.body.date;
+  const seating = req.body.seating;
+  const personAmount = req.body.personAmount;
+
+  // Om antal personer i bokningen är 1 används "person", om fler så används "personer"
+  if (parseInt(personAmount) === 1) {
+    newPersonAmount = "person";
+  } else {
+    newPersonAmount = "personer";
+  }
+  // Mall för email
+  const mail = {
+    from: "Resturang Matad",
+    subject: "Avbokningsbekräftelse hos Matad - " + date + " " + seating,
+    to: email,
+    html: `<p>Hej ${name},</p><p>Detta är en bekräftelse på din avbokning hos oss på Matad den ${date} kl. ${seating} för ${personAmount} ${newPersonAmount}.</p><p>Varmt välkommen att boka hos oss igen,</p><p>Resturang Matad</p>`,
   };
   // Skickar samt kontrollerar mail
   transporter.sendMail(mail, (err, data) => {

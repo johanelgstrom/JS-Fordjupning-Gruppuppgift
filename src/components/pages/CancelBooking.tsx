@@ -11,6 +11,7 @@ import { Header } from "../Header";
 import styles from "../../scss/CancelBooking.module.scss";
 import { CancelBookingConfirmation } from "../CancelBookingConfirmation";
 import { Loader } from "../Loader";
+import axios from "axios";
 
 type IdParams = {
   id: string;
@@ -58,6 +59,17 @@ export const CancelBooking = () => {
           if (response.data.message === "Deleted") {
             setIsLoading(false);
             setIsDeleted(false);
+            axios({
+              method: "POST",
+              url: "http://localhost:8000/email/bookCancel",
+              data: {
+                name: customer.name,
+                email: customer.email,
+                date: booking.date,
+                seating: booking.seating,
+                personAmount: booking.personAmount,
+              },
+            });
           }
         })
         .catch((error) => {
