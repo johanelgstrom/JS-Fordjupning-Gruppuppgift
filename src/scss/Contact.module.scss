@@ -40,6 +40,10 @@
             justify-content: space-around;
             align-items: center;
 
+            .errorText {
+              color: red;
+            }
+
             .labelInputContainer {
               display: flex;
               height: 20%;

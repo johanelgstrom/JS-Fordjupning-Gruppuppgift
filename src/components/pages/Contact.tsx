@@ -9,6 +9,12 @@ export const Contact = () => {
   const [email, setEmail] = useState<string>("");
   const [text, setText] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [validateName, setValidateName] = useState(false);
+  const [validateEmail, setValidateEmail] = useState(false);
+  const [validateMessage, setValidateMessage] = useState(false);
+  const [messageError, setMessageError] = useState(false);
+  const [isNameEmpty, setIsNameEmpty] = useState<boolean>(true);
+  const [isEmailEmpty, setIsEmailEmpty] = useState<boolean>(true);
 
   // Hanterar variabeln för namn
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,25 +31,41 @@ export const Contact = () => {
   // Hanterar skicka
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setIsSubmitted(true); // Ändrar så att "Tack"-delen poppar upp
-    // Skickar till backend som därefter skickar mail till företaget med information
-    axios({
-      method: "POST",
-      url: "http://localhost:8000/email/sendThanks",
-      data: {
-        name: name,
-        email: email,
-        message: text,
-      },
-    });
-    // TA BORT DETTA INNAN PRODUKTION, ENDAST FÖR TESTNING AV KONTAKTEMAIL
-    // .then((response) => {
-    //   if (response.data.status === "success") {
-    //     alert("Message Sent.");
-    //   } else if (response.data.status === "fail") {
-    //     alert("Message failed to send.");
-    //   }
-    // });
+    if (
+      validateName === true &&
+      validateEmail === true &&
+      validateMessage === true
+    ) {
+      setIsSubmitted(true); // Ändrar så att "Tack"-delen poppar upp
+      // Skickar till backend som därefter skickar mail till företaget med information
+      axios({
+        method: "POST",
+        url: "http://localhost:8000/email/sendThanks",
+        data: {
+          name: name,
+          email: email,
+          message: text,
+        },
+        // TA BORT DETTA INNAN PRODUKTION, ENDAST FÖR TESTNING AV KONTAKTEMAIL
+        // .then((response) => {
+        //   if (response.data.status === "success") {
+        //     alert("Message Sent.");
+        //   } else if (response.data.status === "fail") {
+        //     alert("Message failed to send.");
+        //   }
+        // });
+      });
+    } else {
+      if (validateName === false) {
+        setIsNameEmpty(false);
+      }
+      if (validateEmail === false) {
+        setIsEmailEmpty(false);
+      }
+      if (validateMessage === false) {
+        setMessageError(true);
+      }
+    }
   };
 
   return (
@@ -68,6 +90,16 @@ export const Contact = () => {
                     handleEmail={handleEmail}
                     handleName={handleName}
                     handleText={handleText}
+                    validateName={validateName}
+                    validateEmail={validateEmail}
+                    validateMessage={validateMessage}
+                    setValidateName={setValidateName}
+                    setValidateEmail={setValidateEmail}
+                    setValidateMessage={setValidateMessage}
+                    messageError={messageError}
+                    setMessageError={setMessageError}
+                    isNameEmpty={isNameEmpty}
+                    isEmailEmpty={isEmailEmpty}
                   />
                 </>
               )}
