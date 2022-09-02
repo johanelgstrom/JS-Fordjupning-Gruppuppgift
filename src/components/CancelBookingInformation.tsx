@@ -25,7 +25,7 @@ export const CancelBookingInformation = (
               <p>
                 för {props.booking.personAmount} personer, {props.booking.date}.
               </p>
-              <p>Var vänlig clicka på knappen under.</p>
+              <p>Var vänlig klicka på knappen under.</p>
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ import styles from "../../scss/CancelBooking.module.scss";
 import { CancelBookingConfirmation } from "../CancelBookingConfirmation";
 import { Loader } from "../Loader";
 import axios from "axios";
+import { CancelNoBooking } from "../CancelNoBooking";
 
 type IdParams = {
   id: string;
@@ -19,6 +20,7 @@ type IdParams = {
 
 export const CancelBooking = () => {
   const params = useParams<IdParams>();
+  //STATES
   const [booking, setBooking] = useState<Booking>({
     _id: "",
     date: "",
@@ -33,24 +35,34 @@ export const CancelBooking = () => {
     email: "",
     phone: "",
   });
+  const [message, setMessage] = useState("");
   const [isDeleted, setIsDeleted] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [noBooking, setNoBooking] = useState(false);
 
+  //GET TABLEBOOKING FROM URLSTRING (PARAMS)
   useEffect(() => {
     if (params.id!) {
       setIsLoading(true);
       searchCancelBooking(params.id!)
         .then((data) => {
-          setIsLoading(false);
-          setBooking(data.booking);
-          setCustomer(data.customer);
+          if (data.message === "Success") {
+            setIsLoading(false);
+            setBooking(data.booking);
+            setCustomer(data.customer);
+          } else {
+            setIsLoading(false);
+            setNoBooking(true);
+            setMessage(data.message);
+          }
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error: ", error);
         });
     }
   }, [params]);
 
+  // DELETE BOOKING
   const handleCancellation = () => {
     if (params.id!) {
       setIsLoading(true);
@@ -85,6 +97,8 @@ export const CancelBooking = () => {
           <Header />
           {isLoading ? (
             <Loader />
+          ) : noBooking ? (
+            <CancelNoBooking message={message} />
           ) : isDeleted ? (
             <CancelBookingInformation
               customer={customer}

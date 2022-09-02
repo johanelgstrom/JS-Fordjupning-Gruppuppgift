@@ -130,15 +130,29 @@ bookingRouter.post("/new-booking", async (req, res) => {
     }
   })
 
+  //FIND BOOKING FROM LINK IN EMAIL
   bookingRouter.get("/cancel/:id", async (req, res)=> {
     const bookingId = req.params.id
-    try {
-      let booking = await BookingModel.findById(bookingId)
-      let customer = await CustomerModel.findById(booking.customer)
-      res.status(200).send({booking, customer})
-    } catch (error) {
-      console.log(error);
+    if(bookingId){
+      try {
+        let booking = await BookingModel.findById(bookingId)
+        if(booking){
+          let customer = await CustomerModel.findById(booking.customer)
+          if(customer){
+            res.send({booking, customer, "message" : "Success"})
+          }else{
+            res.send({booking: {}, customer: {}, "message" : "Kan inte hitta kund"})
+          }
+        }else{
+          res.send({booking: {}, customer: {}, "message" : "Ingen bokning hittad"})
+        }
+      } catch (error) {
+        console.log("catch");
+        console.log(error);
+      }
+    }else{
+      res.status(500).send({booking: {}, customer: {}, "message" : "No valid bookingId"})
     }
   })
- 
+
 module.exports = bookingRouter;
