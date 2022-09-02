@@ -25,13 +25,25 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+// Förberedelser
+declare namespace Cypress {
+  interface Chainable {
+    getBookingIdCommand(): Chainable<string>;
+  }
+}
+
+// Anpassad funktion som hämtar hem boknings-ID
+Cypress.Commands.add("getBookingIdCommand", () => {
+  // API-anrop som innehåller samma information som tidigare i testet där denna behövs
+  cy.request("POST", "http://localhost:8000/email/getBookingId", {
+    name: "Test Testsson",
+    email: "Test@Testsson.se",
+    date: "2022-09-30",
+    seating: "18.00",
+  })
+    .as("apiResponse") //Sätter namn på det hela så vi kan hitta alltet senare i en annan fil
+    .then((res) => {
+      Cypress.env("bookingString", res.body); // Sätter (res.body) resultatet (boknings-ID) i Cypress.env
+    });
+});
