@@ -5,7 +5,7 @@ import { table } from "console";
 
 interface EditCustomerProps {
   customer: CustomerSearch;
-
+  setIsEditBooking(setIsEditBooking: boolean): void;
   updateCustomerData(updatedCustomer: Customer): void;
 }
 //vad blir functionen av updatedCustomer ? för böt ut inputs Value={updatedCustomer.name} till att map() och ändra value={customer.name}
@@ -19,6 +19,8 @@ export const EditCustomer = (props: EditCustomerProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.updateCustomerData(updatedCustomer);
+
+    console.log("här är bolian false i editCustomer");
   };
   console.log("11111 UPPDATED CUSTOMER", updatedCustomer);
 

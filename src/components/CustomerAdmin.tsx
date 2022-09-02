@@ -22,28 +22,6 @@ interface TableDataMapProps {
 }
 
 export const CustomerAdmin = (props: TableDataMapProps) => {
-  // const getCustomer = async (customerId: string) => {
-  //   console.log("customer id", customerId);
-
-  //   await axios
-  //     .get("http://localhost:8000/admin/customers/" + customerId)
-  //     .then((Response: CustomerSearchResponse) => {
-  //       console.log("HÄMTAR KUND", Response.data);
-
-  //       props.setCustomer(Response.data);
-  //     });
-  // };
-  // const deleteBooking = async (bookingId: string) => {
-  //   const response = await axios.delete(
-  //     "http://localhost:8000/admin/customers/delete/" + bookingId
-  //   );
-  //   if (response.data.message) {
-  //     props.setMessage(response.data.message);
-  //     props.setDate(new Date());
-  //     props.setCustomer([]);
-  //   }
-  // };
-
   return (
     <>
       <main className={style.mainContainer}>
@@ -60,9 +38,7 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
                 <p>
                   <strong>Vilken sittning:</strong> {table.seating}
                 </p>
-                <p>
-                  <strong>Antal bord:</strong> {table.tableamount}
-                </p>
+
                 <div className={style.buttons}>
                   <button onClick={() => props.getCustomer(table.customer)}>
                     Hämta kund
@@ -75,8 +51,6 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
               </div>
             );
           })}
-
-          {/* <p>{props.message}</p> */}
         </div>
       </main>
     </>

@@ -14,15 +14,13 @@ import {
 } from "../../models/AdminSearch";
 import { EditTableInfo } from "../EditTableInfo";
 import styles from "../../scss/Admin.module.scss";
-
 import { CustomerAdmin } from "../CustomerAdmin";
 import { CustomerInfoAdmin } from "../CustomerInfoAdmin";
-
 const axios = require("axios");
 
 export const Admin = () => {
-  const [isEditableForBooking, setIsEditableForBooking] = useState(false);
-  const [isEditableForCustomer, setIsEditableForCustomer] = useState(false);
+  const [isEditTableBooking, setIsEditBooking] = useState(false);
+  const [isEditTable, setisEditTable] = useState(false);
   const [getCustomerInfo, setGetCustomerInfo] = useState(false);
   const [isBookable, setIsBookable] = useState(true);
   const [message, setMessage] = useState("");
@@ -54,17 +52,8 @@ export const Admin = () => {
       )
       .then((response: TableSearchResponse) => {
         setTableData(response.data);
-        setIsEditableForBooking(false);
-        setIsEditableForCustomer(false);
-        // if (response.data[0]) {
-        //   const customerBookings = response.data.filter(
-        //     (booking) => booking.customer === customer[0]._id
-        //   );
-
-        //   setActiveCustomerBooking(customerBookings);
-        // } else {
-        //   setCustomer([]);
-        // }
+        setIsEditBooking(false);
+        setisEditTable(false);
       });
   }, [date]);
 
@@ -75,7 +64,6 @@ export const Admin = () => {
     setActiveCustomerBooking(customerBookings[0]);
   }, [customer]);
 
-  // la till från CustomerAdmin
   const getCustomer = async (customerId: string) => {
     console.log("customer id", customerId);
 
@@ -86,27 +74,22 @@ export const Admin = () => {
 
         setCustomer(Response.data[0]);
         setGetCustomerInfo(true);
-        setIsEditableForCustomer(false);
-        setIsEditableForBooking(false);
+        setisEditTable(false);
+        setIsEditBooking(false);
       });
   };
 
-  //La till från CustomerAdmin
   const deleteBooking = async (bookingId: string) => {
     const response = await axios.delete(
       "http://localhost:8000/admin/customers/delete/" + bookingId
     );
     if (response.data.message) {
       setMessage(response.data.message);
-      setGetCustomerInfo(false);
     }
+    setGetCustomerInfo(false);
+    setIsEditBooking(false);
     setDate(new Date());
-    setCustomer({
-      _id: "",
-      name: "",
-      phone: "",
-      email: "",
-    });
+
     console.log("DELEDEDBOOKING", response.data);
   };
 
@@ -119,7 +102,7 @@ export const Admin = () => {
       .then((response: CustomerSearch) => {
         console.log("För Customer", response);
 
-        setIsEditableForCustomer(false);
+        setisEditTable(false);
       });
   };
 
@@ -131,7 +114,7 @@ export const Admin = () => {
       )
       .then((response: TableSearch) => {
         console.log("för Table Info", response);
-        setIsEditableForBooking(false);
+        setIsEditBooking(false);
       });
   };
 
@@ -168,8 +151,8 @@ export const Admin = () => {
               <div>
                 {getCustomerInfo ? (
                   <CustomerInfoAdmin
-                    setIsEditableForCustomer={setIsEditableForCustomer}
-                    setIsEditableForBooking={setIsEditableForBooking}
+                    setisEditTable={setisEditTable}
+                    setIsEditBooking={setIsEditBooking}
                     customer={customer}
                     setCustomer={setCustomer}
                     activeCustomerBooking={activeCustomerBooking}
@@ -178,10 +161,10 @@ export const Admin = () => {
                   <></>
                 )}
               </div>
-
               <div className={styles.edit}>
-                {isEditableForBooking ? (
+                {isEditTable ? (
                   <EditCustomer
+                    setIsEditBooking={setIsEditBooking}
                     customer={customer}
                     updateCustomerData={updateCustomerData}
                   />
@@ -189,9 +172,11 @@ export const Admin = () => {
                   <></>
                 )}
               </div>
+
               <div className={styles.edit}>
-                {isEditableForCustomer ? (
+                {isEditTableBooking ? (
                   <EditTableInfo
+                    setisEditTable={setisEditTable}
                     tableInfo={activeCustomerBooking}
                     updatedTableInfo={updatedTableInfo}
                   />

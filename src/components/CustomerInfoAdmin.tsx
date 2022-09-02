@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { CustomerSearch, TableSearch } from "../models/AdminSearch";
 import style from "../scss/EditCustomerBookingButton.module.scss";
 
 interface EditCustomerBookingButtonProps {
-  setIsEditableForCustomer(setIsEditableForCustomer: boolean): void;
-  setIsEditableForBooking(setIsEditableForBooking: boolean): void;
+  setisEditTable(setisEditTable: boolean): void;
+  setIsEditBooking(setIsEditBooking: boolean): void;
 
   customer: CustomerSearch;
   activeCustomerBooking: TableSearch;
@@ -13,10 +12,10 @@ interface EditCustomerBookingButtonProps {
 
 export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
   const editCustomer = () => {
-    props.setIsEditableForCustomer(true);
+    props.setisEditTable(true);
   };
   const editTableData = () => {
-    props.setIsEditableForBooking(true);
+    props.setIsEditBooking(true);
   };
   return (
     <>

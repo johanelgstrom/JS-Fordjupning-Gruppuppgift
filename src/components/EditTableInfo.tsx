@@ -5,6 +5,7 @@ import style from ".././scss/AdminEditTable.module.scss";
 interface EditTableInfoProps {
   tableInfo: TableSearch;
   updatedTableInfo(updatedTableInfo: TableInfo): void;
+  setisEditTable(setisEditTable: boolean): void;
 }
 
 export const EditTableInfo = (props: EditTableInfoProps) => {
@@ -59,22 +60,12 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 name="seating"
                 value={updatedTableInfo.seating}
               >
-                <option value={"default"} disabled>
-                  Välj sittning
-                </option>
+                <option>Välj sittning</option>
 
-                <option value={updatedTableInfo.seating}>18:00</option>
-                <option value={updatedTableInfo.seating}>21:00</option>
+                <option>18:00</option>
+                <option>21:00</option>
               </select>
-              <label>
-                <strong>Antal bord:</strong>
-              </label>
-              <input
-                onChange={handleChange}
-                type="number"
-                name="tableamount"
-                value={updatedTableInfo.tableamount}
-              />
+
               <label>
                 <strong>Kund id:</strong>
               </label>
