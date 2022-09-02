@@ -19,8 +19,9 @@ export async function bookATable(newBooking: TableBooking) {
 export async function searchCancelBooking(
   bookingId: string
 ): Promise<searchCancelBookingResponse> {
-  return (await axios.get("http://localhost:8000/booking/cancel/" + bookingId))
-    .data;
+  return await (
+    await axios.get("http://localhost:8000/booking/cancel/" + bookingId)
+  ).data;
 }
 
 export async function cancelBooking(bookingId: string) {
