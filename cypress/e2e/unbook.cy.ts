@@ -1,7 +1,10 @@
 import cypress from "cypress";
+import "../support/commands.ts";
 
-describe("booking test", () => {
-  it("booking on an non-full day should go through", () => {
+describe("cancel reservation", () => {
+  it("canceling a reservation should work", () => {
+    // FÖRST skapa en bokning
+
     cy.visit("http://localhost:3000"); // Går in på sidan
     cy.get("div#gdprAccept").click(); // Accepterar GDPR-villkoren
     cy.get("a#bookButton").click(); // Klickar på bokningssidan i headern
@@ -47,45 +50,40 @@ describe("booking test", () => {
       "contain.html",
       "Med vänlig hälsning MATAD"
     ); // Kontrollerar att hälsningsfras finns med
-  });
-  it("check that validating works", () => {
-    cy.visit("http://localhost:3000"); // Går in på sidan
-    cy.get("div#gdprAccept").click(); // Accepterar GDPR-villkoren
-    cy.get("a#bookButton").click(); // Klickar på bokningssidan i headern
 
-    cy.get(".SearchTableForm_submitButton__aQxNo").click(); // Hittar och klickar på "Sök bord"-knappen
-    cy.get(".SearchTableForm_validate__35ERp > p").should(
-      "contain.html",
-      "Du måste välja antal personer!"
-    ); // Kollar så att felmeddelande dyker upp
-    cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
-    cy.get(".SearchTableForm_submitButton__aQxNo").click(); // Hittar och klickar på "Sök bord"-knappen igen, fast nu med antal personer valda
-    cy.get(".BookTableForm_submitButton__sa5tL").click(); // Hittar och klickar på boka
-    cy.get(".ValidateSnackBar_textButtonContainer__wIr8G > p").should(
-      "contain.html",
-      "Fyll i formuläret korrekt"
-    ); // Kontrollerar att "snackbaren" dyker upp och innehåller en varningstext
-    cy.get("button > div").click(); // Hittar och klickar på knappen som stänger snackbaren
-    cy.get("#name").type("e"); // Skriver in namn felaktigt
-    cy.get(":nth-child(2) > .BookTableForm_validate__mGQy1").should(
-      "contain.html",
-      "Ditt namn måste vara minst två tecken långt."
-    ); //Kontrollerar att felmeddelande fungerar
-    cy.get("#email").type("Test#Testsson.se"); // skriver in email felaktigt
-    cy.get(":nth-child(3) > .BookTableForm_validate__mGQy1").should(
-      "contain.html",
-      "Skriv in en valid emailadress"
-    ); //Kontrollerar att felmeddelande fungerar
-    cy.get("#phone").type("911"); // Skriver in telefonnummer felaktigt
-    cy.get(":nth-child(4) > .BookTableForm_validate__mGQy1").should(
-      "contain.html",
-      "Skriv in rätt telefonnummerformat: +467********"
-    ); //Kontrollerar att felmeddelande fungerar
-    cy.get("#seating").select("18.00"); // Väljer tid vid 18.00
-    cy.get("#name").clear().type("Test Testsson"); // Tömmer namn och skriver in korrekt
-    cy.get("#email").clear().type("Test@Testsson.se"); // Tömmer email och skriver in korrekt
-    cy.get("#phone").clear().type("+46701234556"); // Tömmer telefon och skriver in korrekt
-    cy.get(".BookTableForm_submitButton__sa5tL").click(); // Hittar och klickar på boka, nu med korrekt information
-    cy.get("h3").should("contain.html", "Tack Test Testsson för din bokning"); // Kontrollerar att namnet stämmer överens
+    // ABOKNINGSDELEN
+
+    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
+    cy.get("@apiResponse").then((response) => {
+      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
+      cy.visit(`http://localhost:3000/cancel/${bookingId}`); // Går in på bokningssidan på bokningen vi skapade
+    });
+
+    cy.get("h3").should("contain.html", "Hej Test Testsson!"); // Kollar så att titeln har rätt namn
+    cy.get(
+      ".CancelBookingInformation_informationTextContainer__yoCsQ > :nth-child(3)"
+    ).should("contain.html", "för 2 personer, 2022-09-30"); // Kollar så att texten har rätt antal personer
+
+    cy.get("button").click(); // Klickar på "Avboka"knappen
+
+    cy.get("h3").should("contain.html", "Ditt bord är nu avbokat."); // Kontrollerar att frontend visar bekräftelse att det är avbokat
+
+    cy.get(
+      ".CancelBookingConfirmation_container__lmvjT > #bookButton > p"
+    ).click(); // Klickar på "Boka"knappen som ska ta sig tillbaka till vanliga bokningssidan
+
+    cy.get("@apiResponse").then((response) => {
+      cy.request(
+        // Kör ett API-anrop som kollar ifall boknigns-ID är borta ur databasen
+        "GET",
+        `http://localhost:8000/booking/cancel/check/${Cypress.env(
+          "bookingString"
+        )}`
+      ).then((response) => {
+        expect(response.isOkStatusCode); // Om svaret blir 200, är boknings-ID borta
+      });
+    });
+
+    cy.url().should("include", "/book"); // Kollar i URLen om man är på bokningssidan
   });
 });
