@@ -35,8 +35,12 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
               </p>
 
               <div className={style.buttons}>
-                <button onClick={editTableData}>Ändra kund info</button>
-                <button onClick={editCustomer}>Hämta bord</button>
+                <button onClick={editTableData} id="getTableButton">
+                  Hämta bord
+                </button>
+                <button onClick={editCustomer} id="changeCustomerButton">
+                  Ändra kund info
+                </button>
               </div>
             </div>
           </div>

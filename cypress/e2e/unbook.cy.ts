@@ -11,7 +11,7 @@ describe("cancel reservation", () => {
 
     cy.get(".react-calendar__month-view__days > :nth-child(33)")
       .should("have.text", "30")
-      .click(); // Hittar nummer 31 i kalendern och klickar på den
+      .click(); // Hittar nummer 30 i kalendern och klickar på den
     cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
     cy.get(".SearchTableForm_submitButton__aQxNo").click(); // Hittar och klickar på "Sök bord"-knappen
     cy.get(

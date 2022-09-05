@@ -40,11 +40,17 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
                 </p>
 
                 <div className={style.buttons}>
-                  <button onClick={() => props.getCustomer(table.customer)}>
+                  <button
+                    onClick={() => props.getCustomer(table.customer)}
+                    id="getCustomerButton"
+                  >
                     Hämta kund
                   </button>
 
-                  <button onClick={() => props.deleteBooking(table._id)}>
+                  <button
+                    onClick={() => props.deleteBooking(table._id)}
+                    id="deleteButton"
+                  >
                     Radera
                   </button>
                 </div>

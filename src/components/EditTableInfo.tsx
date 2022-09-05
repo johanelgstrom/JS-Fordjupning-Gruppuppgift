@@ -62,8 +62,8 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
               >
                 <option>Välj sittning</option>
 
-                <option>18:00</option>
-                <option>21:00</option>
+                <option>18.00</option>
+                <option>21.00</option>
               </select>
 
               <label>
