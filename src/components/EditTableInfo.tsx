@@ -3,17 +3,18 @@ import { TableInfo, TableSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditTable.module.scss";
 
 interface EditTableInfoProps {
-  tableInfo: TableSearch[];
+  tableInfo: TableSearch;
   updatedTableInfo(updatedTableInfo: TableInfo): void;
+  setisEditTable(setisEditTable: boolean): void;
 }
 
 export const EditTableInfo = (props: EditTableInfoProps) => {
   const [updatedTableInfo, setUpdatedTableInfo] = useState({
-    date: props.tableInfo[0].date,
-    seating: props.tableInfo[0].seating,
-    personAmount: props.tableInfo[0].personAmount,
-    tableamount: props.tableInfo[0].tableamount,
-    customer: props.tableInfo[0].customer,
+    date: props.tableInfo.date,
+    seating: props.tableInfo.seating,
+    personAmount: props.tableInfo.personAmount,
+    tableamount: props.tableInfo.tableamount,
+    customer: props.tableInfo.customer,
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,6 +23,12 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdatedTableInfo({
+      ...updatedTableInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUpdatedTableInfo({
       ...updatedTableInfo,
       [e.target.name]: e.target.value,
@@ -36,37 +43,37 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         <div className={style.formTable}>
           <form onSubmit={handleSubmit}>
             <div className={style.styleTableImputs}>
-              <label>Datum</label>
+              <label>
+                <strong>Datum:</strong>
+              </label>
               <input
                 onChange={handleChange}
                 type="date"
                 name="date"
                 value={updatedTableInfo.date}
-                placeholder="DATUM"
               />
-              <label>Sittning</label>
-              <input
-                onChange={handleChange}
-                type="text"
+              <label>
+                <strong>Sittning:</strong>
+              </label>
+              <select
+                onChange={handleSelect}
                 name="seating"
                 value={updatedTableInfo.seating}
-                placeholder="SITTNING"
-              />
-              <label>Antal Bord</label>
-              <input
-                onChange={handleChange}
-                type="number"
-                name="tableamount"
-                value={updatedTableInfo.tableamount}
-                placeholder="ANTAL BORD"
-              />
-              <label>Kund</label>
+              >
+                <option>Välj sittning</option>
+
+                <option>18:00</option>
+                <option>21:00</option>
+              </select>
+
+              <label>
+                <strong>Kund id:</strong>
+              </label>
               <input
                 onChange={handleChange}
                 type="text"
                 name="customer"
                 value={updatedTableInfo.customer}
-                placeholder="KUNDER"
               />
 
               <button type="submit">ändra uppgifter </button>
