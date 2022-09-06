@@ -11,6 +11,7 @@ import {
   Customer,
   CustomerSearch,
   CustomerSearchResponse,
+  CustomerSerachData,
   TableInfo,
   TableSearch,
   TableSearchResponse,
@@ -49,6 +50,7 @@ export const Admin = () => {
   });
 
   const [tableData, setTableData] = useState<TableSearch[]>([]);
+
   // useEffect  HÄMTAR ALLA BOKNINGAR URL:EN SOM KOMMER FRÅN AdminRouter.js, GÖR OM date TILL EN STRING SOM ANVÄNDS SOM IDENTIFIERING.
   //STARTER OM EFER VARJE NY FÖRÄNDRING MED date.
   // BOOLIANS INNANFÖR ANSVARAR FÖR DESS COMPONENT SKA VARA DÄR ELLER EJ.
@@ -108,12 +110,14 @@ export const Admin = () => {
         "http://localhost:8000/admin/customers/" + customer._id,
         updatedCustomer
       )
-      .then((response: CustomerSearch) => {
+      .then((response: CustomerSerachData) => {
         console.log("För Customer", response);
-
+        setCustomer(response.data);
         setisEditTable(false);
       });
   };
+
+  console.log("customer", customer);
 
   const updatedTableInfo = async (updatedTableInfo: TableInfo) => {
     await axios
@@ -165,6 +169,7 @@ export const Admin = () => {
                     customer={customer}
                     setCustomer={setCustomer}
                     activeCustomerBooking={activeCustomerBooking}
+                    //updatedCustomer={updatedCustomer}
                   />
                 ) : (
                   <></>

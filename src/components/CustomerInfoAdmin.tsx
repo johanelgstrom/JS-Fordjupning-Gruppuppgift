@@ -1,4 +1,5 @@
-import { CustomerSearch, TableSearch } from "../models/AdminSearch";
+import { useState } from "react";
+import { CustomerSearch, TableSearch, Customer } from "../models/AdminSearch";
 import style from "../scss/EditCustomerBookingButton.module.scss";
 
 interface EditCustomerBookingButtonProps {
@@ -8,15 +9,23 @@ interface EditCustomerBookingButtonProps {
   customer: CustomerSearch;
   activeCustomerBooking: TableSearch;
   setCustomer(setCustomer: CustomerSearch): void;
+  //updatedCustomer: CustomerSearch;
 }
 
 export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
+  const [updatedCustomer, setUpdatedCustomer] = useState({
+    name: props.customer.name,
+    email: props.customer.email,
+    phone: props.customer.phone,
+  });
+
   const editCustomer = () => {
     props.setisEditTable(true);
   };
   const editTableData = () => {
     props.setIsEditBooking(true);
   };
+
   return (
     <>
       <main className={style.mainContainer}>

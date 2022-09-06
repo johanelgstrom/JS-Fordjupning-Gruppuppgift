@@ -17,6 +17,10 @@ export interface CustomerSearch {
   phone: string;
 }
 
+export interface CustomerSerachData {
+  data: CustomerSearch;
+}
+
 export interface CustomerSearchResponse {
   data: CustomerSearch[];
 }
