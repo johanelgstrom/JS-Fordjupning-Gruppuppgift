@@ -191,7 +191,11 @@ export const BookTableForm = (props: BookTableFormProps) => {
               </p>
             )}
           </div>
-          <button type="submit" className={styles.submitButton}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            id="submitBooking"
+          >
             Boka
           </button>
         </form>

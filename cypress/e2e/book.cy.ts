@@ -19,7 +19,7 @@ describe("booking test", () => {
       .should("have.text", "30")
       .click(); // Hittar nummer 31 i kalendern och klickar på den
     cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
-    cy.get(".SearchTableForm_submitButton__aQxNo").click(); // Hittar och klickar på "Sök bord"-knappen
+    cy.get("#submitBooking").click(); // Hittar och klickar på "Sök bord"-knappen
     cy.get(
       ".BookTableForm_informationTextContainer__zk94W > :nth-child(1)"
     ).should("contain", "Du vill boka bord 2022-09-30"); // Kollar så att datumet stämmer överens
@@ -62,13 +62,13 @@ describe("booking test", () => {
     cy.get("div#gdprAccept").click(); // Accepterar GDPR-villkoren
     cy.get("a#bookButton").click(); // Klickar på bokningssidan i headern
 
-    cy.get(".SearchTableForm_submitButton__aQxNo").click(); // Hittar och klickar på "Sök bord"-knappen
+    cy.get("#submitBooking").click(); // Hittar och klickar på "Sök bord"-knappen
     cy.get(".SearchTableForm_validate__35ERp > p").should(
       "contain.html",
       "Du måste välja antal personer!"
     ); // Kollar så att felmeddelande dyker upp
     cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
-    cy.get(".SearchTableForm_submitButton__aQxNo").click(); // Hittar och klickar på "Sök bord"-knappen igen, fast nu med antal personer valda
+    cy.get("#submitBooking").click(); // Hittar och klickar på "Sök bord"-knappen igen, fast nu med antal personer valda
     cy.get(".BookTableForm_submitButton__sa5tL").click(); // Hittar och klickar på boka
     cy.get(".ValidateSnackBar_textButtonContainer__wIr8G > p").should(
       "contain.html",

@@ -20,10 +20,7 @@ describe("menu test", () => {
     cy.get("a#bookButton").click(); // Klickar på bokningsknappen i headern
 
     cy.url().should("include", "/book"); // Kollar i URLen om man är på bokningssidan
-    cy.get(".SearchTableForm_submitButton__aQxNo").should(
-      "contain.html",
-      "Sök lediga bord"
-    ); // Kollar så att texten i sökningsknappen är "Sök lediga bord"
+    cy.get("#submitBooking").should("contain.html", "Sök lediga bord"); // Kollar så att texten i sökningsknappen är "Sök lediga bord"
   });
   it("contact button should work", () => {
     cy.visit("http://localhost:3000"); // Går in på sidan
