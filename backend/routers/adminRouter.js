@@ -9,42 +9,36 @@ adminRouter.get("/all-bookings", async (req, res) => {
   const bookings = await BookingModel.find().lean();
   res.send(bookings);
 });
-
+// HÄMTAR BOKNINGAR VIA ID- IDENTIFIERAS MED DATUM
 adminRouter.get("/all-bookings/:date", async (req, res) => {
   const bookingsByDate = await BookingModel.find({ date: req.params.date });
   res.send(bookingsByDate);
 });
-
+// HÄMTAR KUNDER VIA ID
 adminRouter.get("/customers/:id", async (req, res) => {
   const customer = await CustomerModel.find({ _id: req.params.id });
   console.log(" BackEnd custumer", customer);
   res.send(customer);
 });
-//LA till test
-// adminRouter.get("/bookings/:id", async (req, res) => {
-//   const bookings = await BookingModel.find({ _id: req.params.id });
-//   console.log(" BackEnd bookings", bookings);
-//   res.send(bookings);
-// });
-
+//RADERAR EN SEPARAT BOKNING VIA ID
 adminRouter.delete("/customers/delete/:idDelete", async (req, res) => {
   await BookingModel.deleteOne({ _id: req.params.idDelete });
   console.log("Deleted");
   res.status(200).json({ message: "deleted" });
 });
-
+// SKAPAR KUNDER
 adminRouter.post("/customers", async (req, res) => {
   await CustomerModel.create(req.body).then(function (postCustomer) {
     res.send(postCustomer);
   });
 });
-
+// SKAPAR BOKNINGAR
 adminRouter.post("/bookings", async (req, res) => {
   await BookingModel.create(req.body).then(function (postBookings) {
     res.send(postBookings);
   });
 });
-
+//ÄNDRAR KUNDER SEPARAT VIA ID
 adminRouter.put("/customers/:idUpdate", async (req, res) => {
   await CustomerModel.findByIdAndUpdate(
     { _id: req.params.idUpdate },
@@ -55,7 +49,7 @@ adminRouter.put("/customers/:idUpdate", async (req, res) => {
     });
   });
 });
-
+//ÄNDRAR BOKNINGAR SEPARAT VIA ID
 adminRouter.put("/bookings/:idUpdate", async (req, res) => {
   await BookingModel.findByIdAndUpdate(
     { _id: req.params.idUpdate },
