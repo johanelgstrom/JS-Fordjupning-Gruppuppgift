@@ -72,7 +72,11 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
           ) : (
             <></>
           )}
-          <button type="submit" className={styles.submitButton}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            id="submitBooking"
+          >
             Sök lediga bord
           </button>
         </form>
