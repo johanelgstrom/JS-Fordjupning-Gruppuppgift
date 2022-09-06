@@ -7,7 +7,11 @@ export interface TableSearch {
   customer: string;
 }
 export interface TableSearchResponse {
-  data: TableSearch[];
+  data: {
+    bookingsByDate: TableSearch[];
+    tableSumSeatingOne: number;
+    tableSumSeatingTwo: number;
+  };
 }
 
 export interface CustomerSearch {
@@ -33,4 +37,9 @@ export interface Customer {
   name: string;
   email: string;
   phone: string;
+}
+
+export interface TableAmountSum {
+  tableSumSeatingOne: number;
+  tableSumSeatingTwo: number;
 }

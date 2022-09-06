@@ -12,7 +12,27 @@ adminRouter.get("/all-bookings", async (req, res) => {
 
 adminRouter.get("/all-bookings/:date", async (req, res) => {
   const bookingsByDate = await BookingModel.find({ date: req.params.date });
-  res.send(bookingsByDate);
+  const bookingSeatingOne = bookingsByDate.filter(
+    (booking) => booking.seating === "18.00"
+  );
+  const bookingSeatingTwo = bookingsByDate.filter(
+    (booking) => booking.seating === "21.00"
+  );
+
+  // CALULATE AMOUNT OF TABLES BOOKED PER SEATING
+  let tableSumSeatingOne = 0;
+  let tableSumSeatingTwo = 0;
+
+  for (let i = 0; i < bookingSeatingOne.length; i++) {
+    tableSumSeatingOne += parseInt(bookingSeatingOne[i].tableAmount);
+  }
+
+  for (let i = 0; i < bookingSeatingTwo.length; i++) {
+    tableSumSeatingTwo += parseInt(bookingSeatingTwo[i].tableAmount);
+  }
+
+  //res.send(bookingsByDate);
+  res.status(200).send({bookingsByDate, tableSumSeatingOne, tableSumSeatingTwo})
 });
 
 adminRouter.get("/customers/:id", async (req, res) => {

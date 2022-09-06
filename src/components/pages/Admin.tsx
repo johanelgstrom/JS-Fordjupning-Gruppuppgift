@@ -8,6 +8,7 @@ import {
   Customer,
   CustomerSearch,
   CustomerSearchResponse,
+  TableAmountSum,
   TableInfo,
   TableSearch,
   TableSearchResponse,
@@ -43,6 +44,11 @@ export const Admin = () => {
 
   const [tableData, setTableData] = useState<TableSearch[]>([]);
 
+  const [tableAmountSum, setTableAmountSum] = useState<TableAmountSum>({
+    tableSumSeatingOne: 0,
+    tableSumSeatingTwo: 0,
+  });
+
   useEffect(() => {
     axios
       .get(
@@ -51,7 +57,10 @@ export const Admin = () => {
           date.toLocaleDateString()
       )
       .then((response: TableSearchResponse) => {
-        setTableData(response.data);
+        console.log(response);
+
+        setTableData(response.data.bookingsByDate);
+        setTableAmountSum(response.data);
         setIsEditBooking(false);
         setisEditTable(false);
       });
@@ -176,6 +185,7 @@ export const Admin = () => {
               <div className={styles.edit}>
                 {isEditTableBooking ? (
                   <EditTableInfo
+                    //tableAmountSum={tableAmountSum}
                     setisEditTable={setisEditTable}
                     tableInfo={activeCustomerBooking}
                     updatedTableInfo={updatedTableInfo}
