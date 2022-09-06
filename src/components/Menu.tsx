@@ -6,7 +6,7 @@ export const Menu = () => {
         <div className={styles.innerMenuContainer}>
           {/* MENU TITLE */}
           <div className={styles.menuTitleContainer}>
-            <h3>MENY</h3>
+            <h3 id="menuTitle">MENY</h3>
           </div>
           {/* SUBTEXT */}
           <div className={styles.menuSubText}>

@@ -42,7 +42,7 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
       <main className={style.containerFormTable}>
         <div className={style.formTable}>
           <form onSubmit={handleSubmit}>
-            <div className={style.styleTableImputs}>
+            <div className={style.styleTableImputs} id="styleTableInputs">
               <label>
                 <strong>Datum:</strong>
               </label>

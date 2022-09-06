@@ -21,7 +21,11 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
     <>
       <main className={style.mainContainer}>
         <div className={style.container}>
-          <div className={style.Info} key={props.customer._id}>
+          <div
+            className={style.Info}
+            key={props.customer._id}
+            id="customerInfoAdminInfo"
+          >
             <div>
               <p>
                 <strong>Namn:</strong> {props.customer.name}

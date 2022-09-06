@@ -28,7 +28,7 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
         <div className={style.container}>
           {props.tableInfo.map((table) => {
             return (
-              <div className={style.Info} key={table._id}>
+              <div className={style.Info} key={table._id} id="infoTable">
                 <p>
                   <strong>Kund id:</strong> {table.customer}
                 </p>

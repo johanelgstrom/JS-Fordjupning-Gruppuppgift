@@ -118,7 +118,10 @@ export const BookTableForm = (props: BookTableFormProps) => {
     <>
       <div className={styles.mainContainer}>
         <div className={styles.informationContainer}>
-          <div className={styles.informationTextContainer}>
+          <div
+            className={styles.informationTextContainer}
+            id="informationTextContainer"
+          >
             <p>Du vill boka bord {props.newSearch.date}</p>
             <p>för {props.newSearch.personAmount} personer</p>
           </div>
@@ -154,7 +157,7 @@ export const BookTableForm = (props: BookTableFormProps) => {
             {validateName ? (
               <></>
             ) : (
-              <p className={styles.validate}>
+              <p className={styles.validate} id="nameErrorMessage">
                 Ditt namn måste vara minst två tecken långt.
               </p>
             )}
@@ -171,7 +174,9 @@ export const BookTableForm = (props: BookTableFormProps) => {
             {validateEmail ? (
               <></>
             ) : (
-              <p className={styles.validate}>Skriv in en valid emailadress</p>
+              <p className={styles.validate} id="emailErrorMessage">
+                Skriv in en valid emailadress
+              </p>
             )}
           </div>
           <div className={styles.labelInputContainer}>
@@ -186,12 +191,16 @@ export const BookTableForm = (props: BookTableFormProps) => {
             {validatePhone ? (
               <></>
             ) : (
-              <p className={styles.validate}>
+              <p className={styles.validate} id="phoneErrorMessage">
                 Skriv in rätt telefonnummerformat: +467********
               </p>
             )}
           </div>
-          <button type="submit" className={styles.submitButton}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            id="submitAllInfoButton"
+          >
             Boka
           </button>
         </form>

@@ -23,27 +23,29 @@ describe("cancel reservation", () => {
       .click(); // Hittar nummer 30 i kalendern och klickar på den
     cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
     cy.get("#submitBooking").click(); // Hittar och klickar på "Sök bord"-knappen
-    cy.get(
-      ".BookTableForm_informationTextContainer__zk94W > :nth-child(1)"
-    ).should("contain", "Du vill boka bord 2022-09-30"); // Kollar så att datumet stämmer överens
-    cy.get(
-      ".BookTableForm_informationTextContainer__zk94W > :nth-child(2)"
-    ).should("contain", "för 2 personer"); // Kollar så antal personer stämmer överens
+    cy.get("#informationTextContainer > :nth-child(1)").should(
+      "contain",
+      "Du vill boka bord 2022-09-30"
+    ); // Kollar så att datumet stämmer överens
+    cy.get("#informationTextContainer > :nth-child(2)").should(
+      "contain",
+      "för 2 personer"
+    ); // Kollar så antal personer stämmer överens
     cy.get("#seating").select("18.00"); // Väljer tid vid 18.00
     cy.get("#name").type("Test Testsson"); // Skriver in namn
     cy.get("#email").type("Test@Testsson.se"); // skriver in email
     cy.get("#phone").type("+46701234556"); // Skriver in telefonnummer
-    cy.get(".BookTableForm_submitButton__sa5tL").click(); // Hittar ochlickar på boka
+    cy.get("#submitAllInfoButton").click(); // Hittar ochlickar på boka
     cy.get("h3").should("contain.html", "Tack Test Testsson för din bokning"); // Kontrollerar att namnet stämmer överens
-    cy.get(".Confirmation_textContainer__dEDJJ > div > :nth-child(1)").should(
+    cy.get("#textContainer > div > :nth-child(1)").should(
       "contain.html",
       "Du har bokat bord för 2 personer"
     ); // Kontrollerar att antal personer stämmer överens
-    cy.get(".Confirmation_textContainer__dEDJJ > div > :nth-child(2)").should(
+    cy.get("#textContainer > div > :nth-child(2)").should(
       "contain.html",
       "2022-09-30 klockan 18.00."
     ); // Kontrollerar att datum och tid stämmer överens
-    cy.get(".Confirmation_textContainer__dEDJJ > div > :nth-child(3)").should(
+    cy.get("#textContainer > div > :nth-child(3)").should(
       "contain.html",
       "En bekräftelse kommer skickas till dig till adressen Test@Testsson.se."
     ); // Kontrollerar att email stämmer överens
@@ -55,7 +57,7 @@ describe("cancel reservation", () => {
       "contain.html",
       "eller kontakta oss på telefonnummer 0701234567"
     ); // Kontrollerar att nummer stämmer överens
-    cy.get(".Confirmation_textContainer__dEDJJ > :nth-child(3)").should(
+    cy.get("#textContainer > :nth-child(3)").should(
       "contain.html",
       "Med vänlig hälsning MATAD"
     ); // Kontrollerar att hälsningsfras finns med
@@ -69,17 +71,16 @@ describe("cancel reservation", () => {
     });
 
     cy.get("h3").should("contain.html", "Hej Test Testsson!"); // Kollar så att titeln har rätt namn
-    cy.get(
-      ".CancelBookingInformation_informationTextContainer__yoCsQ > :nth-child(3)"
-    ).should("contain.html", "för 2 personer, 2022-09-30"); // Kollar så att texten har rätt antal personer
+    cy.get("#informationTextContainer > :nth-child(3)").should(
+      "contain.html",
+      "för 2 personer, 2022-09-30"
+    ); // Kollar så att texten har rätt antal personer
 
     cy.get("button").click(); // Klickar på "Avboka"knappen
 
     cy.get("h3").should("contain.html", "Ditt bord är nu avbokat."); // Kontrollerar att frontend visar bekräftelse att det är avbokat
 
-    cy.get(
-      ".CancelBookingConfirmation_container__lmvjT > #bookButton > p"
-    ).click(); // Klickar på "Boka"knappen som ska ta sig tillbaka till vanliga bokningssidan
+    cy.get("#cancelBookingContainer > #bookButton > p").click(); // Klickar på "Boka"knappen som ska ta sig tillbaka till vanliga bokningssidan
 
     cy.get("@apiResponse").then((response) => {
       cy.request(

@@ -3,7 +3,7 @@ import styles from "../scss/CancelBookingConfirmation.module.scss";
 export const CancelBookingConfirmation = () => {
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} id="cancelBookingContainer">
         <div className={styles.mainContentContainer}>
           <div className={styles.informationContainer}>
             <div className={styles.informationTextContainer}>

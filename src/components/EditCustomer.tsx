@@ -35,7 +35,7 @@ export const EditCustomer = (props: EditCustomerProps) => {
       <main className={style.containerFormCustomer}>
         <div className={style.formCustomer}>
           <form onSubmit={handleSubmit}>
-            <div className={style.styleCustomerImputs}>
+            <div className={style.styleCustomerImputs} id="customerInputs">
               <label>
                 <strong>Namn:</strong>
               </label>

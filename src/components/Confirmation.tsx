@@ -59,7 +59,7 @@ export const Confirmation = (props: ConfirmationProps) => {
   return (
     <>
       <div className={styles.confirmationContainer}>
-        <div className={styles.textContainer}>
+        <div className={styles.textContainer} id="textContainer">
           <h3>Tack {props.confirmationInformation.name} för din bokning!</h3>
           <div>
             <p>

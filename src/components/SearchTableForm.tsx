@@ -66,7 +66,7 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             <option value="12">12</option>
           </select>
           {personValidate ? (
-            <div className={styles.validate}>
+            <div className={styles.validate} id="validateContainer">
               <p>Du måste välja antal personer!</p>
             </div>
           ) : (

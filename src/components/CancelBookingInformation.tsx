@@ -19,7 +19,10 @@ export const CancelBookingInformation = (
       <div className={styles.container}>
         <div className={styles.mainContentContainer}>
           <div className={styles.informationContainer}>
-            <div className={styles.informationTextContainer}>
+            <div
+              className={styles.informationTextContainer}
+              id="informationTextContainer"
+            >
               <h3>Hej {props.customer.name}!</h3>
               <p> om du vill avboka ditt bord</p>
               <p>

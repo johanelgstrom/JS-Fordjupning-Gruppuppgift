@@ -12,7 +12,10 @@ export const ValidateSnackBar = (props: ValidateSnackbarProps) => {
   return (
     <>
       <div className={styles.snackBarContainer}>
-        <div className={styles.textButtonContainer}>
+        <div
+          className={styles.textButtonContainer}
+          id="validateTextButtonContainer"
+        >
           <p>Fyll i formuläret korrekt</p>
           <button onClick={handleClick}>
             <div>X</div>

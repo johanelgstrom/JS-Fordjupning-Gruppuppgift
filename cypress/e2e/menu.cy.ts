@@ -8,10 +8,7 @@ describe("menu test", () => {
     cy.get("a#menuButton").click(); // Klickar på meny-knappen i headern
 
     cy.url().should("include", "#menu"); // Kollar i URLen om man är på rätt sida
-    cy.get(".Home_menuTitleContainer__ZxhOM > h3").should(
-      "contain.html",
-      "MENY"
-    ); // Kollar så att titeln i menyn innehåller order "MENY"
+    cy.get("#menuTitle").should("contain.html", "MENY"); // Kollar så att titeln i menyn innehåller order "MENY"
   });
   it("book button should work", () => {
     cy.visit("http://localhost:3000"); // Går in på sidan
