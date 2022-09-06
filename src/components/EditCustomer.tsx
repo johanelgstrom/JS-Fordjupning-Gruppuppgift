@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Customer, CustomerSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditCustomer.module.scss";
 import { table } from "console";
+
+import {
+  validateAll,
+  validateBookingEmail,
+  validateBookingName,
+  validateBookingPhone,
+} from "../validation/validationAdminCustomer";
 
 interface EditCustomerProps {
   customer: CustomerSearch;
@@ -16,12 +23,32 @@ export const EditCustomer = (props: EditCustomerProps) => {
     phone: props.customer.phone,
   });
 
+  const [validateName, setValidateName] = useState(false);
+  const [validateEmail, setValidateEmail] = useState(false);
+  const [validatePhone, setValidatePhone] = useState(false);
+  const [validateForm, setValidateForm] = useState(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.updateCustomerData(updatedCustomer);
+
+    if (
+      validateAll(validateName, validateEmail, validatePhone, updatedCustomer)
+    ) {
+      props.updateCustomerData(updatedCustomer);
+      setUpdatedCustomer({ name: "", email: "", phone: "" });
+      setValidateForm(false);
+    } else {
+      setValidateForm(true);
+    }
 
     console.log("här är bolian false i editCustomer");
   };
+
+  useEffect(() => {
+    setValidateName(validateBookingName(updatedCustomer.name));
+    setValidateEmail(validateBookingEmail(updatedCustomer.email));
+    setValidatePhone(validateBookingPhone(updatedCustomer.phone));
+  }, [updatedCustomer]);
   console.log("11111 UPPDATED CUSTOMER", updatedCustomer);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +72,12 @@ export const EditCustomer = (props: EditCustomerProps) => {
                 name="name"
                 value={updatedCustomer.name}
               />
-              {/* value={updatedCustomer.name} */}
+              {validateName ? (
+                <></>
+              ) : (
+                <p>Ditt namn måste vara minst två tecken långt.</p>
+              )}
+
               <label>
                 <strong>Email:</strong>
               </label>
@@ -55,6 +87,7 @@ export const EditCustomer = (props: EditCustomerProps) => {
                 name="email"
                 value={updatedCustomer.email}
               />
+              {validateEmail ? <></> : <p>Skriv in en valid emailadress</p>}
               <label>
                 <strong>Tele:</strong>
               </label>
@@ -64,6 +97,11 @@ export const EditCustomer = (props: EditCustomerProps) => {
                 name="phone"
                 value={updatedCustomer.phone}
               />
+              {validatePhone ? (
+                <></>
+              ) : (
+                <p>Skriv in rätt telefonnummerformat: +467********</p>
+              )}
               <button type="submit">ändra uppgifter för kund</button>
             </div>
           </form>

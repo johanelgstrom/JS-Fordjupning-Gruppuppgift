@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TableInfo, TableSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditTable.module.scss";
-
+import { validateDate } from "../validation/validateAdminTable";
 interface EditTableInfoProps {
   tableInfo: TableSearch;
   updatedTableInfo(updatedTableInfo: TableInfo): void;
@@ -17,10 +17,24 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
     customer: props.tableInfo.customer,
   });
 
+  const [dateValidate, setDateValidate] = useState(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.updatedTableInfo(updatedTableInfo);
+    if (dateValidate) {
+      props.updatedTableInfo(updatedTableInfo);
+      setUpdatedTableInfo({
+        date: "",
+        seating: "",
+        personAmount: "",
+        tableamount: "",
+        customer: "",
+      });
+    }
   };
+  useEffect(() => {
+    setDateValidate(validateDate(updatedTableInfo.date));
+  }, [updatedTableInfo]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedTableInfo({
@@ -52,6 +66,7 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 name="date"
                 value={updatedTableInfo.date}
               />
+              {dateValidate ? <></> : <p>klicka i ett datum</p>}
               <label>
                 <strong>Sittning:</strong>
               </label>
@@ -60,8 +75,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 name="seating"
                 value={updatedTableInfo.seating}
               >
-                <option>Välj sittning</option>
-
                 <option>18:00</option>
                 <option>21:00</option>
               </select>
@@ -74,6 +87,7 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 type="text"
                 name="customer"
                 value={updatedTableInfo.customer}
+                readOnly
               />
 
               <button type="submit">ändra uppgifter </button>

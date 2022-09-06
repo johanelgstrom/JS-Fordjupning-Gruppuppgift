@@ -1,9 +1,12 @@
+// HÄMTAR NPM PACKET react-calendar
 import Calendar from "react-calendar";
-
+//  useEffect, useState HÄMTAS FRÅN REACT
 import { useEffect, useState } from "react";
-
+// Header EGEN COMPONENT HÄMTAS
 import { Header } from "../Header";
+//EditCustomer EGEN COMPONENT HÄMTAS
 import { EditCustomer } from "../EditCustomer";
+// HÄMTAR INFO FRÅN MODELS - adminSearch
 import {
   Customer,
   CustomerSearch,
@@ -12,9 +15,13 @@ import {
   TableSearch,
   TableSearchResponse,
 } from "../../models/AdminSearch";
+//EditTableInfo EGEN COMPONENT HÄMTAS
 import { EditTableInfo } from "../EditTableInfo";
+//MODULE STYLING
 import styles from "../../scss/Admin.module.scss";
+//CustomerAdmin EGEN COMPONENT HÄMTAS
 import { CustomerAdmin } from "../CustomerAdmin";
+//CustomerInfoAdmin EGEN COMPONENT HÄMTAS
 import { CustomerInfoAdmin } from "../CustomerInfoAdmin";
 const axios = require("axios");
 
@@ -42,7 +49,9 @@ export const Admin = () => {
   });
 
   const [tableData, setTableData] = useState<TableSearch[]>([]);
-
+  // useEffect  HÄMTAR ALLA BOKNINGAR URL:EN SOM KOMMER FRÅN AdminRouter.js, GÖR OM date TILL EN STRING SOM ANVÄNDS SOM IDENTIFIERING.
+  //STARTER OM EFER VARJE NY FÖRÄNDRING MED date.
+  // BOOLIANS INNANFÖR ANSVARAR FÖR DESS COMPONENT SKA VARA DÄR ELLER EJ.
   useEffect(() => {
     axios
       .get(
