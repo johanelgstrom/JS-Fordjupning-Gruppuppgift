@@ -1,6 +1,15 @@
 import cypress from "cypress";
 import "../support/commands.ts";
 
+// Raderar hela databasen innan varje test, så det inte blir något knasigt med dubbelbokningar
+beforeEach(() => {
+  cy.request("DELETE", "http://localhost:8000/util/clear-database").then(
+    (response) => {
+      expect(response.status).to.eq(200);
+    }
+  );
+});
+
 describe("admin tests", () => {
   it("reservation should appear", () => {
     // FÖRST skapa en bokning
@@ -175,7 +184,7 @@ describe("admin tests", () => {
       .type("2022-09-30"); // Ändrar datum tillbaka till originaldatumet
     cy.get("select").select("18.00"); // Ändrar tid tillbaka till originaltiden
     cy.get(".AdminEditTable_styleTableImputs__HmXve > button").click(); // Klickar på "Ändra"knappen
-
+    cy.wait(500);
     // AVBOKAR SÅ ATT MAN SLIPPER RENSA DB MANUELLT VARJE GÅNG
     cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
     cy.get("@apiResponse").then((response) => {

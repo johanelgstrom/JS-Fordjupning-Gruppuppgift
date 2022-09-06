@@ -1,5 +1,14 @@
 import cypress from "cypress";
 
+// Raderar hela databasen innan varje test, så det inte blir något knasigt med dubbelbokningar
+beforeEach(() => {
+  cy.request("DELETE", "http://localhost:8000/util/clear-database").then(
+    (response) => {
+      expect(response.status).to.eq(200);
+    }
+  );
+});
+
 describe("booking test", () => {
   it("booking on an non-full day should go through", () => {
     cy.visit("http://localhost:3000"); // Går in på sidan

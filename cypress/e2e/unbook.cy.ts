@@ -1,6 +1,15 @@
 import cypress from "cypress";
 import "../support/commands.ts";
 
+// Raderar hela databasen innan varje test, så det inte blir något knasigt med dubbelbokningar
+beforeEach(() => {
+  cy.request("DELETE", "http://localhost:8000/util/clear-database").then(
+    (response) => {
+      expect(response.status).to.eq(200);
+    }
+  );
+});
+
 describe("cancel reservation", () => {
   it("canceling a reservation should work", () => {
     // FÖRST skapa en bokning
