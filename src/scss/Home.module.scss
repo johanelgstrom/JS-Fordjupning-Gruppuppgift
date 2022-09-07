@@ -22,12 +22,9 @@ html {
     width: 100%;
     display: flex;
     position: absolute;
-
     justify-content: center;
     align-items: flex-end;
-    // overflow: hidden;
-    // animation: roll 5s linear infinite;
-
+    bottom: 0;
     p {
       font-weight: 600;
       color: rgba(255, 214, 101, 1);
@@ -116,10 +113,16 @@ html {
     justify-content: center;
     align-items: center;
     .innerAboutContainer {
-      height: 90vh;
+      min-height: 90vh;
       width: 80%;
       background-color: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(5px);
+      padding: 10px 0 10px 0;
+      margin: 20px 0 20px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
       @include mixins.tablet {
         display: flex;
         flex-direction: column;
@@ -127,8 +130,9 @@ html {
         align-items: center;
       }
       @include mixins.desktop {
-        // display: block;
         min-height: 90%;
+        padding: 0;
+        margin: 0;
       }
 
       .aboutTitleContainer {
@@ -155,14 +159,17 @@ html {
         @include mixins.tablet {
           display: flex;
           justify-content: center;
-          width: 80%;
+          width: 60%;
           max-width: 400px;
           border-radius: 20px;
           overflow: hidden;
         }
+        @include mixins.desktop {
+          width: 80%;
+          min-width: none;
+        }
         video {
           width: 100%;
-          // padding: 10px;
         }
       }
     }
