@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { TableInfo, TableSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditTable.module.scss";
 import { validateDate } from "../validation/validateAdminTable";
+
 interface EditTableInfoProps {
   tableInfo: TableSearch;
   updatedTableInfo(updatedTableInfo: TableInfo): void;
   setisEditTable(setisEditTable: boolean): void;
 }
-
+//ÅTERANVÄNDER INFORMATION FRÅN Admin COMPONENTEN
 export const EditTableInfo = (props: EditTableInfoProps) => {
   const [updatedTableInfo, setUpdatedTableInfo] = useState({
     date: props.tableInfo.date,
@@ -16,9 +17,9 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
     tableamount: props.tableInfo.tableamount,
     customer: props.tableInfo.customer,
   });
-
+  // BOOLIAN SOM BEKRÄFTAR OM VALIDERINGEN BEHÖVS
   const [dateValidate, setDateValidate] = useState(false);
-
+  //BERÄTTAR OM VALIDERINGEN ÄR SOM DEN SKA NOLLSTÄLL updatedTableInfo
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (dateValidate) {
@@ -32,16 +33,19 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
       });
     }
   };
+
+  // VALIDERING SKER NÄR FÖRÄNDRING AV updatedCustomer
   useEffect(() => {
     setDateValidate(validateDate(updatedTableInfo.date));
   }, [updatedTableInfo]);
-
+  //UPPDATERAR DET NYA VÄRDET I FORMULÄRET INNANFÖR INPUTELEMENTET
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedTableInfo({
       ...updatedTableInfo,
       [e.target.name]: e.target.value,
     });
   };
+  //UPPDATERAR DET NYA VÄRDET I FORMULÄRET INNANFÖR SELECTELEMENTET
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUpdatedTableInfo({
       ...updatedTableInfo,
@@ -67,6 +71,28 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 value={updatedTableInfo.date}
               />
               {dateValidate ? <></> : <p>klicka i ett datum</p>}
+
+              <label>
+                <strong>Antal gäster:</strong>
+              </label>
+              <select
+                onChange={handleSelect}
+                name="personAmount"
+                value={updatedTableInfo.personAmount}
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
               <label>
                 <strong>Sittning:</strong>
               </label>

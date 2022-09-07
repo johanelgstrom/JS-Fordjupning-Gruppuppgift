@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Customer, CustomerSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditCustomer.module.scss";
-import { table } from "console";
 
 import {
   validateAll,
@@ -15,19 +14,19 @@ interface EditCustomerProps {
   setIsEditBooking(setIsEditBooking: boolean): void;
   updateCustomerData(updatedCustomer: Customer): void;
 }
-//vad blir functionen av updatedCustomer ? för böt ut inputs Value={updatedCustomer.name} till att map() och ändra value={customer.name}
+//ÅTERANVÄNDER INFORMATION FRÅN Admin COMPONENTEN
 export const EditCustomer = (props: EditCustomerProps) => {
   const [updatedCustomer, setUpdatedCustomer] = useState({
     name: props.customer.name,
     email: props.customer.email,
     phone: props.customer.phone,
   });
-
+  // BOOLIAN SOM BEKRÄFTAR OM VALIDERINGEN BEHÖVS
   const [validateName, setValidateName] = useState(false);
   const [validateEmail, setValidateEmail] = useState(false);
   const [validatePhone, setValidatePhone] = useState(false);
-  const [validateForm, setValidateForm] = useState(false);
 
+  //BERÄTTAR OM VALIDERINGEN ÄR SOM DEN SKA NOLLSTÄLL updatedCustomer
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -36,14 +35,10 @@ export const EditCustomer = (props: EditCustomerProps) => {
     ) {
       props.updateCustomerData(updatedCustomer);
       setUpdatedCustomer({ name: "", email: "", phone: "" });
-      setValidateForm(false);
-    } else {
-      setValidateForm(true);
+      console.log("här är bolian false i editCustomer", updatedCustomer);
     }
-
-    console.log("här är bolian false i editCustomer");
   };
-
+  // VALIDERING SKER NÄR FÖRÄNDRING AV updatedCustomer
   useEffect(() => {
     setValidateName(validateBookingName(updatedCustomer.name));
     setValidateEmail(validateBookingEmail(updatedCustomer.email));
@@ -51,6 +46,7 @@ export const EditCustomer = (props: EditCustomerProps) => {
   }, [updatedCustomer]);
   console.log("11111 UPPDATED CUSTOMER", updatedCustomer);
 
+  //UPPDATERAR DET NYA VÄRDET I FORMULÄRET
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedCustomer({ ...updatedCustomer, [e.target.name]: e.target.value });
   };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CustomerSearch, TableSearch, Customer } from "../models/AdminSearch";
 import style from "../scss/EditCustomerBookingButton.module.scss";
 
@@ -9,19 +8,14 @@ interface EditCustomerBookingButtonProps {
   customer: CustomerSearch;
   activeCustomerBooking: TableSearch;
   setCustomer(setCustomer: CustomerSearch): void;
-  //updatedCustomer: CustomerSearch;
 }
 
 export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
-  const [updatedCustomer, setUpdatedCustomer] = useState({
-    name: props.customer.name,
-    email: props.customer.email,
-    phone: props.customer.phone,
-  });
-
+  //HÄMTAR COMPONENTEN SOM UPPDATERAR KUND
   const editCustomer = () => {
     props.setisEditTable(true);
   };
+  //HÄMTAR COMPONENTEN SOM UPPDATERAR BORD
   const editTableData = () => {
     props.setIsEditBooking(true);
   };
@@ -44,8 +38,8 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
               </p>
 
               <div className={style.buttons}>
-                <button onClick={editTableData}>Ändra kund info</button>
-                <button onClick={editCustomer}>Hämta bord</button>
+                <button onClick={editTableData}>Hämta bord</button>
+                <button onClick={editCustomer}>Ändra kund info</button>
               </div>
             </div>
           </div>

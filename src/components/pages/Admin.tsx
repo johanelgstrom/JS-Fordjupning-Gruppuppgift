@@ -16,6 +16,7 @@ import {
   TableSearch,
   TableSearchResponse,
 } from "../../models/AdminSearch";
+import { Loader } from "../Loader";
 //EditTableInfo EGEN COMPONENT HÄMTAS
 import { EditTableInfo } from "../EditTableInfo";
 //MODULE STYLING
@@ -31,6 +32,7 @@ export const Admin = () => {
   const [isEditTable, setisEditTable] = useState(false);
   const [getCustomerInfo, setGetCustomerInfo] = useState(false);
   const [isBookable, setIsBookable] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
   const [activeCustomerBooking, setActiveCustomerBooking] =
@@ -68,6 +70,9 @@ export const Admin = () => {
       });
   }, [date]);
 
+  //FILTRERAR UT BORDET MED KUNDEN, HÄMTAR INFORMATIONEN MED FUNCTIONEN
+  //setActiveCustomerBooking ANVÄNDS SEDAN I COMPONENTEN CustomerInfoAdmin. useEfect  STARTAR OM VID FÖRÄNDRING UT AV CUSTOMER
+
   useEffect(() => {
     const customerBookings = tableData.filter(
       (booking) => booking.customer === customer._id
@@ -75,9 +80,8 @@ export const Admin = () => {
     setActiveCustomerBooking(customerBookings[0]);
   }, [customer]);
 
+  // HÄMTAR KUNDER OCH SKICKAR getCustomer MED TILL COMPONENT CustomerAdmin
   const getCustomer = async (customerId: string) => {
-    console.log("customer id", customerId);
-
     axios
       .get("http://localhost:8000/admin/customers/" + customerId)
       .then((Response: CustomerSearchResponse) => {
@@ -89,7 +93,7 @@ export const Admin = () => {
         setIsEditBooking(false);
       });
   };
-
+  // HÄMTAR KUNDER SEPARAT SOM SKA KUNNA RADERAS MED BOKNINGEN, SKICKAR MED deleteBooking TILL COMPONENTEN CustomerAdmin
   const deleteBooking = async (bookingId: string) => {
     const response = await axios.delete(
       "http://localhost:8000/admin/customers/delete/" + bookingId
@@ -100,10 +104,9 @@ export const Admin = () => {
     setGetCustomerInfo(false);
     setIsEditBooking(false);
     setDate(new Date());
-
-    console.log("DELEDEDBOOKING", response.data);
   };
 
+  //UPPDATERAR KUNDER VIA  DESS ID, SKICKAR MED FUNCTIONEN updateCustomerData TILL COMPONENTEN EditCustomer
   const updateCustomerData = async (updatedCustomer: Customer) => {
     await axios
       .put(
@@ -111,14 +114,13 @@ export const Admin = () => {
         updatedCustomer
       )
       .then((response: CustomerSerachData) => {
-        console.log("För Customer", response);
         setCustomer(response.data);
+
         setisEditTable(false);
       });
   };
 
-  console.log("customer", customer);
-
+  //UPPDATERAR SITTNINGEN VIA  DESS ID, SKICKAR MED FUNCTIONEN updatedTableInfo TILL KOMPONENTEN CustomerAdmin
   const updatedTableInfo = async (updatedTableInfo: TableInfo) => {
     await axios
       .put(
@@ -131,6 +133,7 @@ export const Admin = () => {
       });
   };
 
+  //KILICKAR PÅ CALENDERN DATUM, KOMMER KOMPONENTER MED INFORMATION OM DEN DAGEN
   const onChange = (date: Date) => {
     setDate(date);
     setIsBookable(false);
@@ -148,19 +151,23 @@ export const Admin = () => {
             </div>
 
             <div className={styles.makeContentHorizontalAndVertical}>
-              <div>
-                <CustomerAdmin
-                  tableInfo={tableData}
-                  customer={customer}
-                  message={message}
-                  updatedTableInfo={updatedTableInfo}
-                  setMessage={setMessage}
-                  setDate={setDate}
-                  getCustomer={getCustomer}
-                  deleteBooking={deleteBooking}
-                  setCustomer={setCustomer}
-                />
-              </div>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <div>
+                  <CustomerAdmin
+                    tableInfo={tableData}
+                    customer={customer}
+                    message={message}
+                    updatedTableInfo={updatedTableInfo}
+                    setMessage={setMessage}
+                    setDate={setDate}
+                    getCustomer={getCustomer}
+                    deleteBooking={deleteBooking}
+                    setCustomer={setCustomer}
+                  />
+                </div>
+              )}
               <div>
                 {getCustomerInfo ? (
                   <CustomerInfoAdmin
@@ -169,7 +176,6 @@ export const Admin = () => {
                     customer={customer}
                     setCustomer={setCustomer}
                     activeCustomerBooking={activeCustomerBooking}
-                    //updatedCustomer={updatedCustomer}
                   />
                 ) : (
                   <></>

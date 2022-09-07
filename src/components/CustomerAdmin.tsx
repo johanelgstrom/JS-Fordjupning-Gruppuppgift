@@ -1,13 +1,9 @@
 import axios from "axios";
-import {
-  CustomerSearch,
-  CustomerSearchResponse,
-  TableInfo,
-  TableSearch,
-} from "../models/AdminSearch";
+import { CustomerSearch, TableInfo, TableSearch } from "../models/AdminSearch";
 import style from ".././scss/TableDataMap.module.scss";
 import React from "react";
 
+// PROPSFRÅN ADMIN
 interface TableDataMapProps {
   tableInfo: TableSearch[];
   customer: CustomerSearch;
@@ -26,6 +22,7 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
     <>
       <main className={style.mainContainer}>
         <div className={style.container}>
+          {/* MAPA UT BORDSBOKNINGAR MED KEY={TABLE._ID} */}
           {props.tableInfo.map((table) => {
             return (
               <div className={style.Info} key={table._id}>
@@ -38,12 +35,16 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
                 <p>
                   <strong>Vilken sittning:</strong> {table.seating}
                 </p>
+                <p>
+                  <strong>Antal gäster:</strong> {table.personAmount}
+                </p>
 
                 <div className={style.buttons}>
+                  {/* HÄMTAR SPECIFICK KUND/BOKNING , FUNCTIONEN FINS I ADMIN */}
                   <button onClick={() => props.getCustomer(table.customer)}>
                     Hämta kund
                   </button>
-
+                  {/* RADERAR SPECIFICK KUND/BOKNING , FUNCTIONEN FINS I ADMIN */}
                   <button onClick={() => props.deleteBooking(table._id)}>
                     Radera
                   </button>
