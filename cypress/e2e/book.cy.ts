@@ -1,5 +1,16 @@
 import cypress from "cypress";
 
+// Funktion som skapar ett random namn på 5 bokstäver
+function createCustomName(length: number) {
+  let result: string = "";
+  let characters: string = "abcdefghijklmnopqrstuvwxyzåäö";
+  let charactersLength = characters.length;
+  for (var i: number = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 // Raderar hela databasen innan varje test, så det inte blir något knasigt med dubbelbokningar
 beforeEach(() => {
   cy.request("DELETE", "http://localhost:8000/util/clear-database").then(
@@ -98,5 +109,72 @@ describe("booking test", () => {
     cy.get("#phone").clear().type("+46701234556"); // Tömmer telefon och skriver in korrekt
     cy.get("#submitAllInfoButton").click(); // Hittar och klickar på boka, nu med korrekt information
     cy.get("h3").should("contain.html", "Tack Test Testsson för din bokning"); // Kontrollerar att namnet stämmer överens
+  });
+  it("shouldnt be able to book if a sitting is full", () => {
+    // Skapar 15 bokningar vid första sittningen
+    for (let i = 0; i < 15; i++) {
+      let name = createCustomName(5);
+      cy.request("POST", "http://localhost:8000/booking/new-booking", {
+        date: "2022-09-30",
+        seating: "18.00",
+        personAmount: "1",
+        tableAmount: "1",
+        name: name,
+        email: `${name}@test.se`,
+        phone: "+4601234556",
+      });
+    }
+    cy.visit("http://localhost:3000"); // Går in på sidan
+    cy.get("div#gdprAccept").click(); // Accepterar GDPR-villkoren
+    cy.get("a#bookButton").click(); // Klickar på bokningssidan i headern
+
+    cy.get(".react-calendar__month-view__days > :nth-child(33)")
+      .should("have.text", "30")
+      .click(); // Hittar nummer 31 i kalendern och klickar på den
+    cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
+    cy.get("#submitBooking").click(); // Hittar och klickar på "Sök bord"-knappen
+    cy.get("#seating").select(1).should("not.include.html", "18.00");
+  }); // Väljer det första alternativet (förutom "Välj tid"), och kollar så att 18.00 inte går att välja
+  it("shouldnt be able to book on a full day", () => {
+    // Skapar 15 bokningar vid första sittningen
+    for (let i = 0; i < 15; i++) {
+      let name = createCustomName(5);
+      cy.request("POST", "http://localhost:8000/booking/new-booking", {
+        date: "2022-09-30",
+        seating: "18.00",
+        personAmount: "1",
+        tableAmount: "1",
+        name: name,
+        email: `${name}@test.se`,
+        phone: "+4601234556",
+      });
+    }
+    // Skapar 15 bokningar vid andra sittningen
+    for (let i = 0; i < 15; i++) {
+      let name = createCustomName(5);
+      cy.request("POST", "http://localhost:8000/booking/new-booking", {
+        date: "2022-09-30",
+        seating: "21.00",
+        personAmount: "1",
+        tableAmount: "1",
+        name: name,
+        email: `${name}@test.se`,
+        phone: "+4601234556",
+      });
+    }
+
+    cy.visit("http://localhost:3000"); // Går in på sidan
+    cy.get("div#gdprAccept").click(); // Accepterar GDPR-villkoren
+    cy.get("a#bookButton").click(); // Klickar på bokningssidan i headern
+
+    cy.get(".react-calendar__month-view__days > :nth-child(33)")
+      .should("have.text", "30")
+      .click(); // Hittar nummer 31 i kalendern och klickar på den
+    cy.get("#personAmount").select("2"); // Hittar dropdownen och klickar i för 2 personer
+    cy.get("#submitBooking").click(); // Hittar och klickar på "Sök bord"-knappen
+    cy.get("#validateContainer > p").should(
+      "contain.html",
+      "Fullbokat den dagen, välj en annan"
+    ); // Kollar om felmeddelande att det är fullbokat dyker upp
   });
 });

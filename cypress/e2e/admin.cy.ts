@@ -67,34 +67,6 @@ describe("admin tests", () => {
     cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
     cy.get("#infoTable > :nth-child(2)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
     cy.get("#infoTable > :nth-child(3)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
-
-    // AVBOKAR SÅ ATT MAN SLIPPER RENSA DB MANUELLT VARJE GÅNG
-    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
-    cy.get("@apiResponse").then((response) => {
-      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
-      cy.visit(`http://localhost:3000/cancel/${bookingId}`); // Går in på bokningssidan på bokningen vi skapade
-    });
-
-    cy.get("h3").should("contain.html", "Hej Test Testsson!"); // Kollar så att titeln har rätt namn
-    cy.get("#informationTextContainer > :nth-child(3)").should(
-      "contain.html",
-      "för 2 personer, 2022-09-30"
-    ); // Kollar så att texten har rätt antal personer
-
-    cy.get("button").click(); // Klickar på "Avboka"knappen
-
-    cy.get("h3").should("contain.html", "Ditt bord är nu avbokat."); // Kontrollerar att frontend visar bekräftelse att det är avbokat
-    cy.get("@apiResponse").then((response) => {
-      cy.request(
-        // Kör ett API-anrop som kollar ifall boknigns-ID är borta ur databasen
-        "GET",
-        `http://localhost:8000/booking/cancel/check/${Cypress.env(
-          "bookingString"
-        )}`
-      ).then((response) => {
-        expect(response.isOkStatusCode); // Om svaret blir 200, är boknings-ID borta
-      });
-    });
   });
   it("should be able to change reservation date and time", () => {
     // FÖRST skapa en bokning
@@ -171,34 +143,6 @@ describe("admin tests", () => {
       .type("2022-09-30"); // Ändrar datum tillbaka till originaldatumet
     cy.get("select").select("18.00"); // Ändrar tid tillbaka till originaltiden
     cy.get("#styleTableInputs > button").click(); // Klickar på "Ändra"knappen
-    cy.wait(500);
-    // AVBOKAR SÅ ATT MAN SLIPPER RENSA DB MANUELLT VARJE GÅNG
-    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
-    cy.get("@apiResponse").then((response) => {
-      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
-      cy.visit(`http://localhost:3000/cancel/${bookingId}`); // Går in på bokningssidan på bokningen vi skapade
-    });
-
-    cy.get("h3").should("contain.html", "Hej Test Testsson!"); // Kollar så att titeln har rätt namn
-    cy.get("#informationTextContainer > :nth-child(3)").should(
-      "contain.html",
-      "för 2 personer, 2022-09-30"
-    ); // Kollar så att texten har rätt antal personer
-
-    cy.get("button").click(); // Klickar på "Avboka"knappen
-
-    cy.get("h3").should("contain.html", "Ditt bord är nu avbokat."); // Kontrollerar att frontend visar bekräftelse att det är avbokat
-    cy.get("@apiResponse").then((response) => {
-      cy.request(
-        // Kör ett API-anrop som kollar ifall boknigns-ID är borta ur databasen
-        "GET",
-        `http://localhost:8000/booking/cancel/check/${Cypress.env(
-          "bookingString"
-        )}`
-      ).then((response) => {
-        expect(response.isOkStatusCode); // Om svaret blir 200, är boknings-ID borta
-      });
-    });
   });
   it("should be able to change customer info", () => {
     // FÖRST skapa en bokning
@@ -282,34 +226,6 @@ describe("admin tests", () => {
     cy.get('[type="tel"]').clear().type("+46701234556"); // Ändrar tillbaka till standardnumret
     cy.get("#customerInputs > button").click(); // Klickar på "Ändra uppgifter för kund"knappen
     cy.get("#getCustomerButton").click().as("getCustomer"); // Klickar på "Hämta kund" igen
-    cy.wait(500);
-    // AVBOKAR SÅ ATT MAN SLIPPER RENSA DB MANUELLT VARJE GÅNG
-    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
-    cy.get("@apiResponse").then((response) => {
-      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
-      cy.visit(`http://localhost:3000/cancel/${bookingId}`); // Går in på bokningssidan på bokningen vi skapade
-    });
-
-    cy.get("h3").should("contain.html", "Hej Test Testsson!"); // Kollar så att titeln har rätt namn
-    cy.get("#informationTextContainer > :nth-child(3)").should(
-      "contain.html",
-      "för 2 personer, 2022-09-30"
-    ); // Kollar så att texten har rätt antal personer
-
-    cy.get("button").click(); // Klickar på "Avboka"knappen
-
-    cy.get("h3").should("contain.html", "Ditt bord är nu avbokat."); // Kontrollerar att frontend visar bekräftelse att det är avbokat
-    cy.get("@apiResponse").then((response) => {
-      cy.request(
-        // Kör ett API-anrop som kollar ifall boknigns-ID är borta ur databasen
-        "GET",
-        `http://localhost:8000/booking/cancel/check/${Cypress.env(
-          "bookingString"
-        )}`
-      ).then((response) => {
-        expect(response.isOkStatusCode); // Om svaret blir 200, är boknings-ID borta
-      });
-    });
   });
   it("should be able to delete a booking", () => {
     // FÖRST skapa en bokning

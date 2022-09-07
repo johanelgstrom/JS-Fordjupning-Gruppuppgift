@@ -30,6 +30,7 @@ export const Book = () => {
   const [tableAmount, setTableAmount] = useState("");
   const [confirmation, setConfirmation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFull, setIsFull] = useState<boolean>(false);
 
   //SEARCH DB AND CHECK WHITCH SEATING IS POSSIBLE DEPENDING ON PERSONS
   useEffect(() => {
@@ -54,6 +55,7 @@ export const Book = () => {
             setTableAmount(data.tableAmount);
           } else {
             setIsLoading(false);
+            setIsFull(true);
             console.log(data);
           }
         })
@@ -123,7 +125,10 @@ export const Book = () => {
             ) : confirmation ? (
               <Confirmation confirmationInformation={newBooking} />
             ) : (
-              <SearchTableForm searchTable={createSearchTable} />
+              <SearchTableForm
+                searchTable={createSearchTable}
+                isFull={isFull}
+              />
             )}
           </div>
         </div>

@@ -5,6 +5,7 @@ import styles from "../scss/SearchTableForm.module.scss";
 
 interface SearchTableFormProps {
   searchTable(personAmount: string, value: string): void;
+  isFull: boolean;
 }
 
 export const SearchTableForm = (props: SearchTableFormProps) => {
@@ -71,6 +72,11 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             </div>
           ) : (
             <></>
+          )}
+          {props.isFull && (
+            <div className={styles.validate} id="validateContainer">
+              <p>Fullbokat den dagen, välj en annan</p>
+            </div>
           )}
           <button
             type="submit"
