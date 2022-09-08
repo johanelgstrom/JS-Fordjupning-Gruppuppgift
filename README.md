@@ -4,15 +4,7 @@ Resturang "Matad", skapad av [Johan Elgström](https://github.com/johanelgstrom)
 
 ## Information innan vi startar
 
-Det finns sex rader i två .env-filer som behöver ersättas för att e-mail- samt backendfunktionerna ska fungera som tänkt.
-
-### `.env i projektets rot`
-
-Dessa är för EmailJS, vilket är paketet vi använder för att skicka boknings- och avbokningsbekräftelser via e-mail
-**REACT_APP_EMAILJS_SERVICE_ID**  
-**REACT_APP_EMAILJS_TEMPLATE_ID**  
-**REACT_APP_EMAILJS_USER_ID**  
-[Läs mer om EmailJS här](https://www.emailjs.com/)
+Det finns tre rader i en .env-fil som behöver ersättas för att e-mailfunktionerna ska fungera som tänkt.
 
 ### `.env i backend-mappen`
 
@@ -43,12 +35,11 @@ Ni måste alltså ha två separata terminalen där ena kör front-end och den an
 
 ### `npx cypress open`
 
-För att köra tester, **NOTERA** att webbläsaren i cypress **MÅSTE** vara inställd på svenska
+För att köra tester, **NOTERA** att webbläsaren i cypress **MÅSTE** vara inställd på svenska och sedan helst i Chrome.
 
 ## Tekniker använda i applikationen
 
-**Front-end:**  
-EmailJS  
+**Front-end:**   
 React w/ Typescript  
 React-calendar  
 SCSS
