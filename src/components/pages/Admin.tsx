@@ -32,7 +32,7 @@ export const Admin = () => {
   const [isEditTableBooking, setIsEditBooking] = useState(false);
   const [isEditTable, setisEditTable] = useState(false);
   const [getCustomerInfo, setGetCustomerInfo] = useState(false);
-  const [isBookable, setIsBookable] = useState(true);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [message, setMessage] = useState("");
@@ -144,7 +144,7 @@ export const Admin = () => {
   //KILICKAR PÅ CALENDERN DATUM, KOMMER KOMPONENTER MED INFORMATION OM DEN DAGEN
   const onChange = (date: Date) => {
     setDate(date);
-    setIsBookable(false);
+
     setGetCustomerInfo(false);
     setIsLoading(false);
   };
