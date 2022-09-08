@@ -3,7 +3,7 @@ export interface TableSearch {
   date: string;
   seating: string;
   personAmount: string;
-  tableamount: string;
+  tableAmount: string;
   customer: string;
 }
 export interface TableSearchResponse {
@@ -29,7 +29,7 @@ export interface TableInfo {
   date: string;
   seating: string;
   personAmount: string;
-  tableamount: string;
+  tableAmount: string;
   customer: string;
 }
 

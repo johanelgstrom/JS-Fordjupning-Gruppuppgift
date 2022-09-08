@@ -32,7 +32,7 @@ adminRouter.get("/all-bookings/:date", async (req, res) => {
   }
 
   //res.send(bookingsByDate);
-  res.status(200).send({bookingsByDate, tableSumSeatingOne, tableSumSeatingTwo})
+  res.status(200).send({bookingsByDate, tableSumSeatingTwo, tableSumSeatingOne})
 });
 
 adminRouter.get("/customers/:id", async (req, res) => {
@@ -66,25 +66,50 @@ adminRouter.post("/bookings", async (req, res) => {
 });
 
 adminRouter.put("/customers/:idUpdate", async (req, res) => {
-  await CustomerModel.findByIdAndUpdate(
+  
+  const update = await CustomerModel.findOneAndUpdate({_id : req.params.idUpdate}, res.body, {
+    new: true
+  })
+
+  console.log("update", update);
+  res.send(update)
+
+
+  /* await CustomerModel.findByIdAndUpdate(
     { _id: req.params.idUpdate },
     req.body
   ).then(function () {
-    CustomerModel.findOne({ _id: req.params.idUpdate }).then(function (update) {
+    CustomerModel.updateOne({ _id: req.params.idUpdate }).then(function (update) {
       res.send(update);
     });
-  });
+  }); */
 });
 
 adminRouter.put("/bookings/:idUpdate", async (req, res) => {
-  await BookingModel.findByIdAndUpdate(
+  const id = req.params.idUpdate;
+  const myUpdate = {
+    date: req.body.date,
+    seating: req.body.seating,
+    personAmount: req.body.personAmount,
+    tableAmount: req.body.tableAmount,
+    customer: req.body.customer,
+  }
+  console.log("req.body", req.body);
+  const update = await BookingModel.findByIdAndUpdate(id, myUpdate, {
+      new: true
+    }
+    )
+    console.log("update", update);
+    res.send(update)
+  /* console.log("req.body: ", req.body);
+  await BookingModel.findOne(
     { _id: req.params.idUpdate },
     req.body
   ).then(function () {
     BookingModel.findOne({ _id: req.params.idUpdate }).then(function (update) {
       res.send(update);
     });
-  });
+  }); */
 });
 
 module.exports = adminRouter;

@@ -1,41 +1,447 @@
-import React, { useState } from "react";
-import { TableInfo, TableSearch } from "../models/AdminSearch";
+import React, { useEffect, useState } from "react";
+import { TableAmountSum, TableInfo, TableSearch } from "../models/AdminSearch";
 import style from ".././scss/AdminEditTable.module.scss";
 
 interface EditTableInfoProps {
   tableInfo: TableSearch;
-  updatedTableInfo(updatedTableInfo: TableInfo): void;
+  updatedTableInfo(updatedTableInfo: TableInfo, bookinId: string): void;
   setisEditTable(setisEditTable: boolean): void;
+  tableAmountSum: TableAmountSum;
 }
 
 export const EditTableInfo = (props: EditTableInfoProps) => {
-  const [updatedTableInfo, setUpdatedTableInfo] = useState({
+  // COMPONENT STATES
+  const [updatedTableInfo, setUpdatedTableInfo] = useState<TableSearch>({
     date: props.tableInfo.date,
     seating: props.tableInfo.seating,
     personAmount: props.tableInfo.personAmount,
-    tableamount: props.tableInfo.tableamount,
+    tableAmount: props.tableInfo.tableAmount,
     customer: props.tableInfo.customer,
+    _id: props.tableInfo._id,
   });
+
+  const [seating, setSeating] = useState<string[]>([]);
+  const [personAmountOption, setPersonAmountOption] = useState<string[]>([]);
+
+  //SET TABLE AMOUNT
+
+  useEffect(() => {
+    let tableAmount = "2";
+    if (parseInt(updatedTableInfo.personAmount) < 7) {
+      tableAmount = "1";
+    }
+    if (updatedTableInfo.tableAmount !== tableAmount) {
+      setUpdatedTableInfo({ ...updatedTableInfo, tableAmount: tableAmount });
+    }
+  }, [updatedTableInfo.tableAmount, updatedTableInfo]);
+
+  // CHECK AVALIBILITY FOR CHANGE SEATING
+  useEffect(() => {
+    if (
+      props.tableAmountSum.tableSumSeatingOne > 14 &&
+      props.tableAmountSum.tableSumSeatingTwo > 14
+    ) {
+      setSeating(["Fullbokat"]);
+    } else if (
+      props.tableAmountSum.tableSumSeatingOne > 14 &&
+      props.tableAmountSum.tableSumSeatingTwo < 15
+    ) {
+      console.log("1");
+      setSeating(["21.00"]);
+    } else if (
+      props.tableAmountSum.tableSumSeatingTwo > 14 &&
+      props.tableAmountSum.tableSumSeatingOne < 15
+    ) {
+      console.log("2");
+      setSeating(["18.00"]);
+    } else if (
+      props.tableAmountSum.tableSumSeatingOne > 14 &&
+      props.tableAmountSum.tableSumSeatingTwo > 13
+    ) {
+      setSeating(["21.00"]);
+    } else if (
+      props.tableAmountSum.tableSumSeatingOne > 13 &&
+      props.tableAmountSum.tableSumSeatingTwo > 14
+    ) {
+      setSeating(["21.00"]);
+    } else {
+      console.log("9");
+
+      setSeating(["18.00", "21.00"]);
+    }
+  }, [
+    updatedTableInfo.personAmount,
+    props.tableAmountSum.tableSumSeatingOne,
+    props.tableAmountSum.tableSumSeatingTwo,
+    updatedTableInfo,
+  ]);
+
+  //CHECK AVALIBILITY FOR CHANGE PERSON AMOUNT
+
+  useEffect(() => {
+    if (updatedTableInfo.seating !== props.tableInfo.seating) {
+      if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingTwo < 7
+      ) {
+        console.log("1.1");
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingOne < 7
+      ) {
+        console.log("1.2");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingOne > 6
+      ) {
+        console.log("1.3");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingTwo > 6
+      ) {
+        console.log("1.4");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingOne > 13
+      ) {
+        console.log("1.5");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingOne > 13
+      ) {
+        console.log("1.6");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingOne < 14
+      ) {
+        console.log("1.7");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingTwo < 14
+      ) {
+        console.log("1.8");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "21.00" &&
+        props.tableAmountSum.tableSumSeatingTwo > 13
+      ) {
+        console.log("1.9");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "21.00" &&
+        props.tableAmountSum.tableSumSeatingTwo > 13
+      ) {
+        console.log("1.10");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "21.00" &&
+        props.tableAmountSum.tableSumSeatingTwo < 14
+      ) {
+        console.log("1.11");
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else {
+        console.log("1.12");
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      }
+    } else {
+      if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) <
+          7
+      ) {
+        console.log("1.1");
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingOne -
+          parseInt(updatedTableInfo.tableAmount) <
+          7
+      ) {
+        console.log("1.2");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingOne -
+          parseInt(updatedTableInfo.tableAmount) >
+          6
+      ) {
+        console.log("1.3");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "fullbokat" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) >
+          6
+      ) {
+        console.log("1.4");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingOne -
+          parseInt(updatedTableInfo.tableAmount) >
+          13
+      ) {
+        console.log("1.5");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) >
+          13
+      ) {
+        console.log("1.6");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingOne -
+          parseInt(updatedTableInfo.tableAmount) <
+          14
+      ) {
+        console.log("1.7");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "18.00" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) <
+          14
+      ) {
+        console.log("1.8");
+
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else if (
+        updatedTableInfo.seating === "21.00" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) >
+          13
+      ) {
+        console.log("1.9");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "21.00" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) >
+          13
+      ) {
+        console.log("1.10");
+
+        setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
+      } else if (
+        updatedTableInfo.seating === "21.00" &&
+        props.tableAmountSum.tableSumSeatingTwo -
+          parseInt(updatedTableInfo.tableAmount) <
+          14
+      ) {
+        console.log("1.11");
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      } else {
+        console.log("1.12");
+        setPersonAmountOption([
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+        ]);
+      }
+    }
+  }, [
+    props.tableAmountSum.tableSumSeatingOne,
+    props.tableAmountSum.tableSumSeatingTwo,
+    seating,
+    updatedTableInfo.seating,
+    updatedTableInfo.tableAmount,
+    updatedTableInfo,
+    props.tableInfo.seating,
+  ]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.updatedTableInfo(updatedTableInfo);
+
+    props.updatedTableInfo(updatedTableInfo, updatedTableInfo._id);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdatedTableInfo({
-      ...updatedTableInfo,
-      [e.target.name]: e.target.value,
-    });
-  };
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setUpdatedTableInfo({
-      ...updatedTableInfo,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.value !== "default") {
+      setUpdatedTableInfo({
+        ...updatedTableInfo,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
-
-  console.log(updatedTableInfo);
 
   return (
     <>
@@ -43,15 +449,7 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         <div className={style.formTable}>
           <form onSubmit={handleSubmit}>
             <div className={style.styleTableImputs}>
-              <label>
-                <strong>Datum:</strong>
-              </label>
-              <input
-                onChange={handleChange}
-                type="date"
-                name="date"
-                value={updatedTableInfo.date}
-              />
+              <p>Datum: {updatedTableInfo.date}</p>
               <label>
                 <strong>Sittning:</strong>
               </label>
@@ -60,21 +458,38 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 name="seating"
                 value={updatedTableInfo.seating}
               >
-                <option>Välj sittning</option>
-
-                <option>18.00</option>
-                <option>21.00</option>
+                <option value={"default"}>
+                  Välj här om du vill ändra sittning
+                </option>
+                {seating.map((seating, index) => {
+                  return (
+                    <option key={index} value={seating}>
+                      {seating}
+                    </option>
+                  );
+                })}
               </select>
 
               <label>
-                <strong>Kund id:</strong>
+                <strong>Antal Personer</strong>
               </label>
-              <input
-                onChange={handleChange}
-                type="text"
-                name="customer"
-                value={updatedTableInfo.customer}
-              />
+
+              <select
+                onChange={handleSelect}
+                name="personAmount"
+                id="personAmount"
+                value={updatedTableInfo.personAmount}
+              >
+                {personAmountOption.map((persons, index) => {
+                  return (
+                    <option value={persons} key={index}>
+                      {persons}
+                    </option>
+                  );
+                })}
+              </select>
+              <p>Kund id: {updatedTableInfo.customer}</p>
+              <p>Boknings id: {updatedTableInfo._id}</p>
 
               <button type="submit">ändra uppgifter </button>
             </div>

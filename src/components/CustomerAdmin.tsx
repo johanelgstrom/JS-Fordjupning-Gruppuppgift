@@ -13,11 +13,11 @@ interface TableDataMapProps {
   customer: CustomerSearch;
   message: string;
 
-  updatedTableInfo(updatedTableInfo: TableInfo): void;
+  updatedTableInfo(updatedTableInfo: TableInfo, customerId: string): void;
   setCustomer(setCustomer: CustomerSearch): void;
   setMessage(setMessage: ""): void;
   setDate(setDate: Date): void;
-  getCustomer(getCustomer: string): void;
+  getCustomer(getCustomer: string, tableId: string): void;
   deleteBooking(deleteBooking: string): void;
 }
 
@@ -33,15 +33,20 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
                   <strong>Kund id:</strong> {table.customer}
                 </p>
                 <p>
+                  <strong>Boknings id: {table._id}</strong>
+                </p>
+                <p>
                   <strong>Datum:</strong> {table.date}
                 </p>
                 <p>
                   <strong>Vilken sittning:</strong> {table.seating}
                 </p>
-
+                <p>
+                  <strong>Antal personer:</strong> {table.personAmount}
+                </p>
                 <div className={style.buttons}>
                   <button
-                    onClick={() => props.getCustomer(table.customer)}
+                    onClick={() => props.getCustomer(table.customer, table._id)}
                     id="getCustomerButton"
                   >
                     Hämta kund

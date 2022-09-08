@@ -40,7 +40,7 @@ export const SearchTableForm = (props: SearchTableFormProps) => {
             onChange={setValue}
             value={value}
             locale="sv-SV"
-            minDate={new Date()}
+            //minDate={new Date()}
           />
           <select
             name="personAmount"
