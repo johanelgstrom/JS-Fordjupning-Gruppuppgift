@@ -1,0 +1,65 @@
+.containerFormCustomer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     
+    
+        height: 100%;
+        width: 100%; 
+        .styleCustomerImputs:hover{
+        background-color: rgba(255, 255, 255, );
+
+
+        }
+    .styleCustomerImputs{
+        display: flex;
+            flex-direction: column;
+             
+          gap: 10px;
+            
+         border-radius: 5px;
+            padding: 20px;
+            backdrop-filter: blur(3px);
+                background-color: rgba(255, 255, 255, 0.85);
+                    
+                    p{
+                       
+                        font-size: small;
+                        backdrop-filter: blur(5px);
+                        color: red;
+                        padding: 5px;
+                        border-radius: 10px;
+                        border: 2px solid gray;
+                        background-color: rgb(253, 223, 223);
+                    }
+                    input{
+                        border: solid 2px rgba(184, 148, 52, 0.681);
+                        
+                        
+                            border-radius: 5px;
+                    }
+                    input:hover{
+                        background-color: rgba(255, 214, 101, 0.681);
+                    }
+         
+          
+               
+                    #button:hover{
+                        background-color: rgba(255, 214, 101, 0.681);
+                    
+
+                    }
+                   
+           }
+                        button {
+                        display: flex;
+                            justify-content: space-between;
+                            margin: 10px;
+                            
+                            border: solid 2px rgba(184, 148, 52, 0.681);
+                        
+                            border-radius: 5px;
+                        }
+
+    }
+

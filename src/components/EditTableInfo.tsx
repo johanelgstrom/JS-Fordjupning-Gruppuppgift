@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TableInfo, TableSearch } from "../models/AdminSearch";
-import style from ".././scss/AdminEditTable.module.scss";
+import style from ".././scss/EditTableInfo.module.scss";
 import { validateDate } from "../validation/validateAdminTable";
 
 interface EditTableInfoProps {
@@ -116,7 +116,9 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
                 readOnly
               />
 
-              <button type="submit">ändra uppgifter </button>
+              <button id={style.button} type="submit">
+                ändra uppgifter{" "}
+              </button>
             </div>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CustomerSearch, TableInfo, TableSearch } from "../models/AdminSearch";
-import style from ".././scss/TableDataMap.module.scss";
+import style from ".././scss/CustomerAdmin.module.scss";
 import React from "react";
 
 // PROPSFRÅN ADMIN
@@ -41,11 +41,17 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
 
                 <div className={style.buttons}>
                   {/* HÄMTAR SPECIFICK KUND/BOKNING , FUNCTIONEN FINS I ADMIN */}
-                  <button onClick={() => props.getCustomer(table.customer)}>
+                  <button
+                    id={style.getCustomerButton}
+                    onClick={() => props.getCustomer(table.customer)}
+                  >
                     Hämta kund
                   </button>
                   {/* RADERAR SPECIFICK KUND/BOKNING , FUNCTIONEN FINS I ADMIN */}
-                  <button onClick={() => props.deleteBooking(table._id)}>
+                  <button
+                    id={style.deledeButton}
+                    onClick={() => props.deleteBooking(table._id)}
+                  >
                     Radera
                   </button>
                 </div>

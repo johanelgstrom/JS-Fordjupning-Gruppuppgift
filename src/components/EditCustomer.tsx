@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Customer, CustomerSearch } from "../models/AdminSearch";
-import style from ".././scss/AdminEditCustomer.module.scss";
+import style from ".././scss/EditCustomer.module.scss";
 
 import {
   validateAll,
@@ -98,7 +98,9 @@ export const EditCustomer = (props: EditCustomerProps) => {
               ) : (
                 <p>Skriv in rätt telefonnummerformat: +467********</p>
               )}
-              <button type="submit">ändra uppgifter för kund</button>
+              <button id={style.button} type="submit">
+                ändra uppgifter för kund
+              </button>
             </div>
           </form>
         </div>

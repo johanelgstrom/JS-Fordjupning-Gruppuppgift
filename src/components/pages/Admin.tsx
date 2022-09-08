@@ -2,9 +2,9 @@
 import Calendar from "react-calendar";
 //  useEffect, useState HÄMTAS FRÅN REACT
 import { useEffect, useState } from "react";
-// Header EGEN COMPONENT HÄMTAS
+// Header COMPONENT HÄMTAS
 import { Header } from "../Header";
-//EditCustomer EGEN COMPONENT HÄMTAS
+//EditCustomer COMPONENT HÄMTAS
 import { EditCustomer } from "../EditCustomer";
 // HÄMTAR INFO FRÅN MODELS - adminSearch
 import {
@@ -16,15 +16,16 @@ import {
   TableSearch,
   TableSearchResponse,
 } from "../../models/AdminSearch";
-import { Loader } from "../Loader";
-//EditTableInfo EGEN COMPONENT HÄMTAS
+
+//EditTableInfo COMPONENT HÄMTAS
 import { EditTableInfo } from "../EditTableInfo";
 //MODULE STYLING
 import styles from "../../scss/Admin.module.scss";
-//CustomerAdmin EGEN COMPONENT HÄMTAS
+//CustomerAdmin COMPONENT HÄMTAS
 import { CustomerAdmin } from "../CustomerAdmin";
-//CustomerInfoAdmin EGEN COMPONENT HÄMTAS
+//CustomerInfoAdmin COMPONENT HÄMTAS
 import { CustomerInfoAdmin } from "../CustomerInfoAdmin";
+import { Loader } from "../Loader";
 const axios = require("axios");
 
 export const Admin = () => {
@@ -33,6 +34,7 @@ export const Admin = () => {
   const [getCustomerInfo, setGetCustomerInfo] = useState(false);
   const [isBookable, setIsBookable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
   const [message, setMessage] = useState("");
   const [date, setDate] = useState(new Date());
   const [activeCustomerBooking, setActiveCustomerBooking] =
@@ -82,11 +84,12 @@ export const Admin = () => {
 
   // HÄMTAR KUNDER OCH SKICKAR getCustomer MED TILL COMPONENT CustomerAdmin
   const getCustomer = async (customerId: string) => {
+    setIsLoading(true);
     axios
       .get("http://localhost:8000/admin/customers/" + customerId)
       .then((Response: CustomerSearchResponse) => {
         console.log("HÄMTAR KUND", Response.data);
-
+        setIsLoading(false);
         setCustomer(Response.data[0]);
         setGetCustomerInfo(true);
         setisEditTable(false);
@@ -95,19 +98,22 @@ export const Admin = () => {
   };
   // HÄMTAR KUNDER SEPARAT SOM SKA KUNNA RADERAS MED BOKNINGEN, SKICKAR MED deleteBooking TILL COMPONENTEN CustomerAdmin
   const deleteBooking = async (bookingId: string) => {
+    setIsLoading(true);
     const response = await axios.delete(
       "http://localhost:8000/admin/customers/delete/" + bookingId
     );
     if (response.data.message) {
       setMessage(response.data.message);
     }
+    setIsLoading(false);
     setGetCustomerInfo(false);
     setIsEditBooking(false);
     setDate(new Date());
   };
 
-  //UPPDATERAR KUNDER VIA  DESS ID, SKICKAR MED FUNCTIONEN updateCustomerData TILL COMPONENTEN EditCustomer
+  //UPPDATERAR KUNDER VIA DESS ID, SKICKAR MED FUNCTIONEN updateCustomerData TILL COMPONENTEN EditCustomer
   const updateCustomerData = async (updatedCustomer: Customer) => {
+    setIsLoading(true);
     await axios
       .put(
         "http://localhost:8000/admin/customers/" + customer._id,
@@ -115,13 +121,14 @@ export const Admin = () => {
       )
       .then((response: CustomerSerachData) => {
         setCustomer(response.data);
-
+        setIsLoading(false);
         setisEditTable(false);
       });
   };
 
   //UPPDATERAR SITTNINGEN VIA  DESS ID, SKICKAR MED FUNCTIONEN updatedTableInfo TILL KOMPONENTEN CustomerAdmin
   const updatedTableInfo = async (updatedTableInfo: TableInfo) => {
+    setIsLoading(true);
     await axios
       .put(
         "http://localhost:8000/admin/bookings/" + tableData[0]._id,
@@ -130,6 +137,7 @@ export const Admin = () => {
       .then((response: TableSearch) => {
         console.log("för Table Info", response);
         setIsEditBooking(false);
+        setIsLoading(false);
       });
   };
 
@@ -138,6 +146,7 @@ export const Admin = () => {
     setDate(date);
     setIsBookable(false);
     setGetCustomerInfo(false);
+    setIsLoading(false);
   };
 
   return (
@@ -147,13 +156,16 @@ export const Admin = () => {
           <Header />
           <div className={styles.mainContentContainer}>
             <div className={styles.calender}>
-              <Calendar onChange={onChange} value={date} />
+              <Calendar
+                className={styles.calenderTagg}
+                onChange={onChange}
+                value={date}
+              />
             </div>
-
-            <div className={styles.makeContentHorizontalAndVertical}>
-              {isLoading ? (
-                <Loader />
-              ) : (
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <div className={styles.makeContentHorizontalAndVertical}>
                 <div>
                   <CustomerAdmin
                     tableInfo={tableData}
@@ -167,44 +179,45 @@ export const Admin = () => {
                     setCustomer={setCustomer}
                   />
                 </div>
-              )}
-              <div>
-                {getCustomerInfo ? (
-                  <CustomerInfoAdmin
-                    setisEditTable={setisEditTable}
-                    setIsEditBooking={setIsEditBooking}
-                    customer={customer}
-                    setCustomer={setCustomer}
-                    activeCustomerBooking={activeCustomerBooking}
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className={styles.edit}>
-                {isEditTable ? (
-                  <EditCustomer
-                    setIsEditBooking={setIsEditBooking}
-                    customer={customer}
-                    updateCustomerData={updateCustomerData}
-                  />
-                ) : (
-                  <></>
-                )}
-              </div>
 
-              <div className={styles.edit}>
-                {isEditTableBooking ? (
-                  <EditTableInfo
-                    setisEditTable={setisEditTable}
-                    tableInfo={activeCustomerBooking}
-                    updatedTableInfo={updatedTableInfo}
-                  />
-                ) : (
-                  <></>
-                )}
+                <div>
+                  {getCustomerInfo ? (
+                    <CustomerInfoAdmin
+                      setisEditTable={setisEditTable}
+                      setIsEditBooking={setIsEditBooking}
+                      customer={customer}
+                      setCustomer={setCustomer}
+                      activeCustomerBooking={activeCustomerBooking}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div className={styles.edit}>
+                  {isEditTable ? (
+                    <EditCustomer
+                      setIsEditBooking={setIsEditBooking}
+                      customer={customer}
+                      updateCustomerData={updateCustomerData}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+
+                <div className={styles.edit}>
+                  {isEditTableBooking ? (
+                    <EditTableInfo
+                      setisEditTable={setisEditTable}
+                      tableInfo={activeCustomerBooking}
+                      updatedTableInfo={updatedTableInfo}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </main>

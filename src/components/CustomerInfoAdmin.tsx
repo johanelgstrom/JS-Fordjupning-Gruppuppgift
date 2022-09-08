@@ -1,5 +1,5 @@
 import { CustomerSearch, TableSearch, Customer } from "../models/AdminSearch";
-import style from "../scss/EditCustomerBookingButton.module.scss";
+import style from "../scss/CustomerInfoAdmin.module.scss";
 
 interface EditCustomerBookingButtonProps {
   setisEditTable(setisEditTable: boolean): void;
@@ -38,8 +38,12 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
               </p>
 
               <div className={style.buttons}>
-                <button onClick={editTableData}>Hämta bord</button>
-                <button onClick={editCustomer}>Ändra kund info</button>
+                <button className={style.getInfo} onClick={editCustomer}>
+                  Ändra kund info
+                </button>
+                <button className={style.getInfo} onClick={editTableData}>
+                  Hämta bord
+                </button>
               </div>
             </div>
           </div>
