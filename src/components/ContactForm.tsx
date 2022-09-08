@@ -23,6 +23,7 @@ interface IContactFormProps {
   setMessageError: React.Dispatch<React.SetStateAction<boolean>>;
   isNameEmpty: boolean;
   isEmailEmpty: boolean;
+  isLoading: boolean;
 }
 
 export const ContactForm = (props: IContactFormProps) => {

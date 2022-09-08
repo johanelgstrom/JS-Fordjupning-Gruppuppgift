@@ -4,6 +4,7 @@ import { Header } from "../Header";
 import axios from "axios";
 import { ContactThanks } from "../ContactThanks";
 import { ContactForm } from "../ContactForm";
+import { Loader } from "../Loader";
 export const Contact = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -15,6 +16,7 @@ export const Contact = () => {
   const [messageError, setMessageError] = useState(false);
   const [isNameEmpty, setIsNameEmpty] = useState<boolean>(true);
   const [isEmailEmpty, setIsEmailEmpty] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Hanterar variabeln för namn
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +33,7 @@ export const Contact = () => {
   // Hanterar skicka
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setIsLoading(true); // Sätter en loader om det skulle gå långsamt
     if (
       validateName === true &&
       validateEmail === true &&
@@ -38,6 +41,7 @@ export const Contact = () => {
     ) {
       setIsSubmitted(true); // Ändrar så att "Tack"-delen poppar upp
       // Skickar till backend som därefter skickar mail till företaget med information
+
       axios({
         method: "POST",
         url: "http://localhost:8000/email/sendThanks",
@@ -46,14 +50,13 @@ export const Contact = () => {
           email: email,
           message: text,
         },
-        // TA BORT DETTA INNAN PRODUKTION, ENDAST FÖR TESTNING AV KONTAKTEMAIL
-        // .then((response) => {
-        //   if (response.data.status === "success") {
-        //     alert("Message Sent.");
-        //   } else if (response.data.status === "fail") {
-        //     alert("Message failed to send.");
-        //   }
-        // });
+      }).then((response) => {
+        if (response.data.status === "success") {
+          alert("Message Sent.");
+        } else if (response.data.status === "fail") {
+          alert("Message failed to send.");
+        }
+        // TA BORT DETTA ÖVER INNAN PRODUKTION, ENDAST FÖR TESTNING AV KONTAKTEMAIL
       });
     } else {
       if (validateName === false) {
@@ -66,6 +69,7 @@ export const Contact = () => {
         setMessageError(true);
       }
     }
+    setIsLoading(false); // Stänger av loadern när de klart
   };
 
   return (
@@ -73,38 +77,45 @@ export const Contact = () => {
       <main className={styles.mainContainer}>
         <div className={styles.heroContainer}>
           <Header />
-          <div className={styles.mainContentContainer}>
-            <div className={styles.contactContainer}>
-              {isSubmitted ? ( // Om true, visas tack-delen
-                <>
-                  <ContactThanks name={name} email={email} />
-                </>
-              ) : (
-                // Om isSubmitted är false, visas kontaktformuläret
-                <>
-                  <ContactForm
-                    name={name}
-                    email={email}
-                    text={text}
-                    handleSubmit={handleSubmit}
-                    handleEmail={handleEmail}
-                    handleName={handleName}
-                    handleText={handleText}
-                    validateName={validateName}
-                    validateEmail={validateEmail}
-                    validateMessage={validateMessage}
-                    setValidateName={setValidateName}
-                    setValidateEmail={setValidateEmail}
-                    setValidateMessage={setValidateMessage}
-                    messageError={messageError}
-                    setMessageError={setMessageError}
-                    isNameEmpty={isNameEmpty}
-                    isEmailEmpty={isEmailEmpty}
-                  />
-                </>
-              )}
-            </div>
-          </div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <div className={styles.mainContentContainer}>
+                <div className={styles.contactContainer}>
+                  {isSubmitted ? ( // Om true, visas tack-delen
+                    <>
+                      <ContactThanks name={name} email={email} />
+                    </>
+                  ) : (
+                    // Om isSubmitted är false, visas kontaktformuläret
+                    <>
+                      <ContactForm
+                        name={name}
+                        email={email}
+                        text={text}
+                        handleSubmit={handleSubmit}
+                        handleEmail={handleEmail}
+                        handleName={handleName}
+                        handleText={handleText}
+                        validateName={validateName}
+                        validateEmail={validateEmail}
+                        validateMessage={validateMessage}
+                        setValidateName={setValidateName}
+                        setValidateEmail={setValidateEmail}
+                        setValidateMessage={setValidateMessage}
+                        messageError={messageError}
+                        setMessageError={setMessageError}
+                        isNameEmpty={isNameEmpty}
+                        isEmailEmpty={isEmailEmpty}
+                        isLoading={isLoading}
+                      />
+                    </>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </main>
     </>
