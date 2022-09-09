@@ -64,7 +64,9 @@ export const EditCustomer = (props: EditCustomerProps) => {
                 name="phone"
                 value={updatedCustomer.phone}
               />
-              <button type="submit">ändra uppgifter för kund</button>
+              <button id={style.button} type="submit">
+                ändra uppgifter för kund
+              </button>
             </div>
           </form>
         </div>
