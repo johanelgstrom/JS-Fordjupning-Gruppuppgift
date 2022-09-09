@@ -32,11 +32,11 @@
     p {
         font-size: small;
 
-        color: red;
+      background-color: white;
         padding: 5px;
         border-radius: 10px;
-        border: 2px solid gray;
-        background-color: rgb(253, 223, 223);
+            border: solid 2px rgba(184, 148, 52, 0.681);
+      
     }
 
     input,
@@ -44,6 +44,7 @@
         border: solid 2px rgba(184, 148, 52, 0.681);
 
         border-radius: 5px;
+        padding: 5px;
     }
 
     select {
@@ -67,7 +68,7 @@
 
     button {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         margin: 10px;
 
         border: solid 2px rgba(184, 148, 52, 0.681);
