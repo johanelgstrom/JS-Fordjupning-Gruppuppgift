@@ -491,7 +491,9 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
               <p>Kund id: {updatedTableInfo.customer}</p>
               <p>Boknings id: {updatedTableInfo._id}</p>
 
-              <button type="submit">ändra uppgifter </button>
+              <button id={style.button} type="submit">
+                ändra uppgifter{" "}
+              </button>
             </div>
           </form>
         </div>
