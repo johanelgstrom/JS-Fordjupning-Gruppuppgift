@@ -65,8 +65,16 @@ describe("admin tests", () => {
     // KONTROLLERAR ATT BOKNINGEN FINNS I ADMIN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
     cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
-    cy.get("#infoTable > :nth-child(2)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
-    cy.get("#infoTable > :nth-child(3)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
+    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
+    cy.get("@apiResponse").then((response) => {
+      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
+      cy.get("#infoTable > :nth-child(2)").should(
+        "include.html",
+        `${bookingId}`
+      );
+    });
+    cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
+    cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
   });
   it("should be able to change reservation date and time", () => {
     // FÖRST skapa en bokning
@@ -122,27 +130,29 @@ describe("admin tests", () => {
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
     cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
-    cy.get("#infoTable > :nth-child(2)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
-    cy.get("#infoTable > :nth-child(3)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
+    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
+    cy.get("@apiResponse").then((response) => {
+      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
+      cy.get("#infoTable > :nth-child(2)").should(
+        "include.html",
+        `${bookingId}`
+      );
+    });
+    cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
+    cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund"
     cy.get("#getTableButton").click(); // Klickar på "Hämta bord"
-    cy.get('[type="date"]')
-      .clear()
-      .invoke("removeAttr", "type")
-      .type("2022-09-29"); // Ändrar datum till 29/9
-    cy.get("select").select("21.00"); // Ändrar tid till 21.00
-    cy.get("#styleTableInputs > button").click(); // Klickar på "Ändra"knappen
-    cy.get(".react-calendar__month-view__days > :nth-child(32)").click(); // Klickar på den aktuella dagen igen
-    cy.get("#infoTable > :nth-child(2)").should("include.html", "2022-09-29"); // Kollar så att det nya datumet stämmer överens
-    cy.get("#infoTable > :nth-child(3)").should("include.html", "21.00"); // Kollar så att det nya sittningen stämmer överens
+
+    cy.get('[name="seating"]').select("21.00"); // Ändrar tid till 21.00
+    cy.get("#adminEditTableSubmit").click(); // Klickar på "Ändra"knappen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen igen
+
+    cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att det nya datumet stämmer överens
+    cy.get("#infoTable > :nth-child(4)").should("include.html", "21.00"); // Kollar så att det nya sittningen stämmer överens
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund"
     cy.get("#getTableButton").click(); // Klickar på "Hämta bord"
-    cy.get('[type="date"]')
-      .clear()
-      .invoke("removeAttr", "type")
-      .type("2022-09-30"); // Ändrar datum tillbaka till originaldatumet
-    cy.get("select").select("18.00"); // Ändrar tid tillbaka till originaltiden
-    cy.get("#styleTableInputs > button").click(); // Klickar på "Ändra"knappen
+    cy.get('[name="seating"]').select("18.00"); // Ändrar tid tillbaka till originaltiden
+    cy.get("#adminEditTableSubmit").click(); // Klickar på "Ändra"knappen
   });
   it("should be able to change customer info", () => {
     // FÖRST skapa en bokning
@@ -198,8 +208,16 @@ describe("admin tests", () => {
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
     cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
-    cy.get("#infoTable > :nth-child(2)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
-    cy.get("#infoTable > :nth-child(3)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
+    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
+    cy.get("@apiResponse").then((response) => {
+      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
+      cy.get("#infoTable > :nth-child(2)").should(
+        "include.html",
+        `${bookingId}`
+      );
+    });
+    cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
+    cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund"
     cy.get("#changeCustomerButton").click(); // Klickar på "Ändra kundinfo"
     cy.get('[type="text"]').clear().type("Restsson Rest"); // Hittar input för namn och skriver in nytt namn
@@ -281,8 +299,16 @@ describe("admin tests", () => {
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
     cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
-    cy.get("#infoTable > :nth-child(2)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
-    cy.get("#infoTable > :nth-child(3)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
+    cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
+    cy.get("@apiResponse").then((response) => {
+      const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
+      cy.get("#infoTable > :nth-child(2)").should(
+        "include.html",
+        `${bookingId}`
+      );
+    });
+    cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
+    cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#deleteButton").click(); // Klickar på "Hämta kund"
   });
 });
