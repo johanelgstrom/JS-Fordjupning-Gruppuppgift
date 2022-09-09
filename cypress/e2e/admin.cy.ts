@@ -75,7 +75,7 @@ describe("admin tests", () => {
 
     // KONTROLLERAR ATT BOKNINGEN FINNS I ADMIN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen
     cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
     cy.get("@apiResponse").then((response) => {
       const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
@@ -84,6 +84,7 @@ describe("admin tests", () => {
         `${bookingId}`
       );
     });
+    cy.wait(200);
     cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
     cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
   });
@@ -140,7 +141,7 @@ describe("admin tests", () => {
 
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen
     cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
     cy.get("@apiResponse").then((response) => {
       const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
@@ -149,6 +150,7 @@ describe("admin tests", () => {
         `${bookingId}`
       );
     });
+    cy.wait(200);
     cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
     cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund"
@@ -220,7 +222,7 @@ describe("admin tests", () => {
 
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen
     cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
     cy.get("@apiResponse").then((response) => {
       const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
@@ -229,6 +231,7 @@ describe("admin tests", () => {
         `${bookingId}`
       );
     });
+    cy.wait(200);
     cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
     cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund"
@@ -237,7 +240,7 @@ describe("admin tests", () => {
     cy.get('[type="email"]').clear().type("Restsson@Rest.se"); // Hittar input för email och skriver in nytt email
     cy.get('[type="tel"]').clear().type("+46765543210"); // Hittar input för telefon och skriver in nytt nummer
     cy.get("#customerInputs > button").click(); // Klickar på "Ändra uppgifter för kund"knappen
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen igen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen igen
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund" igen
     cy.get("#customerInfoAdminInfo > :nth-child(1) > :nth-child(1)").should(
       "include.html",
@@ -263,6 +266,7 @@ describe("admin tests", () => {
     // Skapar 14 bokningar vid första sittningen
     for (let i = 0; i < 14; i++) {
       let name = createCustomName(5);
+      cy.wait(100);
       cy.request("POST", "http://localhost:8000/booking/new-booking", {
         date: "2022-09-30",
         seating: "18.00",
@@ -325,7 +329,7 @@ describe("admin tests", () => {
 
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen
     cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
     cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#getCustomerButton").click(); // Klickar på "Hämta kund"
@@ -399,7 +403,8 @@ describe("admin tests", () => {
 
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.wait(100);
     cy.get(":nth-child(15) > :nth-child(3)").should(
       "include.html",
       "2022-09-30"
@@ -464,7 +469,7 @@ describe("admin tests", () => {
 
     // ÄNDRINGSDELEN
     cy.visit("http://localhost:3000/admin"); // Går in på adminsidan
-    cy.get(":nth-child(33)").click(); // Klickar på den aktuella dagen
+    cy.get(".react-calendar__month-view__days > :nth-child(33)").click(); // Klickar på den aktuella dagen
     cy.getBookingIdCommand(); // Kör en funktion som hämtar och sparar boknings-ID i Cypress.env
     cy.get("@apiResponse").then((response) => {
       const bookingId: string = Cypress.env("bookingString"); // Hämtar boknings-ID från Cypress.env och sätter som en variabel
@@ -473,6 +478,7 @@ describe("admin tests", () => {
         `${bookingId}`
       );
     });
+    cy.wait(200);
     cy.get("#infoTable > :nth-child(3)").should("include.html", "2022-09-30"); // Kollar så att datum stämmer överens
     cy.get("#infoTable > :nth-child(4)").should("include.html", "18.00"); // Kollar så att sittning stämmer överens
     cy.get("#deleteButton").click(); // Klickar på "Hämta kund"

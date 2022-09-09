@@ -1,71 +1,56 @@
 .mainContainer {
+  display: flex;
+
+  align-items: center;
+
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  .container {
     display: flex;
-
+    flex-direction: column;
     align-items: center;
 
     align-items: center;
-    height: 100%;
-    width: 100%;
 
+    .Info {
+      backdrop-filter: blur(3px);
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        align-items: center;
-
-
-
-        .Info {
-            backdrop-filter: blur(3px);
-
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 5px;
-            padding: 20px;
-            margin: 20px;
-
-
-        }
-
-        .Info:hover {
-            background-color: rgba(255, 255, 255, );
-
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px;
-
-            
-
-            #deleteButton {
-                color: red;
-                border: solid 2px red;
-                border-radius: 5px;
-            }
-
-            #getCustomerButton {
-
-                border: solid 2px rgba(184, 148, 52, 0.681);
-                border-radius: 5px;
-            }
-
-            #deledeButton:hover {
-                background-color: lightcoral;
-                color: white;
-            }
-
-            #getCustomerButton:hover {
-
-                background-color: rgba(255, 214, 101, 0.681);
-
-            }
-
-
-
-        }
-
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
     }
+
+    .Info:hover {
+      background-color: rgba(255, 255, 255);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+
+      .deleteButton {
+        color: red;
+        border: solid 2px red;
+        border-radius: 5px;
+      }
+
+      .getCustomerButton {
+        border: solid 2px rgba(184, 148, 52, 0.681);
+        border-radius: 5px;
+      }
+
+      #deledeButton:hover {
+        background-color: lightcoral;
+        color: white;
+      }
+
+      .getCustomerButton:hover {
+        background-color: rgba(255, 214, 101, 0.681);
+      }
+    }
+  }
 }

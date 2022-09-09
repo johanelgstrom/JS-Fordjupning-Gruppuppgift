@@ -1,78 +1,66 @@
 .containerFormTable {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    align-items: center;
-    height: 100%;
-    width: 100%;
-
-
-
-
-
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .styleTableImputs:hover {
-    background-color: rgba(255, 255, 255, );
+  background-color: rgba(255, 255, 255);
 }
 
 .styleTableImputs {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.85);
+
+  p {
+    font-size: small;
+
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 2px rgba(184, 148, 52, 0.681);
+  }
+
+  input,
+  select {
+    border: solid 2px rgba(184, 148, 52, 0.681);
 
     border-radius: 5px;
-    backdrop-filter: blur(5px);
-    background-color: rgba(255, 255, 255, 0.85);
+    padding: 5px;
+  }
 
+  select {
+    background-color: white;
+  }
 
+  select:hover {
+    background-color: rgba(255, 214, 101, 0.681);
+  }
 
-    p {
-        font-size: small;
+  input:hover {
+    background-color: rgba(255, 214, 101, 0.681);
+  }
 
-      background-color: white;
-        padding: 5px;
-        border-radius: 10px;
-            border: solid 2px rgba(184, 148, 52, 0.681);
-      
-    }
+  .button:hover {
+    background-color: rgba(255, 214, 101, 0.681);
+  }
 
-    input,
-    select {
-        border: solid 2px rgba(184, 148, 52, 0.681);
+  button {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
 
-        border-radius: 5px;
-        padding: 5px;
-    }
-
-    select {
-        background-color: white;
-    }
-
-    select:hover {
-        background-color: rgba(255, 214, 101, 0.681);
-    }
-
-    input:hover {
-        background-color: rgba(255, 214, 101, 0.681);
-    }
-
-
-    #button:hover {
-        background-color: rgba(255, 214, 101, 0.681);
-
-
-    }
-
-    button {
-        display: flex;
-        justify-content: center;
-        margin: 10px;
-
-        border: solid 2px rgba(184, 148, 52, 0.681);
-        border-radius: 5px;
-    }
-
+    border: solid 2px rgba(184, 148, 52, 0.681);
+    border-radius: 5px;
+  }
 }

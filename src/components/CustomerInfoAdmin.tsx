@@ -24,7 +24,7 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
           <div
             className={style.Info}
             key={props.customer._id}
-            id={style.customerInfoAdminInfo}
+            id="customerInfoAdminInfo"
           >
             <div>
               <p>
