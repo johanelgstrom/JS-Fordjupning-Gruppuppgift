@@ -8,6 +8,7 @@ import { Book } from "./components/pages/Book";
 import { Contact } from "./components/pages/Contact";
 import { CancelBooking } from "./components/pages/CancelBooking";
 import { Admin } from "./components/pages/Admin";
+import { NotFound } from "./components/pages/NotFound";
 
 function App() {
   const [showGdpr, setShowGdpr] = useState<boolean>(false);
@@ -82,6 +83,7 @@ function App() {
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/cancel/:id" element={<CancelBooking />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
+            <Route path="*" element={<NotFound />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
