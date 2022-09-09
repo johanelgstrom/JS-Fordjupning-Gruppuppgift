@@ -44,7 +44,7 @@ export const CustomerAdmin = (props: TableDataMapProps) => {
                 <p>
                   <strong>Antal personer:</strong> {table.personAmount}
                 </p>
-                <div className={style.buttons}>
+                <div className={style.buttons} id="buttonGroup">
                   <button
                     onClick={() => props.getCustomer(table.customer, table._id)}
                     id={style.getCustomerButton}
