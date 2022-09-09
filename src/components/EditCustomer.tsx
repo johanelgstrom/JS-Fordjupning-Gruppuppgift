@@ -19,16 +19,11 @@ export const EditCustomer = (props: EditCustomerProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     props.updateCustomerData(updatedCustomer);
-
-    console.log("här är bolian false i editCustomer");
   };
-  console.log("11111 UPPDATED CUSTOMER", updatedCustomer);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedCustomer({ ...updatedCustomer, [e.target.name]: e.target.value });
   };
-
-  console.log("2222 UPPDATED CUSTOMER", updatedCustomer);
 
   return (
     <>
@@ -45,7 +40,7 @@ export const EditCustomer = (props: EditCustomerProps) => {
                 name="name"
                 value={updatedCustomer.name}
               />
-              {/* value={updatedCustomer.name} */}
+
               <label>
                 <strong>Email:</strong>
               </label>

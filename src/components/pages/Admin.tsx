@@ -122,8 +122,6 @@ export const Admin = () => {
     updatedTableInfo: TableInfo,
     bookingId: string
   ) => {
-    console.log("updatedTableInfo axios: ", updatedTableInfo);
-
     await axios
       .put(
         "http://localhost:8000/admin/bookings/" + bookingId,
