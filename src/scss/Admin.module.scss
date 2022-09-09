@@ -1,64 +1,72 @@
 @use "mixins";
 
 .mainContainer {
-    .calender{
+    .calender {
         display: flex;
-            flex-direction: column;
-            align-items: center;
-        
-            align-items: center;
-            
+        flex-direction: column;
+        align-items: center;
+
+        align-items: center;
+
     }
 
-position: relative;
+    position: relative;
+
     .heroContainer::before {
-       content: "";
+        content: "";
 
-    position: fixed;
-    z-index: -1;
-    display: block;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    background-image: url(../images/home-desktop-bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top;
+        position: fixed;
+        z-index: -1;
+        display: block;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+        background-image: url(../images/home-desktop-bg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center top;
 
-   
+
 
 
     }
-        .makeContentHorizontalAndVertical {
-            @include mixins.desktop {
-                display: flex;
-                flex-direction: row;
-                    justify-content: space-evenly;
-                    align-items: baseline;
-                    margin-top: 40px;
-            
-                }
-        
-           
-    
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
-        
-    
+
+    .makeContentHorizontalAndVertical {
+        @include mixins.desktop {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: baseline;
+            margin-top: 40px;
+
         }
+
+
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+
+    }
 }
 
-.edit{
+.edit {
     margin: 20px;
 }
 
+.calenderTagg {
 
+    background-color: rgba(255, 255, 255, 0.85);
+}
 
+.calenderTagg:hover {
 
+    background-color: rgba(255, 255, 255, );
 
+}
     
     
   
