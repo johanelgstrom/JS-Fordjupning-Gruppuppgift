@@ -492,7 +492,7 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
               <p>Boknings id: {updatedTableInfo._id}</p>
 
               <button id={style.button} type="submit">
-                ändra uppgifter{" "}
+                ändra uppgifter
               </button>
             </div>
           </form>
