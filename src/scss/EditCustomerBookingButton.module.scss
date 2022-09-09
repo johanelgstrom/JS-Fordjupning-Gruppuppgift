@@ -1,37 +1,54 @@
-.mainContainer{
+.mainContainer {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+
+    .container {
+        display: flex;
         flex-direction: column;
         align-items: center;
-    
+
         align-items: center;
-        height: 100%;
-        width: 100%;
 
-
-    .container{
-        display: flex;
-            flex-direction: column;
-            align-items: center;
-        
-            align-items: center;
-          
         .Info {
-        
-                background-color: rgba(255, 255, 255, );
-                border-radius: 5px;
-                padding: 20px;
-                margin: 20px
-           
-            
+            backdrop-filter: blur(3px);
+            background-color: rgba(255, 255, 255, 0.85);
+
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px
         }
-     
-       .buttons{
+
+        .Info:hover {
+            background-color: rgba(255, 255, 255, );
+
+        }
+
+        .buttons {
+
             display: flex;
-                justify-content: space-between;
-                margin: 10px;
-       }
-    
-       
+            justify-content: space-between;
+            margin: 10px;
+
+            .getInfo {
+
+
+                border: solid 2px rgba(184, 148, 52, 0.681);
+                border-radius: 5px;
+
+            }
+
+            .getInfo:hover {
+                background-color: rgba(255, 214, 101, 0.681);
+
+            }
+        }
+
     }
 
 }

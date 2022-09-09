@@ -24,7 +24,7 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
           <div
             className={style.Info}
             key={props.customer._id}
-            id="customerInfoAdminInfo"
+            id={style.customerInfoAdminInfo}
           >
             <div>
               <p>
@@ -39,10 +39,18 @@ export const CustomerInfoAdmin = (props: EditCustomerBookingButtonProps) => {
               </p>
 
               <div className={style.buttons}>
-                <button onClick={editTableData} id="getTableButton">
+                <button
+                  className={style.getInfo}
+                  onClick={editTableData}
+                  id="getTableButton"
+                >
                   Hämta bord
                 </button>
-                <button onClick={editCustomer} id="changeCustomerButton">
+                <button
+                  className={style.getInfo}
+                  onClick={editCustomer}
+                  id="changeCustomerButton"
+                >
                   Ändra kund info
                 </button>
               </div>
