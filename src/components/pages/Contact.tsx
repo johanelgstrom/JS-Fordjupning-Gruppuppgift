@@ -50,14 +50,15 @@ export const Contact = () => {
           email: email,
           message: text,
         },
-      }).then((response) => {
-        if (response.data.status === "success") {
-          alert("Message Sent.");
-        } else if (response.data.status === "fail") {
-          alert("Message failed to send.");
-        }
-        // TA BORT DETTA ÖVER INNAN PRODUKTION, ENDAST FÖR TESTNING AV KONTAKTEMAIL
       });
+      // DETTA ÄR BARA FÖR TESTNING AV EMAILSKICKANDE
+      // .then((response) => {
+      //   if (response.data.status === "success") {
+      //     alert("Message Sent.");
+      //   } else if (response.data.status === "fail") {
+      //     alert("Message failed to send.");
+      //   }
+      // });
     } else {
       if (validateName === false) {
         setIsNameEmpty(false);
