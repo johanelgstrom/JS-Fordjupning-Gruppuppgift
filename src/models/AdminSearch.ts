@@ -3,11 +3,15 @@ export interface TableSearch {
   date: string;
   seating: string;
   personAmount: string;
-  tableamount: string;
+  tableAmount: string;
   customer: string;
 }
 export interface TableSearchResponse {
-  data: TableSearch[];
+  data: {
+    bookingsByDate: TableSearch[];
+    tableSumSeatingOne: number;
+    tableSumSeatingTwo: number;
+  };
 }
 
 export interface CustomerSearch {
@@ -25,7 +29,7 @@ export interface TableInfo {
   date: string;
   seating: string;
   personAmount: string;
-  tableamount: string;
+  tableAmount: string;
   customer: string;
 }
 
@@ -33,4 +37,9 @@ export interface Customer {
   name: string;
   email: string;
   phone: string;
+}
+
+export interface TableAmountSum {
+  tableSumSeatingOne: number;
+  tableSumSeatingTwo: number;
 }

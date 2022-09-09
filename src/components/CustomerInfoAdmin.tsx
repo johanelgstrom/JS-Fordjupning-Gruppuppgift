@@ -6,7 +6,7 @@ interface EditCustomerBookingButtonProps {
   setIsEditBooking(setIsEditBooking: boolean): void;
 
   customer: CustomerSearch;
-  activeCustomerBooking: TableSearch;
+  activeCustomerBooking: TableSearch[];
   setCustomer(setCustomer: CustomerSearch): void;
 }
 
