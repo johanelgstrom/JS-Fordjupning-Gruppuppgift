@@ -147,7 +147,11 @@ export const Admin = () => {
           <Header />
           <div className={styles.mainContentContainer}>
             <div className={styles.calender}>
-              <Calendar onChange={onChange} value={date} />
+              <Calendar
+                className={styles.calenderTagg}
+                onChange={onChange}
+                value={date}
+              />
             </div>
 
             <div className={styles.makeContentHorizontalAndVertical}>
