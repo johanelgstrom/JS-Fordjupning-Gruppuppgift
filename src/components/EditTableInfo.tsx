@@ -46,13 +46,11 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
       props.tableAmountSum.tableSumSeatingOne > 14 &&
       props.tableAmountSum.tableSumSeatingTwo < 15
     ) {
-      console.log("1");
       setSeating(["21.00"]);
     } else if (
       props.tableAmountSum.tableSumSeatingTwo > 14 &&
       props.tableAmountSum.tableSumSeatingOne < 15
     ) {
-      console.log("2");
       setSeating(["18.00"]);
     } else if (
       props.tableAmountSum.tableSumSeatingOne > 14 &&
@@ -65,8 +63,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
     ) {
       setSeating(["21.00"]);
     } else {
-      console.log("9");
-
       setSeating(["18.00", "21.00"]);
     }
   }, [
@@ -84,21 +80,16 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         updatedTableInfo.seating === "fullbokat" &&
         props.tableAmountSum.tableSumSeatingTwo < 7
       ) {
-        console.log("1.1");
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "fullbokat" &&
         props.tableAmountSum.tableSumSeatingOne < 7
       ) {
-        console.log("1.2");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "fullbokat" &&
         props.tableAmountSum.tableSumSeatingOne > 6
       ) {
-        console.log("1.3");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -117,8 +108,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         updatedTableInfo.seating === "fullbokat" &&
         props.tableAmountSum.tableSumSeatingTwo > 6
       ) {
-        console.log("1.4");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -137,22 +126,16 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         updatedTableInfo.seating === "18.00" &&
         props.tableAmountSum.tableSumSeatingOne > 13
       ) {
-        console.log("1.5");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "18.00" &&
         props.tableAmountSum.tableSumSeatingOne > 13
       ) {
-        console.log("1.6");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "18.00" &&
         props.tableAmountSum.tableSumSeatingOne < 14
       ) {
-        console.log("1.7");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -171,8 +154,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         updatedTableInfo.seating === "18.00" &&
         props.tableAmountSum.tableSumSeatingTwo < 14
       ) {
-        console.log("1.8");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -191,21 +172,16 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
         updatedTableInfo.seating === "21.00" &&
         props.tableAmountSum.tableSumSeatingTwo > 13
       ) {
-        console.log("1.9");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "21.00" &&
         props.tableAmountSum.tableSumSeatingTwo > 13
       ) {
-        console.log("1.10");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "21.00" &&
         props.tableAmountSum.tableSumSeatingTwo < 14
       ) {
-        console.log("1.11");
         setPersonAmountOption([
           "1",
           "2",
@@ -221,7 +197,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           "12",
         ]);
       } else {
-        console.log("1.12");
         setPersonAmountOption([
           "1",
           "2",
@@ -244,7 +219,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) <
           7
       ) {
-        console.log("1.1");
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "fullbokat" &&
@@ -252,8 +226,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) <
           7
       ) {
-        console.log("1.2");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "fullbokat" &&
@@ -261,8 +233,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) >
           6
       ) {
-        console.log("1.3");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -283,8 +253,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) >
           6
       ) {
-        console.log("1.4");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -305,8 +273,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) >
           13
       ) {
-        console.log("1.5");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "18.00" &&
@@ -314,8 +280,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) >
           13
       ) {
-        console.log("1.6");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "18.00" &&
@@ -323,8 +287,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) <
           14
       ) {
-        console.log("1.7");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -345,8 +307,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) <
           14
       ) {
-        console.log("1.8");
-
         setPersonAmountOption([
           "1",
           "2",
@@ -367,8 +327,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) >
           13
       ) {
-        console.log("1.9");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "21.00" &&
@@ -376,8 +334,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) >
           13
       ) {
-        console.log("1.10");
-
         setPersonAmountOption(["1", "2", "3", "4", "5", "6"]);
       } else if (
         updatedTableInfo.seating === "21.00" &&
@@ -385,7 +341,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           parseInt(updatedTableInfo.tableAmount) <
           14
       ) {
-        console.log("1.11");
         setPersonAmountOption([
           "1",
           "2",
@@ -401,7 +356,6 @@ export const EditTableInfo = (props: EditTableInfoProps) => {
           "12",
         ]);
       } else {
-        console.log("1.12");
         setPersonAmountOption([
           "1",
           "2",
